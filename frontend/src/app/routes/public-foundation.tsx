@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router";
+import type { Route } from './+types/public-foundation';
 import { loadPublicPage } from "../../server/public-input.server";
 import type { PublicPageView } from "../../server/public-types";
 import { LessonPage } from '../../shared/lesson/lesson-page';
@@ -10,6 +11,17 @@ export async function loader({request}:{request:Request}) {
   // must render the same empty root layout that hydrates on a private path.
   if(request.headers.get('X-React-Router-SPA-Mode') === 'yes') return null;
   return loadPublicPage(new URL(request.url).pathname);
+}
+
+export function clientLoader({ request, serverLoader }: Route.ClientLoaderArgs) {
+  // React Router also matches case-sensitive literal routes with an optional
+  // trailing slash. The public site uses each published spelling exactly.
+  const path = new URL(request.url).pathname;
+  const materials = path === '/materials' || path.startsWith('/materials/');
+  if (materials ? path.endsWith('/') : !path.endsWith('/')) {
+    throw new Response('Unknown public page', { status: 404 });
+  }
+  return serverLoader();
 }
 
 // Legacy HTML keeps its full-document lifecycle. Approved public pages and

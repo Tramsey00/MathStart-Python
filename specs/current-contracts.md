@@ -48,3 +48,26 @@ pending migration snapshots и Harness dependencies не создают нову
 T010 (включая staff concurrency addendum из закрытого PR #79) отложена; этот addendum не объявляется внедрённым в main. Обязательный путь и отложенные задачи — docs/tasks/INDEX.md и DEFERRED.md. В T011 новый canonical URL используется напрямую; выведенный старый публичный учебный URL возвращает 404 без legacy redirect. Это заменяет прежнее правило сохранения legacy lesson URL/redirects, не технические HTTPS/auth redirects. Нужные transport-изменения оформляются addendum при реализации, frozen fixtures не переписываются.
 
 Публичная самопроверка без LLM не требует входа и не создаёт assessed Attempt/ProgressEvent/mastery. Assessed API остаётся авторизованным. Guest helper блокируется UI и сервером до submit/Analyzer/Tutor/provider; подробности в N009/N014/N017.
+
+
+## Транспортный addendum MS-T011
+
+У редакции Content с React-уроками и каталогом `/materials` публичный индекс
+содержит canonical страницы без автоматически порождённых учебных и home
+aliases. Схемы delivery, index и immutable URL остаются прежними. Чтение
+предыдущей закреплённой редакции сохраняет её индекс и digests.
+
+Старый публичный учебный путь и неизвестная публичная страница после
+активации получают HTML 404 на запрошенном URL. HEAD возвращает те же метаданные
+ответа без тела. В React переход показывает тот же экран на запрошенном адресе.
+Экран имеет noindex и общую оболочку MathStart. Закрытый staff HTML находится
+за действующей серверной проверкой и получает общую 404 при отсутствии доступа.
+API и immutable JSON сохраняют собственные ответы. Сбой Content или артефакта
+возвращает предусмотренную техническую ошибку.
+
+Для текущих React-уроков publication digest сохраняет формулу
+`react-lesson-publication-v1` и включает проверенный snapshot и реальные
+`lesson.json` и `content.json`. Поля `body_html`, `page_css`, `page_js`
+в совместимой DB/delivery форме описывают отсутствие legacy представления.
+Предыдущий React digest сверяется с проверенным source inventory установленного
+receipt и текущими DB-данными через существующий fenced publisher.

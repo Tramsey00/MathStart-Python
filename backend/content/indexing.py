@@ -19,7 +19,7 @@ def index_bytes(session, source_root):
         Subject.id == ContentPage.subject_id).outerjoin(Section, Section.id == ContentPage.section_id)
     query = query.where(ContentPage.page_type == 'topic').order_by(Grade.order, Subject.order,
         ContentPage.subject_id, Section.order, ContentPage.section_id, ContentPage.order, ContentPage.slug)
-    lines = ['# Уроки MathStart', '', 'Исходники сгруппированы по классу, предмету и разделу. Ссылка открывает HTML урока; рядом находится `lesson.json` с его метаданными.', '']
+    lines = ['# Уроки MathStart', '', 'Исходники сгруппированы по классу, предмету и разделу. Ссылка открывает актуальный источник урока. Рядом находится `lesson.json` с метаданными.', '']
     previous, count = (None, None, None), 0
     for page in session.execute(query).mappings():
         bundle = bundles.get(page['slug'])
@@ -38,7 +38,8 @@ def index_bytes(session, source_root):
             lines += [f"**{page['section_order']}. {page['section_title']}**", '']
         relative = Path(bundle.path.removeprefix('curriculum/')).parent.as_posix()
         title = bundle.snapshot['title'].replace('[', r'\[').replace(']', r'\]')
-        lines.append(f"- {page['section_order']}.{bundle.snapshot['order']} [{title}]({relative}/body.html)")
+        filename = 'content.json' if bundle.renderer_version == 'react-v1' else 'body.html'
+        lines.append(f"- {page['section_order']}.{bundle.snapshot['order']} [{title}]({relative}/{filename})")
         previous, count = identity, count + 1
     if count == 0:
         raise SourceError('No indexed lessons')

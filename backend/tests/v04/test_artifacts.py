@@ -32,7 +32,7 @@ class PublicArtifactTests(unittest.TestCase):
 
     def test_complete_real_built_release_preserves_all_authored_pages_and_assets(self):
         release, root, manifest = self.verify()
-        self.assertEqual(len(release.pages), 279)
+        self.assertEqual(len(release.pages), 267)
         self.assertEqual(len(release.index['catalogue']['topics']), 263)
         self.assertEqual(root, self.root.resolve())
         self.assertEqual(manifest['private_exports'], [])
@@ -58,14 +58,14 @@ class PublicArtifactTests(unittest.TestCase):
             path.write_bytes(raw)
 
     def test_repinned_incomplete_duplicate_or_private_manifest_does_not_gain_trust(self):
-        missing_alias = deepcopy(self.manifest)
-        missing_alias['public_urls'].remove('/glavnaya/')
+        missing_public_path = deepcopy(self.manifest)
+        missing_public_path['public_urls'].remove('/')
         duplicate = deepcopy(self.manifest)
         duplicate['files'].append(deepcopy(duplicate['files'][0]))
         private = {**deepcopy(self.manifest), 'private_exports': ['private.json']}
         wrong_semantic = deepcopy(self.manifest)
         wrong_semantic['page_semantic_digests']['/'] = '0' * 64
-        for value in [missing_alias, duplicate, private, wrong_semantic]:
+        for value in [missing_public_path, duplicate, private, wrong_semantic]:
             with self.subTest(keys=list(value)), self.assertRaises(SourceError):
                 try:
                     raw = json.dumps(value, ensure_ascii=False).encode('utf-8')

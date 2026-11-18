@@ -9,6 +9,6 @@ export default {
   buildDirectory: process.env.MATHSTART_ROUTER_BUILD || "build",
   ssr: false,
   routeDiscovery: { mode: 'initial' },
-  prerender: paths,
+  prerender: input ? [...paths, "/404"] : paths,
   future: { v8_trailingSlashAwareDataRequests: true },
 } satisfies Config;

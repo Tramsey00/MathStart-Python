@@ -138,10 +138,19 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
     renderer = PublicRenderer(artifact_root, artifact_digests)
     authenticate = ReadSessionAuthenticator(engine, signer.key, signer.fallback_keys)
 
-    app = create_app(engine, signer, release_store=store, authenticate=authenticate,
-                     render_page=renderer, public_origin=origin, observe_publication=PublicationObserver(store),
-                     csrf_check=lambda request: public_csrf_check(request, origin), identity_service=identity_service)
     trusted_host = urlsplit(origin).netloc.lower()
+
+    def missing_document(request, descriptor):
+        root, manifest = artifact_for_descriptor(artifact_root, artifact_digests, descriptor)
+        try:
+            raw = artifact_bytes(root, manifest, '404.html')
+        except wire.APIError as error:
+            if error.status == 404:
+                raise wire.unavailable() from None
+            raise
+        return Response(raw if request.method == 'GET' else b'', status_code=404, media_type='text/html',
+                        headers={'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow',
+                                 'Content-Length': str(len(raw)), 'X-Content-Type-Options': 'nosniff'})
 
     def auxiliary_response(request, private):
         with UnitOfWork(engine) as uow:
@@ -159,6 +168,8 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
             with UnitOfWork(engine) as uow:
                 uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
                 hints = capabilities(uow, identity)
+            if not hints['own_password']:
+                return missing_document(request, descriptor)
             # Closed boolean-only data, never account IDs, permissions, PII or
             # credentials. The immutable shell on disk remains public-data-free.
             payload = json.dumps(hints, separators=(',', ':'), allow_nan=False).encode('ascii')
@@ -175,6 +186,17 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
                                  **({'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'",
                                      'Strict-Transport-Security': 'max-age=31536000'} if private and origin.startswith('https:') else {})})
 
+    def missing_private(request):
+        with UnitOfWork(engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
+            descriptor = active_descriptor(uow, 'public')
+        return missing_document(request, descriptor)
+
+    app = create_app(engine, signer, release_store=store, authenticate=authenticate,
+                     render_page=renderer, public_origin=origin, observe_publication=PublicationObserver(store),
+                     csrf_check=lambda request: public_csrf_check(request, origin), identity_service=identity_service,
+                     render_missing=missing_document)
+
     @app.middleware('http')
     async def verified_auxiliary(request, call_next):
         try:
@@ -183,9 +205,12 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
             path = request.url.path
             private = PRIVATE_READ.fullmatch(path) is not None
             if private or path.startswith('/assets/'):
-                if request.method != 'GET' and not (path.startswith('/assets/') and request.method == 'HEAD'):
-                    return Response(status_code=405, headers={'Allow': 'GET', 'Cache-Control': 'private, no-store'})
+                allowed = {'GET', 'HEAD'} if path.startswith(('/admin/', '/assets/')) else {'GET'}
+                if request.method not in allowed:
+                    return Response(status_code=405, headers={'Allow': ', '.join(sorted(allowed)), 'Cache-Control': 'private, no-store'})
                 return await run_in_threadpool(auxiliary_response, request, private)
+            if (path == '/admin' or path.startswith('/admin/')) and request.method in {'GET', 'HEAD'}:
+                return await run_in_threadpool(missing_private, request)
             return await call_next(request)
         except wire.APIError as error:
             return wire.error_response(request, error)

@@ -3,11 +3,12 @@ import {useLocation,type LinksFunction} from 'react-router';
 import {createStaffClient,staffOperations} from '../../shared/api/staff-client';
 import StaffWritePage from './staff-write';
 import {StaffList,StaffDetails,StaffHistory} from '../../shared/ui/staff-records';
+import {PageStatus} from '../../features/public-pages/page-status';
 import {readStaffCapabilities} from '../../shared/api/staff-capabilities';
 import tokens from '../../../../static/mathstart/css/ui/tokens.css?url';
 import foundation from '../../../../static/mathstart/css/ui/foundation.css?url';
 export const links:LinksFunction=()=>[{rel:'stylesheet',href:tokens},{rel:'stylesheet',href:foundation}];
-export const meta=()=>[{title:'Администрирование · MathStart'},{name:'robots',content:'noindex, nofollow'}];
+export const meta=()=>[{name:'robots',content:'noindex, nofollow'}];
 export const handle={skipLink:{target:'staff-main',label:'К администрированию'}};
 export const staffResources=[['grades','content/grade','Классы'],['subjects','content/subject','Предметы'],['sections','content/section','Разделы'],['pages','content/contentpage','Страницы'],['publications','content/lessonpublication','Публикации'],['media_assets','content/mediaasset','Медиафайлы'],['redirects','content/redirect','Перенаправления'],['users','auth/user','Пользователи'],['groups','auth/group','Группы']] as const;
 const labels:Record<string,string>={is_staff:'Доступ к администрированию',is_superuser:'Суперпользователь',is_active:'Активен',groups:'Группа',grade:'Класс',subject:'Предмет',section:'Раздел',page_type:'Тип страницы',is_published:'Опубликовано',is_permanent:'Постоянное перенаправление',is_active_redirect:'Активно'};
@@ -45,6 +46,10 @@ function StaffReadPage(){
 
 export default function StaffPage(){
  const {pathname}=useLocation();
+ const allowed = readStaffCapabilities().own_password;
  const write=/^\/admin\/(?:auth\/(?:user|group)\/|password_change\/)/.test(pathname);
- return write?<StaffWritePage/>:<StaffReadPage/>;
+ return <>
+  <title>{allowed ? 'Администрирование · MathStart' : 'Страница не найдена | MathStart'}</title>
+  {allowed ? (write ? <StaffWritePage/> : <StaffReadPage/>) : <PageStatus missing />}
+ </>;
 }

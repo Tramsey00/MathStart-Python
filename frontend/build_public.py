@@ -12,13 +12,38 @@ from pathlib import Path
 import shutil
 import subprocess
 from urllib.parse import urlsplit
-from uuid import UUID
 
 from backend.content.releases import inside
 from frontend.build_input import verified_release
-from frontend.prepare_public import prepare
+from frontend.prepare_public import write_view
 from frontend.rendering import esc
 from frontend.public_design import VERSION as PUBLIC_DESIGN_VERSION, uses_react_public, public_design_kind, public_design_is_rendered
+
+
+MISSING_THEME_SCRIPT = """<script>
+(() => {
+  const root = document.documentElement;
+  const button = document.querySelector('.public-status .lesson-theme-toggle');
+  const updateLabel = () => button.setAttribute('aria-label',
+    root.dataset.theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему');
+  updateLabel();
+  button.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('mathstart-mode', root.dataset.theme); } catch {}
+    updateLabel();
+  });
+})();
+</script>"""
+
+
+def without_router_runtime(text):
+    def keep_script(match):
+        script = match[0]
+        router = ('type="module"' in script or '__reactRouter' in script
+                  or 'sessionStorage' in script and 'scroll' in script)
+        return '' if router else script
+    text = re.sub(r'<script\b[^>]*>.*?</script>', keep_script, text, flags=re.S)
+    return re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
 
 
 def html_path(url):
@@ -38,7 +63,7 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     if output.exists():
         raise ValueError('Output must be a new owned directory')
     view = root / '.cache' / ('public-view-' + release_id + '.json')
-    prepare(input_root, release_id, manifest_digest, origin, view, receipt_digest)
+    write_view(release, origin, view)
     environment = dict(os.environ, MATHSTART_PUBLIC_VIEW=str(view))
     command = [shutil.which('npm.cmd') or shutil.which('npm'), 'exec', '--', 'react-router', 'build']
     subprocess.run(command, cwd=root, env=environment, check=True)
@@ -55,8 +80,7 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
         # Public legacy documents use a reviewed full-document lifecycle; remove
         # only Router-owned scripts/preloads after prerender, preserving authored JS.
         if not uses_react_public(page):
-            text = re.sub(r'<script\b[^>]*>.*?</script>', lambda m: '' if ('type="module"' in m[0] or '__reactRouter' in m[0] or 'sessionStorage' in m[0] and 'scroll' in m[0]) else m[0], text, flags=re.S)
-            text = re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
+            text = without_router_runtime(text)
         raw = text.encode('utf-8')
         if not _public_page_content_present(page, text) or '<link rel="canonical" href="' + esc(origin + entry['canonical_path']) + '"' not in text:
             raise ValueError('Incomplete React public prerender')
@@ -109,7 +133,16 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
             or any(marker in fallback_text for marker in ('canonical_url', 'data-lesson-host', 'rel="canonical"'))):
         raise ValueError('Private hydration shell contains a public publication view')
     write('_private/shell.html', fallback_raw)
-    write('404.html', '<!doctype html><html lang="ru"><meta charset="UTF-8"><title>Страница не найдена | MathStart</title><main><h1>Страница не найдена</h1><a href="/">На главную</a></main></html>'.encode('utf-8'))
+    missing = inside(client, '404/index.html').read_text(encoding='utf-8')
+    if ('data-page-status="404"' not in missing or 'name="robots" content="noindex, nofollow"' not in missing
+            or 'rel="canonical"' in missing or 'property="og:' in missing):
+        raise ValueError('Incomplete React 404 prerender')
+    # A direct 404 can arrive under any path, including the private staff
+    # branch. Keep the prerender independent of router hydration on that path.
+    if missing.count('</body>') != 1:
+        raise ValueError('Incomplete 404 document body')
+    missing = without_router_runtime(missing).replace('</body>', MISSING_THEME_SCRIPT + '</body>')
+    write('404.html', missing.encode('utf-8'))
     receipt = {'version':'frontend-public-output-v1', 'release_id':release_id,
         'input_manifest_digest':manifest_digest, 'input_receipt_digest':receipt_digest, 'origin':origin, 'pages':len(release.pages),
         'public_urls':list(rendered), 'redirects':release.index['redirects'], 'files':files,

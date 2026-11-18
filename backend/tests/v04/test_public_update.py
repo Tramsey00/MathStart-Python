@@ -5,7 +5,10 @@ from hashlib import sha256
 import io
 import json
 import os
+from pathlib import Path
 import socket
+import subprocess
+import tarfile
 import threading
 import time
 import unittest
@@ -38,7 +41,21 @@ from frontend.build_public import build_public
 class PublicUpdateTests(unittest.TestCase):
     setUpClass = classmethod(fixtures.BootstrapPlanTests.setUpClass.__func__)
     tearDownClass = classmethod(fixtures.BootstrapPlanTests.tearDownClass.__func__)
-    setUp = fixtures.BootstrapPlanTests.setUp
+    def setUp(self):
+        fixtures.BootstrapPlanTests.setUp(self)
+        self.sha = '618075d9a6b8d5a8bc2f84b15386556a6acac8ca'
+        self.source_root = self.root / 'reviewed-legacy-source'
+        self.source_root.mkdir()
+        archive = subprocess.check_output(['git', 'archive', self.sha, 'curriculum', 'site_content', 'static'], cwd=ROOT)
+        with tarfile.open(fileobj=io.BytesIO(archive)) as captured:
+            captured.extractall(self.source_root, filter='data')
+        subprocess.run(['git', 'init', '-q'], cwd=self.source_root, check=True)
+        objects = subprocess.check_output(['git', 'rev-parse', '--path-format=absolute', '--git-path', 'objects'],
+                                          cwd=ROOT, text=True).strip()
+        alternate = self.source_root / '.git/objects/info/alternates'
+        alternate.write_text(Path(objects).as_posix() + '\n', encoding='utf-8')
+        subprocess.run(['git', '-c', 'core.longpaths=true', 'read-tree', self.sha], cwd=self.source_root, check=True)
+
     private = fixtures.BootstrapPlanTests.private
     state = fixtures.BootstrapPlanTests.state
     sequences = fixtures.BootstrapPlanTests.sequences
@@ -46,7 +63,7 @@ class PublicUpdateTests(unittest.TestCase):
     def install(self):
         with UnitOfWork(self.engine) as uow:
             before = snapshot(uow.session)
-            changes = bootstrap_changes(before, load_sources(ROOT), ROOT, '2020-01-01T00:00:00.000000+00:00')
+            changes = bootstrap_changes(before, load_sources(self.source_root), self.source_root, '2020-01-01T00:00:00.000000+00:00')
             from backend.content.editions import project_updates
             apply_updates(uow.session, changes, digest(before), digest(project_updates(before, changes)))
             uow.commit()
@@ -71,7 +88,7 @@ class PublicUpdateTests(unittest.TestCase):
                 published_digest=digest(source_snapshot(lesson, related(state)))))
 
     def prepare(self, *, dry_run=False):
-        return prepare_sources(self.engine, ROOT, self.root / 'inputs', 'public-update-' + uuid.uuid4().hex,
+        return prepare_sources(self.engine, self.source_root, self.root / 'inputs', 'public-update-' + uuid.uuid4().hex,
                                self.sha, public_update=True, public_backup_path=self.root / 'before.json', dry_run=dry_run)
 
     def test_scoped_dry_run_and_cli_have_no_file_row_sequence_or_private_effects(self):
@@ -83,7 +100,7 @@ class PublicUpdateTests(unittest.TestCase):
         self.assertEqual(preview['effects'], 'NONE')
         env = {'MATHSTART_DATABASE_URL': self.engine.url.render_as_string(hide_password=False), 'MATHSTART_DB_BACKEND': 'postgresql'}
         with patch.dict(os.environ, env), redirect_stdout(io.StringIO()) as output:
-            self.assertEqual(main(['prepare-public-update', '--dry-run', '--source-sha', self.sha,
+            self.assertEqual(main(['prepare-public-update', '--dry-run', '--source-root', str(self.source_root), '--source-sha', self.sha,
                                   '--release-id', 'scoped-cli-preview']), 0)
         self.assertEqual(json.loads(output.getvalue())['selected'], 5)
         self.assertEqual(self.state(), before)
@@ -123,7 +140,7 @@ class PublicUpdateTests(unittest.TestCase):
         before, private = self.state(), self.private()
         env = {'MATHSTART_DATABASE_URL': self.engine.url.render_as_string(hide_password=False), 'MATHSTART_DB_BACKEND': 'postgresql'}
         with patch.dict(os.environ, env), redirect_stdout(io.StringIO()) as output:
-            self.assertEqual(main(['prepare-public-update', '--source-sha', self.sha, '--release-id', 'scoped-live',
+            self.assertEqual(main(['prepare-public-update', '--source-root', str(self.source_root), '--source-sha', self.sha, '--release-id', 'scoped-live',
                 '--input-root', str(self.root / 'inputs'), '--changes', str(self.root / 'edition.json'),
                 '--backup', str(self.root / 'before.json')]), 0)
         prepared = json.loads(output.getvalue())

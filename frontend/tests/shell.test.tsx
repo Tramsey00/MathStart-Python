@@ -10,8 +10,8 @@ describe("accepted shell", () => {
     expect(screen.getByRole("navigation", {name:"Основная навигация"})).toBeTruthy();
     expect(screen.getByRole("navigation", {name:"Навигация в подвале"})).toBeTruthy();
     expect(screen.getAllByRole("link").map(a => [a.textContent, a.getAttribute("href")])).toEqual([
-      ["MathStart","/"],["Все темы","/karta-sajta/"],["Личный кабинет","/account/"],
-      ["MathStart","/"],["Все темы","/karta-sajta/"],["О проекте","/o-proekte/"],["Контакты","/kontakty/"],
+      ["MathStart","/"],["Все темы","/materials"],["Личный кабинет","/account/"],
+      ["MathStart","/"],["Все темы","/materials"],["О проекте","/o-proekte/"],["Контакты","/kontakty/"],
     ]);
     expect(document.querySelector("svg path")?.getAttribute("d")).toBe("M8 17h4l3 6 8-14");
   });

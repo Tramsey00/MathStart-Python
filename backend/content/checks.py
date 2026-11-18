@@ -14,8 +14,8 @@ from urllib.error import HTTPError
 import sqlalchemy as sa
 from bs4 import BeautifulSoup
 
-from backend.content.sources import SourceError, load_sources
-from backend.models.baseline import ContentPage, MediaAsset, Redirect
+from backend.content.sources import SourceError, load_sources, publication_digest
+from backend.models.baseline import ContentPage, LessonPublication, MediaAsset, Redirect
 from backend.content.quality import inspect_html
 
 ATTRIBUTES = [('a', 'href'), ('img', 'src'), ('script', 'src'), ('link', 'href'),
@@ -32,8 +32,10 @@ def verify_lesson_sources(session, root, *, slugs=None, all_lessons=False):
     selected = set(by_slug) if all_lessons else set(slugs)
     if not selected or not selected.issubset(by_slug) or (all_lessons and set(pages) != selected):
         raise SourceError('Incomplete lesson source/database inventory')
+    bindings = {row.page_id: row for row in session.scalars(sa.select(LessonPublication))}
     for slug in sorted(selected):
-        page, snapshot = pages.get(slug), by_slug[slug].snapshot
+        bundle = by_slug[slug]
+        page, snapshot = pages.get(slug), bundle.snapshot
         if page is None:
             raise SourceError('Lesson is absent from database')
         for field, value in snapshot.items():
@@ -42,6 +44,11 @@ def verify_lesson_sources(session, root, *, slugs=None, all_lessons=False):
                 actual = actual.slug if actual is not None else None
             if actual != value:
                 raise SourceError('Lesson source/database mismatch: ' + slug + '/' + field)
+        if bundle.renderer_version == 'react-v1':
+            binding = bindings.get(page.id)
+            if (binding is None or binding.source_path != bundle.path.removeprefix('curriculum/')
+                    or binding.published_digest != publication_digest(bundle, snapshot)):
+                raise SourceError('Lesson document/database mismatch: ' + slug)
     return {'verified': len(selected)}
 
 
@@ -88,19 +95,56 @@ def confined_file(root, relative):
     return target.is_relative_to(root) and target.is_file()
 
 
-def inspect_site(session, *, static_roots, media_root):
-    pages = list(session.scalars(sa.select(ContentPage).order_by(ContentPage.id)))
+def document_references(value):
+    if isinstance(value, dict):
+        attrs = value.get('attrs', {})
+        for key in ('href', 'src'):
+            if key in attrs:
+                yield {'kind': f'document[{key}]', 'url': attrs[key]}
+        for child in value.values():
+            yield from document_references(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from document_references(child)
+
+
+def inspect_site(session, *, static_roots, media_root, source_root=None):
+    current = source_root is not None and (Path(source_root) / 'site_content/retired-public-routes.json').is_file()
+    query = sa.select(ContentPage).order_by(ContentPage.id)
+    if current:
+        query = query.where(ContentPage.is_published.is_(True))
+    pages = list(session.scalars(query))
     media = list(session.scalars(sa.select(MediaAsset).order_by(MediaAsset.id)))
     redirects = list(session.scalars(sa.select(Redirect).where(Redirect.is_active.is_(True))))
     if not pages:
         raise SourceError('Site integrity requires a nonempty current database')
-    known = {normalize_page_path('/' + p.slug + '/') for p in pages if p.slug} | {'/'}
-    known |= {normalize_page_path(path) for r in redirects if (path := normalize_internal_path(r.old_path))}
+    documents = {}
+    if current:
+        from backend.content.build import load_material_routes
+        bundles = {b.snapshot['slug']: b for b in load_sources(source_root)}
+        routes = load_material_routes(source_root, bundles)
+        bindings = {row.page_id: row for row in session.scalars(sa.select(LessonPublication))}
+        for page in pages:
+            if page.page_type != 'topic':
+                continue
+            bundle, binding = bundles.get(page.slug), bindings.get(page.id)
+            if (bundle is None or binding is None or bundle.lesson_document is None
+                    or binding.source_path != bundle.path.removeprefix('curriculum/')
+                    or binding.published_digest != publication_digest(bundle, bundle.snapshot)):
+                raise SourceError('Lesson document/database mismatch: ' + page.slug)
+            documents[page.slug] = bundle.lesson_document
+        known = {routes[p.slug]['path'] if p.slug in routes else '/materials' if p.slug == 'karta-sajta'
+                 else '/' if p.page_type == 'home' else '/' + p.slug + '/' for p in pages}
+        known |= {path for r in redirects if (path := normalize_internal_path(r.old_path))}
+    else:
+        known = {normalize_page_path('/' + p.slug + '/') for p in pages if p.slug} | {'/'}
+        known |= {normalize_page_path(path) for r in redirects if (path := normalize_internal_path(r.old_path))}
     counts = Counter(p.slug for p in pages)
     topics = [p for p in pages if p.page_type == 'topic']
     report = {
         'duplicate_slugs': [{'slug': slug, 'total': total} for slug, total in sorted(counts.items()) if total > 1],
-        'empty_content_pages': [{'id': p.id, 'title': p.title, 'slug': p.slug} for p in pages if not (p.body_html or '').strip()],
+        'empty_content_pages': [{'id': p.id, 'title': p.title, 'slug': p.slug} for p in pages if not (p.body_html or '').strip() and p.slug not in documents
+                                and not (current and p.slug in {'glavnaya', 'karta-sajta'})],
         'empty_slug_pages': [{'id': p.id, 'title': p.title} for p in pages if not (p.slug or '').strip()],
         **{'topics_without_' + field: [p.slug for p in topics if getattr(p, field + '_id') is None] for field in ['grade', 'subject', 'section']},
         'broken_internal_links': [], 'broken_media_references': [], 'broken_static_references': [],
@@ -108,7 +152,7 @@ def inspect_site(session, *, static_roots, media_root):
     }
     used, checked = set(), 0
     for page in pages:
-        for reference in references(page):
+        for reference in [*references(page), *document_references(documents.get(page.slug))]:
             path = normalize_internal_path(reference['url'])
             if path is None:
                 continue
@@ -123,7 +167,7 @@ def inspect_site(session, *, static_roots, media_root):
                 if not any(confined_file(root, path[len('/static/'):].lstrip('/')) for root in static_roots):
                     report['broken_static_references'].append(detail)
             elif not path.startswith('/admin/'):
-                normalized = normalize_page_path(path)
+                normalized = path if current else normalize_page_path(path)
                 if normalized not in known:
                     report['broken_internal_links'].append({**detail, 'normalized_path': normalized})
     for asset in media:

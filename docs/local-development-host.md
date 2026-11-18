@@ -124,8 +124,8 @@ prior apply` — постоянная часть вывода check; сама п
 
 Команда вызывает обычный prepare-bootstrap из tracked source точного HEAD,
 frontend.build_public с verified immutable input/receipt digests и publication
-plan. Собирается весь текущий Content, включая legacy-страницы и шесть новых
-React-страниц. Suites/typecheck/source gates не запускаются; штатные доменные
+plan. В текущую редакцию входят 263 React-урока, главная, каталог, страницы
+«О проекте» и «Контакты». Suites/typecheck/source gates не запускаются; штатные доменные
 валидаторы и integrity/publication guards сохранены. Build занимает несколько
 минут, вывод в var/local/team/logs/.
 
@@ -232,7 +232,8 @@ Supervisor завершает Vite и FastAPI и останавливает св
   связи, renderer или release inputs), нужна явная подготовка совместимой схемы
   или Content по [регламенту](../deploy/RELEASE.md) с review точного SHA256.
   Шаги 2–3 описывают первую установку. Для существующих данных используйте
-  предусмотренный upgrade/publication workflow и новый план. На время
+  [штатную подготовку нового выпуска](../backend/READ_RUNTIME.md#обновление-публичного-выпуска-ms-t011)
+  и отдельное подтверждение плана. На время
   подготовки остановите dev и поднимите только свою БД командой
   `& .\.venv\Scripts\python.exe scripts/team_local.py db-start`. После подготовки
   обычный start прочитает обновлённую установку.

@@ -17,7 +17,7 @@ export function LessonPage({ document: lesson, navigation, gradeLinks, section }
   const [dark, setDark] = useSiteTheme();
   const catalogueHref = `/materials?grade=${lesson.grade}&subject=${lesson.subject}`;
   return <LessonPageShell brand={<Brand/>} contents={<LessonContents sections={lesson.sections} title={lesson.title} catalogueHref={section?.href ?? catalogueHref}/>}
-    catalogueHref="/materials" materialsHref="/materials" loginHref="/account/" accountHref="/account/" gradeLinks={gradeLinks}
+    catalogueHref="/materials" materialsHref="/materials" accountHref="/account/" gradeLinks={gradeLinks}
     dark={dark} onTheme={() => setDark(value => !value)}>
     <LessonHeading breadcrumbs={[{ label: lesson.grade.replace('-klass', ' класс'), href: `/materials?grade=${lesson.grade}` },
       { label: materialSubjectLabel(lesson.subject), href: catalogueHref }, { label: section?.title ?? lesson.section }]} title={lesson.title} subtitle={lesson.subtitle}/>

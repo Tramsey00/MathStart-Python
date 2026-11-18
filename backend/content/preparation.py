@@ -5,8 +5,11 @@ It is not a publication or a claim. Proposed new PKs are checked against the
 captured edition and installed only by the fenced participant's SQL commit.
 Preparation and dry-run never consume sequences or register rows.
 """
+from collections import defaultdict
 from copy import deepcopy
+from dataclasses import replace
 from hashlib import sha256
+import json
 from pathlib import Path
 from types import SimpleNamespace
 import uuid
@@ -14,14 +17,16 @@ import uuid
 import sqlalchemy as sa
 
 from backend.content.build import (encoded, assets_for, verify_source_checkout, install_build_inputs,
-                                   load_material_routes, source_file_record, apply_material_redirects)
+                                   load_material_routes, load_public_retirement, public_route_source_records,
+                                   finalize_public_index)
 from backend.content.editions import decoded, snapshot, normalized, project_updates
 from backend.content.projection import (ReviewedSource, delivery_for_page, catalogue_from_snapshot, index_for_pages)
 from backend.content.publication import PublicationConflict
-from backend.content.releases import Descriptor
+from backend.content.releases import Descriptor, active_descriptor, inside
 from backend.content.sources import load_sources, digest, publication_digest, SourceError
 from backend.infrastructure.uow import UnitOfWork
 from backend.models.baseline import metadata
+from backend.models.protocol import ActiveReleaseDescriptor, PublicationJournal
 
 EDITABLE = ('title', 'order', 'seo_title', 'seo_description', 'body_html', 'page_css', 'page_js', 'is_published')
 
@@ -45,7 +50,26 @@ def source_snapshot(row, relations):
     return data
 
 
-def source_changes(before, bundles, selected, instant, *, unpublish=False):
+def previous_source_inventory(uow, release_root, namespace):
+    """Bind prior file records to the installed receipt named in the applied plan."""
+    if uow.session.get(ActiveReleaseDescriptor, namespace) is None:
+        return {}
+    descriptor = active_descriptor(uow, namespace)
+    expected = uow.session.scalar(sa.select(PublicationJournal.plan['input_receipt_digest'].as_string())
+                                   .where(PublicationJournal.id == descriptor.operation_id))
+    raw = inside(release_root, f'{descriptor.release_id}/receipt.json').read_bytes()
+    if sha256(raw).hexdigest() != expected:
+        raise SourceError('Untrusted prior source receipt')
+    receipt = json.loads(raw)
+    if (receipt['release_id'] != descriptor.release_id or receipt['manifest_digest'] != descriptor.manifest_digest):
+        raise SourceError('Prior source receipt does not match the active release')
+    files = defaultdict(list)
+    for entry in receipt['source_files']:
+        files[Path(entry['path']).parent.as_posix()].append(entry)
+    return files
+
+
+def source_changes(before, bundles, selected, instant, *, unpublish=False, prior_files=None, routes=None):
     """Pure proposed identities; no sequences, source rebind or runtime overwrite."""
     if not selected or len(selected) != len(set(selected)):
         raise SourceError('Explicit nonempty unique selection required')
@@ -102,11 +126,14 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
                 raise PublicationConflict('SOURCE_REGISTRATION_REQUIRED')
             accepted = (publication['published_digest'], digest(desired), publication_digest(bundle, desired)) if publication else (digest(desired), publication_digest(bundle, desired))
             if digest(current) not in accepted:
-                raise PublicationConflict('SOURCE_CONFLICT')
+                prior = (prior_files or {}).get(Path(bundle.path).parent.as_posix())
+                if (not prior or publication is None or bundle.renderer_version != 'react-v1'
+                        or publication_digest(replace(bundle, files=tuple(prior)), current) != publication['published_digest']):
+                    raise PublicationConflict('SOURCE_CONFLICT')
         after = {**row, **({key: desired[key] for key in EDITABLE} if not unpublish else {'is_published': False})}
         if original is None or after != row:
             from backend.content.quality import inspect_html
-            if not unpublish and inspect_html(after['body_html'])['issues']:
+            if not unpublish and after['body_html'] and inspect_html(after['body_html'])['issues']:
                 raise PublicationConflict('CONTENT_QUALITY_FAILED')
             after['updated_at'] = instant
             changes.append({'table': 'content_contentpage', 'before': original, 'after': after})
@@ -114,6 +141,11 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
                 removed.add('/' if row['page_type'] == 'home' else '/' + row['slug'] + '/')
                 if row['page_type'] == 'home':
                     removed.add('/' + row['slug'] + '/')
+                route = (routes or {}).get(slug)
+                if route is not None:
+                    removed.add(route['path'])
+                if slug == 'karta-sajta':
+                    removed.add('/materials')
         if row['page_type'] == 'topic' and publication is None:
             new = {'id': identifier('content_lessonpublication'), 'page_id': after['id'],
                    'source_path': bundle.path.removeprefix('curriculum/'),
@@ -145,7 +177,8 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
 
 
 def prepare_sources(engine, source_root, output_root, release_id, source_sha, *, slugs=None, all_lessons=False,
-                    unpublish=False, dry_run=False, bootstrap=False, public_update=False, public_backup_path=None):
+                    unpublish=False, dry_run=False, bootstrap=False, public_update=False, public_backup_path=None,
+                    release_root=None, namespace='public'):
     import re
     if (not re.fullmatch('[A-Za-z0-9_-]{1,120}', release_id or '')
             or not re.fullmatch('[a-f0-9]{40}', source_sha or '')
@@ -158,6 +191,9 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
     bundles = load_sources(source_root)
     bundle_by_slug = {b.snapshot['slug']: b for b in bundles}
     routes = load_material_routes(source_root, bundle_by_slug)
+    retirement = load_public_retirement(source_root, routes)
+    if retirement is not None and public_update:
+        raise SourceError('Use prepare-bootstrap for the current public edition')
     from backend.content.public_update import SELECTED
     selected = (list(SELECTED) if public_update else [b.snapshot['slug'] for b in bundles] if bootstrap else
                 [b.snapshot['slug'] for b in bundles if b.snapshot['page_type'] == 'topic'] if all_lessons else slugs)
@@ -165,14 +201,16 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
         uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
         before = snapshot(uow.session)
         instant = normalized({'at': uow.session.scalar(sa.select(sa.func.clock_timestamp()))})['at']
+        prior_files = (previous_source_inventory(uow, release_root, namespace)
+                       if retirement is not None and release_root is not None else {})
     if public_update:
         from backend.content.public_update import public_update_changes
         changes = public_update_changes(before, bundles, source_root, instant)
     elif bootstrap:
         from backend.content.bootstrap_plan import bootstrap_changes
-        changes = bootstrap_changes(before, bundles, source_root, instant)
+        changes = bootstrap_changes(before, bundles, source_root, instant, retirement=retirement, prior_files=prior_files)
     else:
-        changes = source_changes(before, bundles, selected, instant, unpublish=unpublish)
+        changes = source_changes(before, bundles, selected, instant, unpublish=unpublish, prior_files=prior_files, routes=routes)
     after = project_updates(before, changes)
     if dry_run:
         return {'selected': len(selected), 'changes': len(changes), 'effects': 'NONE', 'activation': 'NOT_PERFORMED'}
@@ -220,9 +258,10 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
             values = sa.values(*columns).data([tuple(row[c.name] for c in columns) for row in redirects]).cte('prepared_redirects')
             redirects = [SimpleNamespace(**row) for row in uow.session.execute(
                 sa.select(values).where(values.c.is_active.is_(True)).order_by(values.c.old_path)).mappings()]
-    index = index_for_pages(sorted(pages, key=lambda p: p.id), release_id, deliveries, catalogue, redirects)
+    index = index_for_pages(sorted(pages, key=lambda p: p.id), release_id, deliveries, catalogue, redirects,
+                            include_home_alias=retirement is None)
     try:
-        apply_material_redirects(index, routes)
+        finalize_public_index(index, deliveries, routes, retirement)
     except SourceError as exc:
         raise PublicationConflict('ARTIFACT_CONFLICT') from exc
     from backend.infrastructure.http.contracts import validate
@@ -235,8 +274,7 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
                'assets': len(files) - len(deliveries) - 1, 'activation': 'NOT_PERFORMED',
                'files': [{'path': key, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)} for key, raw in sorted(files.items())],
                'source_files': [entry for bundle in bundles for entry in bundle.files]
-                               + [source_file_record(source_root, path) for path in
-                                  ('site_content/material-routes.json', 'site_content/material-subjects.json')]}
+                               + public_route_source_records(source_root, retirement)}
     descriptor = Descriptor(uuid.UUID(int=0), release_id, manifest_digest, 1)
     if public_update:
         from backend.content.public_update import backup_public_records

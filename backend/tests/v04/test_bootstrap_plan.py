@@ -38,8 +38,8 @@ from frontend.build_public import build_public
 
 ROOT = Path(__file__).resolve().parents[3]
 COUNTS = {'content_grade': 6, 'content_subject': 12, 'content_section': 63,
-          'content_contentpage': 279, 'content_lessonpublication': 263,
-          'content_mediaasset': 29, 'content_redirect': 282}
+          'content_contentpage': 267, 'content_lessonpublication': 263,
+          'content_mediaasset': 29, 'content_redirect': 0}
 PRIVATE = tuple(name for name in metadata.tables if name.startswith(('auth_', 'users_')) or name in
                 {'django_admin_log', 'django_content_type', 'django_session', 'django_migrations',
                  'target_session', 'target_receipt_bridge', 'target_identity_cutover'})
@@ -109,7 +109,7 @@ class BootstrapPlanTests(unittest.TestCase):
         from backend.cli import main
         before, private, sequences = self.state(), self.private(), self.sequences()
         preview = self.prepare(dry_run=True)
-        self.assertEqual(preview['selected'], 279)
+        self.assertEqual(preview['selected'], 267)
         self.assertEqual(preview['changes'], sum(COUNTS.values()))
         self.assertEqual(preview['effects'], 'NONE')
         self.assertFalse((self.root / 'inputs').exists())
@@ -147,7 +147,7 @@ class BootstrapPlanTests(unittest.TestCase):
         state = self.state()
         for old in retained:
             self.assertEqual(next(row for row in state['content_contentpage'] if row['id'] == old['id']), {**old, 'is_published': False})
-        self.assertEqual(len(state['content_contentpage']), 281)
+        self.assertEqual(len(state['content_contentpage']), 269)
         for name, count in COUNTS.items():
             self.assertEqual(len(state[name]), count + (2 if name == 'content_contentpage' else 0))
         self.assertEqual(self.private(), private)

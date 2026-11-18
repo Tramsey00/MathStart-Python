@@ -2,13 +2,13 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { readQuadraticLesson } from './helpers/lesson-source.mjs';
+import { readQuadraticLesson, reviewedLessonFile } from './helpers/lesson-source.mjs';
 import { LessonSource } from '../src/shared/lesson/source-renderer';
 
 const repository = resolve(process.cwd(), '..');
 const directory = resolve(repository, 'curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x');
 const topics = readdirSync(directory).map(name => JSON.parse(readFileSync(resolve(directory, name, 'lesson.json'), 'utf8')).page);
-const source = new DOMParser().parseFromString(readFileSync(resolve(directory, '06-kvadratichnaya-funkcziya-y-ax2-bx-c/body.html'), 'utf8'), 'text/html');
+const source = new DOMParser().parseFromString(reviewedLessonFile(repository, 'curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/body.html').toString('utf8'), 'text/html');
 const lesson = readQuadraticLesson(repository, { topics });
 const normalize = (value: string | null) => (value ?? '').replace(/\s+/g, ' ').trim();
 function academicText(root: Node) {

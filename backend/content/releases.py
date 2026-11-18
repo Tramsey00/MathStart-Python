@@ -28,6 +28,19 @@ def safe_public_path(path):
             and not re.match(r'^/(?:auth|admin|account|api|__ui__|_private)(?:/|$)', decoded))
 
 
+def canonical_public_edition(pages):
+    """Identify the React rollout shape within the existing wire schema."""
+    catalogue = False
+    for page in pages:
+        if page['page_type'] in {'grade', 'subject'}:
+            return False
+        if page['page_type'] == 'topic' and page.get('renderer_version') != 'react-v1':
+            return False
+        if page['slug'] == 'karta-sajta':
+            catalogue = page['seo']['canonical_path'] == '/materials'
+    return catalogue
+
+
 def inside(root, relative):
     return _inside_resolved(Path(root).resolve(), relative)
 
@@ -151,7 +164,8 @@ class ReleaseStore:
                         or alias['canonical_path'] != '/' or alias['url'] in urls):
                     raise unavailable()
                 urls.add(alias['url'])
-            if homes and not any(alias['page_id'] == homes[0]['id']
+            canonical_only = not index['aliases'] and canonical_public_edition(pages.values())
+            if homes and not canonical_only and not any(alias['page_id'] == homes[0]['id']
                     and alias['url'] == f'/{homes[0]["slug"]}/'
                     and alias['status'] == 200 and alias['canonical_path'] == '/'
                     for alias in index['aliases']):

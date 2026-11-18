@@ -3,3 +3,5 @@ export const quadraticSlug: string;
 export function readQuadraticLesson(repository: string, catalogue: { topics: Array<{
   title: string; slug: string; grade: string; subject: string; section: string; order: number;
 }> }): LessonData;
+
+export function reviewedLessonFile(repository: string, path: string): Buffer;

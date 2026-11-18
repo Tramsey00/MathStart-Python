@@ -5,9 +5,9 @@ import { LessonHeader, LessonFooter } from '../../shared/lesson/lesson-shell';
 import './orbit.css';
 // Shared Orbit header; lesson/footer styling stays in the shared lesson shell.
 
-type OrbitHeaderProps = Omit<ComponentProps<typeof LessonHeader>, 'brand' | 'loginHref' | 'catalogueHref'> & { contained?: boolean; catalogueHref?: string };
+type OrbitHeaderProps = Omit<ComponentProps<typeof LessonHeader>, 'brand' | 'catalogueHref'> & { contained?: boolean; catalogueHref?: string };
 export function OrbitHeader({ contained = false, catalogueHref = '/materials', ...props }: OrbitHeaderProps) {
-    const header = <LessonHeader brand={<Brand />} catalogueHref={catalogueHref} loginHref="/auth?mode=login" {...props} />;
+    const header = <LessonHeader brand={<Brand />} catalogueHref={catalogueHref} {...props} />;
     return contained ? header : <div className="orbit-site orbit-header-only">{header}</div>;
 }
 

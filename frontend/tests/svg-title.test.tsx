@@ -1,3 +1,4 @@
+import { reviewedLessonFile } from './helpers/lesson-source.mjs';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { act } from 'react';
@@ -24,7 +25,7 @@ describe('authored SVG title preservation', () => {
   });
   it.each(topics)('retains complete SVG structures and title references: $slug', topic => {
     const lesson = JSON.parse(readFileSync(resolve(root, topic.source, 'content.json'), 'utf8')) as LessonDocument;
-    const before = parse(readFileSync(resolve(root, topic.source, 'body.html'), 'utf8'));
+    const before = parse(reviewedLessonFile(root, topic.source + '/body.html').toString('utf8'));
     const after = parse(renderToString(<LessonPage document={lesson} navigation={{previous:null,next:null}} gradeLinks={[]}/>));
     for (const section of lesson.sections) {
       const source = before.getElementById(section.id)!;

@@ -64,7 +64,7 @@ def main(argv=None):
                         if args.action == 'check-site-integrity':
                             if not args.static_root or not args.media_root:
                                 parser.error('site integrity requires static-root and media-root')
-                            report, errors = inspect_site(uow.session, static_roots=args.static_root, media_root=args.media_root)
+                            report, errors = inspect_site(uow.session, static_roots=args.static_root, media_root=args.media_root, source_root=root)
                             report_name = 'site_integrity_report.json'
                         else:
                             if not args.origin:
