@@ -1,5 +1,14 @@
 # Карта проекта
 
+
+## Актуальная навигация — 18.11.2026
+
+- docs/tasks/INDEX.md и registry.json — обязательная очередь; следующий ID MS-T011, не MS-N011.
+- docs/tasks/DEFERRED.md — T010, N006 и N020; не вторая активная очередь.
+- skills/tasks/t011-rollout-finalization/SKILL.md — ближайшая интеграция публичного сайта, прямые canonical ссылки и вывод старых учебных URL.
+- curriculum/ и site_content/ содержат объединённые source всех 263 тем; source completeness не подтверждает установленный runtime.
+- Сохранённые legacy assets/адаптеры удаляются только после карты потребителей T011. Staff redesign не требуется для учебного MVP.
+
 ## Где менять урок
 
 Начни с [указателя всех тем](../curriculum/INDEX.md). Для перенесённой темы
