@@ -1,4 +1,6 @@
 from alembic import context
+import backend.content.topic_skill_model
+import backend.models.identity
 from backend.models.baseline import metadata
 import backend.models.protocol
 from backend.infrastructure.database import DatabaseConfig, create_engine

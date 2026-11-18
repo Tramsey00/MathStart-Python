@@ -8,6 +8,17 @@ from alembic.script import ScriptDirectory
 from backend.models.baseline import SNAPSHOT
 
 
+HEAD = 'v01_0004'
+REVISION_PARENTS = {
+    'v01_0001': None, 'v01_0002': 'v01_0001', 'v01_0003': 'v01_0002', HEAD: 'v01_0003',
+}
+ADDITIVE_MANIFESTS = {
+    'v01_0002': 'protocol-schema-v1.json',
+    'v01_0003': 'identity-schema-v1.json',
+    HEAD: 'knowledge-schema-v1.json',
+}
+
+
 class SchemaMismatch(RuntimeError):
     pass
 
@@ -15,9 +26,9 @@ class SchemaMismatch(RuntimeError):
 def assert_revision_graph():
     try:
         script = ScriptDirectory.from_config(Config(str(Path(__file__).parents[1] / 'alembic.ini')))
-        if script.get_heads() != ['v01_0003'] or {
+        if script.get_heads() != [HEAD] or {
                 revision.revision: revision.down_revision for revision in script.walk_revisions()
-        } != {'v01_0001': None, 'v01_0002': 'v01_0001', 'v01_0003': 'v01_0002'}:
+        } != REVISION_PARENTS:
             raise SchemaMismatch('Unknown/ambiguous Alembic revision graph')
     except SchemaMismatch:
         raise
@@ -25,7 +36,7 @@ def assert_revision_graph():
         raise SchemaMismatch('Invalid Alembic revision graph') from error
 
 
-def assert_tracking(connection, actual, *, require_target_head, target_head='v01_0003'):
+def assert_tracking(connection, actual, *, require_target_head, target_head=HEAD):
     """Exact tracking shape plus cardinality/state; never repair or adopt drift."""
     assert_revision_graph()
     if 'alembic_version' not in actual['tables']:
@@ -119,17 +130,21 @@ def normalized(record, key):
     return value
 
 
-def assert_baseline(connection, profile, *, allow_protocol=False, require_history=True, target_head='v01_0003'):
+def assert_baseline(connection, profile, *, allow_protocol=False, require_history=True, target_head=HEAD):
     expected, actual = expected_profile(profile), inventory(connection)
     assert_tracking(connection, actual, require_target_head=allow_protocol, target_head=target_head)
     baseline_tables = set(expected['tables'])
     allowed = baseline_tables | {'alembic_version'}
+    manifests = []
     if allow_protocol:
-        from backend.models.protocol import PROTOCOL_TABLES
-        allowed |= {t.name for t in PROTOCOL_TABLES}
-        if target_head == 'v01_0003':
-            from backend.models.identity import IDENTITY_TABLES
-            allowed |= {t.name for t in IDENTITY_TABLES}
+        if target_head not in ADDITIVE_MANIFESTS:
+            raise SchemaMismatch('Unsupported target schema revision')
+        for revision, filename in ADDITIVE_MANIFESTS.items():
+            manifest = json.loads(Path(__file__).with_name(filename).read_text(encoding='utf-8'))
+            manifests.append((revision, manifest))
+            allowed.update(manifest['tables'])
+            if revision == target_head:
+                break
     if actual['unexpected_objects']:
         raise SchemaMismatch('Unknown schema objects')
     if set(actual['tables']) - allowed or baseline_tables - set(actual['tables']):
@@ -148,29 +163,21 @@ def assert_baseline(connection, profile, *, allow_protocol=False, require_histor
     if require_history and actual['migrations'] != expected['migrations']:
         raise SchemaMismatch('Unknown or incomplete Django migration head/history')
     allowed_sequences = names
-    if allow_protocol:
-        target = json.loads(Path(__file__).with_name('protocol-schema-v1.json').read_text(encoding='utf-8'))
+    for revision, target in manifests:
         target_tables = set(target['tables'])
         if not target_tables <= set(actual['tables']):
-            raise SchemaMismatch('Missing additive protocol tables')
+            raise SchemaMismatch('Missing additive tables: ' + revision)
         for key, table_key in [('columns', 'table_name'), ('constraints', 'table_name'),
                                ('indexes', 'tablename'), ('identity_columns', 'table_name')]:
             observed = [row for row in actual[key] if row[table_key] in target_tables]
             if sorted(observed, key=str) != sorted(target[key], key=str):
-                raise SchemaMismatch('Additive protocol schema drift: ' + key)
-        target_sequences = {row['sequencename'] for row in target['sequences']}
+                raise SchemaMismatch(f'Additive schema drift: {revision} {key}')
+        expected_sequences = target.get('sequences', [])
+        target_sequences = {row['sequencename'] for row in expected_sequences}
         observed = [normalized(row, 'sequences') for row in actual['sequences'] if row['sequencename'] in target_sequences]
-        if sorted(observed, key=str) != sorted(target['sequences'], key=str):
-            raise SchemaMismatch('Additive protocol sequence drift')
+        if sorted(observed, key=str) != sorted(expected_sequences, key=str):
+            raise SchemaMismatch('Additive sequence drift: ' + revision)
         allowed_sequences |= target_sequences
-        if target_head == 'v01_0003':
-            identity = json.loads(Path(__file__).with_name('identity-schema-v1.json').read_text(encoding='utf-8'))
-            if not set(identity['tables']) <= set(actual['tables']):
-                raise SchemaMismatch('Missing identity tables')
-            for key, table_key in [('columns', 'table_name'), ('constraints', 'table_name'), ('indexes', 'tablename'), ('identity_columns', 'table_name')]:
-                observed = [row for row in actual[key] if row[table_key] in identity['tables']]
-                if sorted(observed, key=str) != sorted(identity[key], key=str):
-                    raise SchemaMismatch('Identity schema drift: ' + key)
     if {row['sequencename'] for row in actual['sequences']} != allowed_sequences:
         raise SchemaMismatch('Unknown/missing sequence set')
     return actual

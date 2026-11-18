@@ -9,7 +9,7 @@ from unittest.mock import patch
 import sqlalchemy as sa
 
 from backend.migrations.runtime_privileges import check_runtime_privileges, grant_runtime_privileges
-from backend.migrations.upgrade import fresh, require_disposable
+from backend.migrations.upgrade import HEAD, fresh, require_disposable
 from backend.release_migrate import plan_digest, preview
 from scripts import team_local
 
@@ -95,10 +95,10 @@ class PostgresRuntimePrivilegesTests(unittest.TestCase):
                     failing_check.assert_called_once()
                 self.assertEqual(team_local.read_json(marker), {'reviewed_plan_sha256': digest})
                 applied = team_local.read_json(receipt)
-                self.assertEqual(applied, {'status': 'APPLIED', 'head': 'v01_0002', 'reviewed_plan_sha256': digest})
+                self.assertEqual(applied, {'status': 'APPLIED', 'head': HEAD, 'reviewed_plan_sha256': digest})
                 with self.engine.connect() as connection:
                     revision = connection.exec_driver_sql('SELECT version_num FROM alembic_version').scalar_one()
-                    self.assertEqual(revision, 'v01_0002')
+                    self.assertEqual(revision, HEAD)
                     self.assertFalse(connection.exec_driver_sql(
                         "SELECT has_table_privilege('local_runtime', 'auth_group', 'INSERT')").scalar_one())
 

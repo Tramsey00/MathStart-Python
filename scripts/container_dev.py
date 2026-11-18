@@ -158,16 +158,17 @@ def configure():
     return state
 
 
-def work_directory(state, key):
-    if state.get('work') and state['work']['key'] == key:
-        return Path(state['work']['path'])
+def work_directory(state, key, slot='work'):
+    if state.get(slot) and state[slot]['key'] == key:
+        return Path(state[slot]['path'])
     work = RUNTIME_WORK / uuid.uuid4().hex
     work.mkdir(parents=True)
     logs = LOCAL / 'logs' / work.name
     logs.mkdir(parents=True)
     (work / 'logs').symlink_to(logs, target_is_directory=True)
-    state['work'] = {'key': key, 'path': str(work), 'release': 'dev-' + work.name[:16],
-                     'publisher': str(uuid.uuid4())}
+    state[slot] = {'key': key, 'path': str(work)}
+    if slot == 'work':
+        state[slot].update(release='dev-' + work.name[:16], publisher=str(uuid.uuid4()))
     save(STATE, state)
     return work
 
@@ -186,14 +187,25 @@ def require_review(kind, path, digest, summary):
     return 42
 
 
+def pending_schema_work(state):
+    return [slot for slot in ('work', 'schema_work') if state.get(slot)
+            and (Path(state[slot]['path']) / 'schema-apply-pending.json').exists()]
+
+
+def require_unchanged_migrations(state, current_migrations):
+    applied = state.get('applied_migrations') or {}
+    if any(current_migrations.get(name) != digest for name, digest in applied.items()):
+        raise RuntimeError('Applied migration file changed or disappeared; history is never rewritten by update')
+
+
 def prepare(args):
     from backend.release_migrate import code_digest as schema_code, plan_digest
     from backend.content.participant import digest as plan_hash
     state = configure()
-    previous_work = state.get('work')
-    pending = Path(previous_work['path']) / 'schema-apply-pending.json' if previous_work else None
-    if pending and pending.exists():
+    if pending_schema_work(state):
         raise RuntimeError('Prior schema apply requires operator review; do not rerun DDL')
+    if state.get('schema_work') and REVIEW.exists() and schema_update_review(state):
+        raise RuntimeError('A schema-update plan is pending; use dev.cmd schema-update')
     dependencies = dependency_digest()
     marker = ROOT / 'frontend/node_modules/.mathstart-lock'
     if not marker.exists() or marker.read_text() != dependencies:
@@ -208,8 +220,7 @@ def prepare(args):
     current_schema = schema_code()
     current_migrations = migration_files()
     applied = state.get('applied_migrations')
-    if applied is not None and any(current_migrations.get(name) != digest for name, digest in applied.items()):
-        raise RuntimeError('Applied migration file changed or disappeared; history is never rewritten by update')
+    require_unchanged_migrations(state, current_migrations)
     if state['schema_code'] == current_schema and applied is None:
         # Adoption of this metadata-only safeguard is safe only when the exact
         # previously checked schema code digest is still identical.
@@ -242,9 +253,7 @@ def prepare(args):
             save(STATE, state)
             (work / 'schema-apply-pending.json').unlink()
         elif state['schema_code'] != current_schema:
-            # The current canonical chain has only v01_0001/v01_0002 and its
-            # release CLI explicitly rejects unknown revisions. Never fall back
-            # to fresh/stamp or unreviewed Alembic on an existing local DB.
+            # Physical check only. Existing installations upgrade separately via schema-update.
             team.cli('backend.release_migrate', ['check'], 'schema-existing-check', values)
             state['schema_code'] = current_schema
             save(STATE, state)
@@ -292,22 +301,96 @@ def prepare(args):
     return 0
 
 
+def schema_update_review(state):
+    review = read(REVIEW)
+    work = state.get('schema_work')
+    expected = LOCAL / 'plans' / Path(work['path']).name / 'schema.json' if work else None
+    return expected is not None and review['kind'] == 'schema' and ROOT / review['path'] == expected
+
+
+def complete_schema_update(state, schema, work, migrations):
+    state.update(schema_code=schema, applied_migrations=migrations)
+    save(STATE, state)
+    if REVIEW.exists() and schema_update_review(state):
+        REVIEW.unlink()
+    (work / 'schema-apply-pending.json').unlink()
+
+
+def schema_update(args):
+    """Upgrade the schema of a prepared local installation, separately from Content."""
+    from backend.release_migrate import code_digest, plan_digest
+
+    state = read(STATE)
+    if not state.get('release') or not state.get('schema_code'):
+        raise RuntimeError('Schema update requires an existing prepared installation')
+    if pending_schema_work(state):
+        raise RuntimeError('Prior schema apply is pending; use finish-acl with its reviewed digest')
+    if REVIEW.exists() and not schema_update_review(state):
+        raise RuntimeError('Complete the existing review before starting schema-update')
+    schema = code_digest()
+    migrations = migration_files()
+    require_unchanged_migrations(state, migrations)
+    values = read(SCHEMA)
+    if state['schema_code'] == schema:
+        with team.installation_paths(LOCAL, PRIVATE, SECRETS, SERVING):
+            print(team.cli('backend.release_migrate', ['check'], 'schema-existing-check', values))
+        return 0
+    if REVIEW.exists() and state['schema_work']['key'] != schema:
+        # A prior unapplied plan remains in its work directory and review copy.
+        REVIEW.unlink()
+    work = work_directory(state, schema, 'schema_work')
+    path = work / 'schema.json'
+    if path.exists() and datetime.now(timezone.utc) >= datetime.fromisoformat(read(path)['expires_at']):
+        if REVIEW.exists() and schema_update_review(state):
+            REVIEW.unlink()
+        state.pop('schema_work')
+        work = work_directory(state, schema, 'schema_work')
+        path = work / 'schema.json'
+    with team.installation_paths(work, PRIVATE, SECRETS, SERVING):
+        if not path.exists():
+            team.cli('backend.release_migrate', ['preview', '--profile', 'TARGET_0003',
+                     '--plan-file', str(path)], 'schema-preview', values)
+        plan = read(path)
+        digest = plan_digest(plan)
+        if args.schema_digest != digest:
+            return require_review('schema', path, digest, {key: plan[key] for key in
+                ('profile', 'target_head', 'database', 'table_count', 'expires_at')})
+        team.schema_apply(values, digest, profile='TARGET_0003')
+    complete_schema_update(state, schema, work, migrations)
+    print('Schema and runtime ACL updated. Existing Content release retained.', flush=True)
+    return 0
+
+
 def finish_acl(args):
     from backend.release_migrate import code_digest
 
     state = read(STATE)
-    work = state.get('work')
+    pending = pending_schema_work(state)
+    if not args.schema_digest or len(pending) != 1:
+        raise RuntimeError('ACL completion requires the reviewed schema digest and one pending apply')
+    slot, = pending
+    upgrade = slot == 'schema_work'
+    work = state[slot]
     schema = code_digest()
-    if not args.schema_digest or not work or work['key'] != schema + ':' + content_digest():
-        raise RuntimeError('ACL completion requires the reviewed schema digest and unchanged work inputs')
-    if state.get('release'):
-        raise RuntimeError('ACL completion is limited to an unpublished installation')
-    path = Path(work['path'])
+    if upgrade:
+        if not state.get('release') or work['key'] != schema:
+            raise RuntimeError('ACL completion requires the same installed release and unchanged schema inputs')
+    elif state.get('release') or work['key'] != schema + ':' + content_digest():
+        raise RuntimeError('Fresh ACL completion requires an unpublished installation and unchanged work inputs')
+    path = Path(work['path']).resolve()
+    if path.parent != RUNTIME_WORK.resolve():
+        raise RuntimeError('ACL work does not belong to this installation')
+    migrations = migration_files()
+    require_unchanged_migrations(state, migrations)
     with team.installation_paths(path, PRIVATE, SECRETS, SERVING):
-        team.finish_schema_privileges(read(SCHEMA), args.schema_digest)
-    state.update(schema_code=schema, applied_migrations=migration_files())
-    save(STATE, state)
-    (path / 'schema-apply-pending.json').unlink()
+        team.finish_schema_privileges(read(SCHEMA), args.schema_digest,
+                                      profile='TARGET_0003' if upgrade else 'FRESH')
+    if upgrade:
+        complete_schema_update(state, schema, path, migrations)
+    else:
+        state.update(schema_code=schema, applied_migrations=migrations)
+        save(STATE, state)
+        (path / 'schema-apply-pending.json').unlink()
     print('Schema checked and runtime ACL completed. No DDL or Content publication performed.', flush=True)
     return 0
 
@@ -411,12 +494,16 @@ def reconcile(args):
 
 
 def ready():
+    from backend.release_migrate import code_digest
+
     if not all(path.exists() for path in (STATE, PRIVATE, SCHEMA)):
         raise RuntimeError('Run dev.cmd prepare first')
     check_public_origin()
     state = read(STATE)
-    if REVIEW.exists():
+    if REVIEW.exists() or pending_schema_work(state):
         raise RuntimeError('A concrete plan still awaits review; complete prepare/update before start')
+    if state.get('schema_code') != code_digest():
+        raise RuntimeError('Schema preparation required; use dev.cmd update or schema-update before start')
     marker = ROOT / 'frontend/node_modules/.mathstart-lock'
     if not state.get('release') or not marker.exists() or marker.read_text() != dependency_digest():
         raise RuntimeError('Preparation/dependency update required; startup never installs dependencies or Content')
@@ -425,7 +512,7 @@ def ready():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare', 'ready', 'serve', 'finish-acl', 'reconcile'])
+    parser.add_argument('action', choices=['prepare', 'ready', 'serve', 'finish-acl', 'reconcile', 'schema-update'])
     parser.add_argument('--schema-digest')
     parser.add_argument('--content-digest')
     parser.add_argument('--operation-id', type=uuid.UUID)
@@ -449,6 +536,9 @@ def main():
             if args.action == 'finish-acl':
                 check_public_origin()
                 return finish_acl(args)
+            if args.action == 'schema-update':
+                check_public_origin()
+                return schema_update(args)
             return prepare(args)
     except Exception as error:
         message = str(error) if type(error) is RuntimeError else type(error).__name__

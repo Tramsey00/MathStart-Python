@@ -1,0 +1,358 @@
+{
+  "tables": [
+    "content_topic_skill",
+    "knowledge_skill",
+    "knowledge_skill_dependency"
+  ],
+  "columns": [
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "content_page_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "skill_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "role",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 9,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "importance",
+      "data_type": "numeric",
+      "udt_name": "numeric",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "position",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_topic_skill",
+      "column_name": "mapping_version",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "code",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "name",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 160,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "description",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "grade_min",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "grade_max",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "active",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill",
+      "column_name": "graph_version",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "column_name": "prerequisite_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "column_name": "dependent_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "column_name": "weight",
+      "data_type": "numeric",
+      "udt_name": "numeric",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_content_page_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (content_page_id) REFERENCES content_contentpage(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_importance",
+      "type": "c",
+      "definition": "CHECK (((importance > (0)::numeric) AND (importance < 'Infinity'::numeric)))"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_pair",
+      "type": "u",
+      "definition": "UNIQUE (content_page_id, skill_id)"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_position",
+      "type": "c",
+      "definition": "CHECK ((\"position\" >= 0))"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_role",
+      "type": "c",
+      "definition": "CHECK (((role)::text = ANY ((ARRAY['PRIMARY'::character varying, 'SECONDARY'::character varying])::text[])))"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_skill_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (skill_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "content_topic_skill",
+      "name": "content_topic_skill_version",
+      "type": "c",
+      "definition": "CHECK ((length((mapping_version)::text) > 0))"
+    },
+    {
+      "table_name": "knowledge_skill",
+      "name": "knowledge_skill_code_key",
+      "type": "u",
+      "definition": "UNIQUE (code)"
+    },
+    {
+      "table_name": "knowledge_skill",
+      "name": "knowledge_skill_grades",
+      "type": "c",
+      "definition": "CHECK ((((grade_min IS NULL) AND (grade_max IS NULL)) OR ((grade_min IS NOT NULL) AND (grade_max IS NOT NULL) AND (grade_min >= 1) AND (grade_min <= grade_max) AND (grade_max <= 11))))"
+    },
+    {
+      "table_name": "knowledge_skill",
+      "name": "knowledge_skill_nonempty",
+      "type": "c",
+      "definition": "CHECK (((length((code)::text) > 0) AND (length((name)::text) > 0) AND (length((graph_version)::text) > 0)))"
+    },
+    {
+      "table_name": "knowledge_skill",
+      "name": "knowledge_skill_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "name": "knowledge_dependency_no_self",
+      "type": "c",
+      "definition": "CHECK ((prerequisite_id <> dependent_id))"
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "name": "knowledge_dependency_pair",
+      "type": "u",
+      "definition": "UNIQUE (prerequisite_id, dependent_id)"
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "name": "knowledge_dependency_weight",
+      "type": "c",
+      "definition": "CHECK (((weight > (0)::numeric) AND (weight <= (1)::numeric)))"
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "name": "knowledge_skill_dependency_dependent_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (dependent_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "name": "knowledge_skill_dependency_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "knowledge_skill_dependency",
+      "name": "knowledge_skill_dependency_prerequisite_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (prerequisite_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "content_topic_skill",
+      "indexname": "content_topic_skill_pair",
+      "indexdef": "CREATE UNIQUE INDEX content_topic_skill_pair ON public.content_topic_skill USING btree (content_page_id, skill_id)"
+    },
+    {
+      "tablename": "content_topic_skill",
+      "indexname": "content_topic_skill_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_topic_skill_pkey ON public.content_topic_skill USING btree (id)"
+    },
+    {
+      "tablename": "content_topic_skill",
+      "indexname": "ix_content_topic_skill_page_role",
+      "indexdef": "CREATE INDEX ix_content_topic_skill_page_role ON public.content_topic_skill USING btree (content_page_id, role)"
+    },
+    {
+      "tablename": "content_topic_skill",
+      "indexname": "ix_content_topic_skill_skill_id",
+      "indexdef": "CREATE INDEX ix_content_topic_skill_skill_id ON public.content_topic_skill USING btree (skill_id)"
+    },
+    {
+      "tablename": "knowledge_skill",
+      "indexname": "knowledge_skill_code_key",
+      "indexdef": "CREATE UNIQUE INDEX knowledge_skill_code_key ON public.knowledge_skill USING btree (code)"
+    },
+    {
+      "tablename": "knowledge_skill",
+      "indexname": "knowledge_skill_pkey",
+      "indexdef": "CREATE UNIQUE INDEX knowledge_skill_pkey ON public.knowledge_skill USING btree (id)"
+    },
+    {
+      "tablename": "knowledge_skill_dependency",
+      "indexname": "ix_knowledge_skill_dependency_dependent_id",
+      "indexdef": "CREATE INDEX ix_knowledge_skill_dependency_dependent_id ON public.knowledge_skill_dependency USING btree (dependent_id)"
+    },
+    {
+      "tablename": "knowledge_skill_dependency",
+      "indexname": "knowledge_dependency_pair",
+      "indexdef": "CREATE UNIQUE INDEX knowledge_dependency_pair ON public.knowledge_skill_dependency USING btree (prerequisite_id, dependent_id)"
+    },
+    {
+      "tablename": "knowledge_skill_dependency",
+      "indexname": "knowledge_skill_dependency_pkey",
+      "indexdef": "CREATE UNIQUE INDEX knowledge_skill_dependency_pkey ON public.knowledge_skill_dependency USING btree (id)"
+    }
+  ],
+  "identity_columns": [],
+  "sequences": []
+}
