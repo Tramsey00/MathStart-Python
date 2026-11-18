@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -21,11 +22,14 @@ import uuid
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+if __name__ == '__main__':
+    sys.path.insert(0, str(ROOT))
 LOCAL = ROOT / 'var/local/team'
 STATE = LOCAL / 'installation.json'
 LEGACY_PRIVATE = ROOT / 'var/local/lesson-preview/private-env.json'
 POSTGRES = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
 SERVING = None
+SCHEMA_PROFILES = ('FRESH', 'TARGET_0003')
 
 
 @contextmanager
@@ -228,49 +232,58 @@ def roots():
             '--artifact-root', str(serving / 'frontend')]
 
 
-def schema_apply(values, reviewed):
+def reviewed_schema_plan(values, reviewed, profile, plan_name):
+    from backend.release_migrate import HEAD, VERSION, code_digest, plan_digest, signed
+
+    plan = read_json(LOCAL / plan_name)
+    if (profile not in SCHEMA_PROFILES or plan['profile'] != profile
+            or plan['version'] != VERSION or plan['target_head'] != HEAD
+            or plan['code_digest'] != code_digest() or not secrets.compare_digest(plan_digest(plan), reviewed)
+            or not secrets.compare_digest(plan['signature'], signed(values['MATHSTART_SCHEMA_SIGNING_KEY'],
+                'schema.plan.v1', {k: v for k, v in plan.items() if k != 'signature'}))):
+        raise RuntimeError('ACL/apply completion requires the exact reviewed plan and matching code')
+    return plan
+
+
+def schema_apply(values, reviewed, *, profile='FRESH', plan_name='schema.json'):
     marker = LOCAL / 'schema-apply-pending.json'
     if marker.exists():
         raise RuntimeError('Prior schema apply requires operator review; do not rerun DDL')
+    plan = reviewed_schema_plan(values, reviewed, profile, plan_name)
+    if datetime.now(timezone.utc) >= datetime.fromisoformat(plan['expires_at']):
+        raise RuntimeError('Unapplied schema plan expired; review a new preview')
     write_json(marker, {'reviewed_plan_sha256': reviewed})
-    cli('backend.release_migrate', ['apply', '--maintenance', '--plan-file', str(LOCAL / 'schema.json'),
-        '--reviewed-plan-sha256', reviewed], 'schema-apply', values)
-    finish_schema_privileges(values, reviewed)
+    cli('backend.release_migrate', ['apply', '--maintenance', '--plan-file', str(LOCAL / plan_name),
+        '--reviewed-plan-sha256', reviewed], Path(plan_name).stem + '-apply', values)
+    finish_schema_privileges(values, reviewed, profile=profile, plan_name=plan_name)
 
 
-def finish_schema_privileges(values, reviewed):
+def finish_schema_privileges(values, reviewed, *, profile='FRESH', plan_name='schema.json'):
     """Finish only the ACL stage of a known, committed local schema apply."""
-    from backend.release_migrate import code_digest, database_fact, plan_digest, signed
+    from backend.release_migrate import database_fact
     from backend.migrations.runtime_privileges import grant_runtime_privileges
     from backend.infrastructure.database import DatabaseConfig, create_engine
     from sqlalchemy.engine import make_url
-    import psycopg
 
     marker = LOCAL / 'schema-apply-pending.json'
-    plan = read_json(LOCAL / 'schema.json')
-    receipt = read_json(LOCAL / 'logs/schema-apply.log')
+    plan = reviewed_schema_plan(values, reviewed, profile, plan_name)
+    receipt = read_json(LOCAL / 'logs' / (Path(plan_name).stem + '-apply.log'))
     if (read_json(marker) != {'reviewed_plan_sha256': reviewed}
-            or receipt != {'status': 'APPLIED', 'head': plan['target_head'], 'reviewed_plan_sha256': reviewed}
-            or not secrets.compare_digest(plan_digest(plan), reviewed)
-            or plan['profile'] != 'FRESH' or plan['code_digest'] != code_digest()
-            or not secrets.compare_digest(plan['signature'], signed(values['MATHSTART_SCHEMA_SIGNING_KEY'],
-                'schema.plan.v1', {k: v for k, v in plan.items() if k != 'signature'}))):
+            or receipt != {'status': 'APPLIED', 'head': plan['target_head'], 'reviewed_plan_sha256': reviewed}):
         raise RuntimeError('ACL completion requires the exact reviewed plan and APPLIED receipt')
     url = make_url(values['MATHSTART_DATABASE_URL'])
     engine = create_engine(DatabaseConfig(url))
     try:
-        with engine.connect() as connection:
+        with engine.begin() as connection:
             if database_fact(connection) != plan['database']:
                 raise RuntimeError('ACL completion database/role binding changed')
+            print(cli('backend.release_migrate', ['check'], 'schema-check', values))
+            try:
+                grant_runtime_privileges(connection.connection.driver_connection)
+            except Exception:
+                raise RuntimeError('Schema APPLIED; runtime ACL completion failed. Retain the receipt and pending marker.') from None
     finally:
         engine.dispose()
-    # Physical compatibility must be established before opening the ACL transaction.
-    print(cli('backend.release_migrate', ['check'], 'schema-check', values))
-    try:
-        with psycopg.connect(url.set(drivername='postgresql').render_as_string(hide_password=False)) as connection:
-            grant_runtime_privileges(connection)
-    except Exception:
-        raise RuntimeError('Schema APPLIED; runtime ACL completion failed. Retain the receipt and pending marker.') from None
 
 
 
@@ -391,12 +404,13 @@ def publish(values, state, reviewed):
     print('Publication complete; temporary gateway stopped.')
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['init', 'schema-preview', 'schema-apply', 'finish-acl', 'content', 'publish', 'db-start', 'db-stop'])
     parser.add_argument('--pg-port', type=int, default=55449)
     parser.add_argument('--reviewed-plan-sha256')
-    args = parser.parse_args()
+    parser.add_argument('--profile', choices=SCHEMA_PROFILES, default='FRESH')
+    args = parser.parse_args(argv)
     os.chdir(ROOT)
     try:
         if args.action == 'init':
@@ -409,17 +423,21 @@ def main():
             return 0
         owned_container(state)
         values = read_json(LOCAL / 'schema-env.json')
+        plan_name = 'schema.json' if args.profile == 'FRESH' else 'schema-target-0003.json'
         if args.action == 'schema-preview':
-            print(cli('backend.release_migrate', ['preview', '--profile', 'FRESH', '--plan-file', str(LOCAL / 'schema.json')], 'schema-preview', values))
-            print('Review profile=FRESH, table_count=0, target_head, database/role binding in var/local/team/schema.json; apply within 30 minutes.')
+            if (LOCAL / 'schema-apply-pending.json').exists():
+                raise RuntimeError('Prior schema apply requires operator review; complete ACL before preparing another plan')
+            print(cli('backend.release_migrate', ['preview', '--profile', args.profile,
+                      '--plan-file', str(LOCAL / plan_name)], Path(plan_name).stem + '-preview', values))
+            print(f'Review {LOCAL / plan_name} ({args.profile}, target head and database/role); apply within 30 minutes.')
         elif args.action in ('schema-apply', 'finish-acl', 'publish'):
             if not re.fullmatch('[a-f0-9]{64}', args.reviewed_plan_sha256 or ''):
                 raise RuntimeError('Explicit --reviewed-plan-sha256 required after reviewing the plan')
             if args.action == 'schema-apply':
-                schema_apply(values, args.reviewed_plan_sha256)
+                schema_apply(values, args.reviewed_plan_sha256, profile=args.profile, plan_name=plan_name)
                 (LOCAL / 'schema-apply-pending.json').unlink()
             elif args.action == 'finish-acl':
-                finish_schema_privileges(values, args.reviewed_plan_sha256)
+                finish_schema_privileges(values, args.reviewed_plan_sha256, profile=args.profile, plan_name=plan_name)
                 (LOCAL / 'schema-apply-pending.json').unlink()
             else:
                 publish(values, state, args.reviewed_plan_sha256)

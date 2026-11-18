@@ -56,6 +56,7 @@ Windows/PowerShell — целевой хост; другие ОС не объя�
 | `.\dev.cmd prepare` | Первая подготовка; повторно сохраняет DB/credentials и пропускает неизменившиеся шаги |
 | `.\dev.cmd start` | Запуск подготовленной БД и Vite/FastAPI; без install, DDL, seed, build/publication |
 | `.\dev.cmd update` | Явная подготовка изменений после вашего pull; останавливает только свой app |
+| `.\dev.cmd schema-update` | Обновление установленной схемы `v01_0003` до `v01_0004` с отдельным review и выдачей runtime-прав |
 | `.\dev.cmd stop` | Остановка своего app/DB с сохранением volumes, credentials и Content |
 | `.\dev.cmd reconcile -OperationId <UUID> -ContentDigest <SHA256>` | Согласование локальной отметки готовности после завершённого внешнего recovery |
 
@@ -119,12 +120,30 @@ publication guards остаются 5 секунд. Успех — только 
 и неизменённого кода оператор отдельно запускает
 `.\dev.cmd finish-acl -SchemaDigest <reviewed-schema-sha256>`.
 Для host-dev эквивалент — `team_local.py finish-acl --reviewed-plan-sha256 <digest>`.
+При обновлении host-dev добавьте `--profile TARGET_0003`.
 
 Команда сверяет подписанный план, квитанцию APPLIED, БД и роль, проверяет
 физическую схему и транзакционно выдаёт и проверяет только runtime-права.
 Схема и Content не применяются повторно. В Compose состояние сохраняется
 до снятия маркера. Если квитанция отсутствует или состояние неоднозначно,
 остановитесь для отдельной сверки оператором; apply не повторяйте.
+
+### Обновление установленной Compose базы до v01_0004
+
+Из checkout с кодом MS-N007 выполните:
+
+```powershell
+.\dev.cmd schema-update -NonInteractive
+# Просмотрите план TARGET_0003 в var/compose и подтвердите его точный SHA256.
+.\dev.cmd schema-update -NonInteractive -SchemaDigest <SCHEMA_SHA256>
+.\dev.cmd start
+```
+
+`schema-update` останавливает свой app, подготавливает нужный образ и запускает
+собственную базу. Команда обновляет отпечаток схемы и список применённых миграций
+после выдачи прав. Активный Content release и его отметки сохраняются. При
+записанном `APPLIED` и оставшемся маркере используйте `finish-acl -SchemaDigest`
+с тем же digest, затем `start`.
 
 ## Работа с исходниками и GitHub
 
@@ -158,10 +177,8 @@ Update не делает Git pull/reset/checkout и не переключает 
 - Schema code fingerprint проверяется отдельно. Новая пустая DB получает только
   reviewed FRESH plan. Для существующей DB canonical physical schema check
   определяет совместимость code changes, без повторного fresh/stamp/seed.
-  Неизвестная revision graph или несовместимая schema останавливают update:
-  сначала нужен поддерживающий её reviewed release migration protocol. Текущая
-  canonical chain содержит v01_0001/v01_0002; произвольный будущий upgrade не
-  угадывается и applied history не переписывается.
+  Для локальной схемы `v01_0003` используйте `schema-update` выше.
+  Неизвестная revision graph или несовместимая schema останавливают update.
   Изменение/удаление уже применённого migration-файла также останавливает update.
 - Изменения lesson/source/assets, non-UI frontend build inputs, каталога и route registry
   вызывают обычную полную Content preparation/build и новый review plan.

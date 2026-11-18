@@ -27,7 +27,10 @@
 Ревизия `v01_0004` добавляет три таблицы и FK с защитой от удаления. Для
 установленного `v01_0003` используйте `backend.release_migrate preview --profile
 TARGET_0003` с новым plan-file, затем обычные `apply` и `check` по
-[регламенту](../../deploy/RELEASE.md). Роли приложения нужен `SELECT` на
+[регламенту](../../deploy/RELEASE.md). Для локальной установки используйте
+[host-dev](../../docs/local-development-host.md#4-ежедневный-старт-и-остановка)
+или [Compose](../../docs/local-development.md#обновление-установленной-compose-базы-до-v01_0004).
+Роли приложения нужен `SELECT` на
 `knowledge_skill`, `knowledge_skill_dependency` и `content_topic_skill`.
 Локальный проверяющий ACL учитывает эти права.
 

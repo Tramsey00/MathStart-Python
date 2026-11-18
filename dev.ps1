@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory=$true, Position=0)]
-    [ValidateSet('prepare','start','update','stop','finish-acl','reconcile')][string]$Action,
+    [ValidateSet('prepare','start','update','stop','finish-acl','reconcile','schema-update')][string]$Action,
     [string]$SchemaDigest,
     [string]$ContentDigest,
     [string]$OperationId,
@@ -118,8 +118,9 @@ try {
         if ($SchemaDigest -cnotmatch '^[a-f0-9]{64}$' -or -not $taskImage -or $taskImage.fingerprint -ne $taskFingerprint) {
             throw 'ACL completion requires the reviewed -SchemaDigest and existing matching image.'
         }
+        Invoke-Compose @('up','-d','--wait','--wait-timeout','90','db')
         Invoke-Compose @('run','--rm','--no-deps','tools','finish-acl','--schema-digest',$SchemaDigest)
-    } elseif ($Action -in @('prepare','update')) {
+    } elseif ($Action -in @('prepare','update','schema-update')) {
         Invoke-Compose @('stop','app')
         $taskImageExists = $false
         if ($taskImage) {
@@ -132,8 +133,9 @@ try {
             Write-LocalJson $taskImageRecord @{fingerprint=$taskFingerprint; image=$env:MATHSTART_DEV_IMAGE}
         } else { Write-Output 'Image inputs unchanged; build skipped.' }
         Invoke-Compose @('up','-d','--wait','--wait-timeout','90','db')
+        $taskOperation = if ($Action -eq 'schema-update') { 'schema-update' } else { 'prepare' }
         while ($true) {
-            $taskArgs = @('run','--rm','--no-deps','tools','prepare')
+            $taskArgs = @('run','--rm','--no-deps','tools',$taskOperation)
             if ($SchemaDigest) { $taskArgs += @('--schema-digest', $SchemaDigest) }
             if ($ContentDigest) { $taskArgs += @('--content-digest', $ContentDigest) }
             & docker compose --project-name $taskProfile.project --project-directory $taskRoot @taskComposeFiles @taskArgs

@@ -161,6 +161,30 @@ Init/schema/content — первая установка: существующи�
 
 ## 4. Ежедневный старт и остановка
 
+Для установленной схемы `v01_0003` штатное обновление MS-N007 проходит через
+явный план `TARGET_0003`. Остановите host-dev, затем выполните:
+
+```powershell
+npm.cmd --prefix frontend run dev:host:stop
+& .\.venv\Scripts\python.exe scripts/team_local.py db-start
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview --profile TARGET_0003
+# Просмотрите var/local/team/schema-target-0003.json и подтвердите точный SHA256.
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --profile TARGET_0003 --reviewed-plan-sha256 <SCHEMA_SHA256>
+```
+
+Команда проверяет миграцию `v01_0004` и выдаёт `local_runtime` право `SELECT`
+на три новые таблицы. Если сохранены маркер и квитанция `APPLIED` в
+`logs/schema-target-0003-apply.log`, завершите выдачу прав той же квитанцией:
+
+```powershell
+& .\.venv\Scripts\python.exe scripts/team_local.py finish-acl --profile TARGET_0003 --reviewed-plan-sha256 <SCHEMA_SHA256>
+```
+
+После успеха продолжайте обычным `dev:host`. Существующая публикация Content
+используется при запуске. Если неприменённый план истёк, сохраните его под
+другим именем и подготовьте новый. При отсутствии квитанции и наличии маркера
+сначала сверяйте результат с оператором по регламенту восстановления.
+
 MS-T009 добавляет reviewed Alembic v01_0003. Для существующей схемы v01_0002
 используйте явный `backend.release_migrate preview --profile TARGET_0002`
 с отдельным новым plan-file и schema environment, затем review точного digest,
