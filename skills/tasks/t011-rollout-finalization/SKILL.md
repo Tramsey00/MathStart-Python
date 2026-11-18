@@ -45,9 +45,29 @@ publication digest и GET/HEAD/SPA ветви. Ни один учебный до
 одного build handoff и HTML-дубль каталога в hydration payload. Сохранён
 no-JS каталог. Действующие guards проверки выпуска сохраняются.
 
-Source **READY_FOR_REVIEW**. Tests/typecheck/build/smoke/browser
-**NOT_RUN_BY_USER_REQUEST**. Активация нового Content, независимое ревью
-и ручная приёмка общей версии ожидаются.
+Source **READY_FOR_REVIEW**, [PR #85](https://github.com/Tramsey00/MathStart-Python/pull/85).
+Локальная подготовка и сборка отдельно разрешены и выполнены для source
+`81b6994e2150ca4a00aad84f1d6074045f0f68f2`, tree
+`429cf8e4f4ae1089a48a64387a629012424b084d`. Локальный release
+`ms-t011-81b6994-20261118` активирован штатным publisher, фаза **COMPLETE**;
+утверждённый plan SHA-256
+`a903d17ce94757697beaa9cb48f7ded175ab2a382197af5c89f1b4db1e551a77`.
+Input manifest `0410e9cfda49b7bd00184245623566ba1e91eebfccf7f1c7cab05ce446109b3a`,
+output manifest `43b245080f253ab778594097fe715d380906c5a2a3328aa60c9672488858375e`.
+Это локальная публикация, не production и не итоговая приёмка T011.
+
+18.11.2026 Руслан сообщил, что локально всё нормально, разрешил довести PR
+при отсутствии учебных перенаправлений и предупредил о следующих правках.
+Узкая проверка GET/HEAD без следования redirects: `/materials/5-math-1` и
+`/materials/7-algebra-1` — 200; старый slug первого урока,
+`/category/5-%D0%BA%D0%BB%D0%B0%D1%81%D1%81/` и неизвестный путь — 404;
+во всех десяти ответах нет HTTP redirect. В подготовленной локальной
+проекции все 263 canonical темы исключены из backend_paths.
+Запрос служебного immutable index по HTTP не завершился за 20 секунд;
+он не подтверждает полный runtime-охват всех адресов. Новых массовых прогонов нет.
+Tests/typecheck/smoke/browser automation — **NOT_RUN_BY_USER_REQUEST**.
+Независимое полное ревью и итоговая приёмка **PENDING**; следующие правки
+пользователя ожидаются. Merge, закрытие Issue и production deploy не выполнены.
 [План подготовки и активации](../../../backend/READ_RUNTIME.md#обновление-публичного-выпуска-ms-t011).
 
 ## Как использовать карточку
