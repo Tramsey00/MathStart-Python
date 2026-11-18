@@ -1,36 +1,6 @@
 import type { ReactNode } from 'react';
 import './lesson-shell.css';
-import {AuthLink} from '../../features/identity/session';
-
-type LessonHeaderProps = {
-  brand: ReactNode;
-  catalogueHref: string;
-  dark: boolean;
-  onTheme: () => void;
-  leading?: ReactNode;
-  children?: ReactNode;
-  actions?: ReactNode;
-  panel?: ReactNode;
-  showCatalogueLink?: boolean;
-};
-
-export function LessonHeader({ brand, catalogueHref, dark, onTheme, leading, children, actions, panel, showCatalogueLink = true }: LessonHeaderProps) {
-  return <header className="lesson-header"><div className="lesson-header-inner">
-    <div className="lesson-header-start">{leading}{brand}</div>
-    {children}
-    <div className="lesson-header-end">
-      {showCatalogueLink && <nav className="lesson-header-nav" aria-label="Основная навигация"><a href={catalogueHref}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Zm0 0v14"/></svg><span>Материалы</span></a></nav>}
-      {actions}
-      <button className="lesson-theme-toggle" type="button" aria-label={dark ? 'Включить светлую тему' : 'Включить тёмную тему'} onClick={onTheme}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true">
-          <g className="lesson-theme-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></g>
-          <path className="lesson-theme-moon" d="M20 14a8 8 0 0 1-10-10 8.5 8.5 0 1 0 10 10Z"/>
-        </svg>
-      </button>
-      <AuthLink/>
-    </div>
-  </div>{panel}</header>;
-}
+import { OrbitHeader } from '../ui/orbit-header';
 
 type GradeLink = { title: string; href: string };
 
@@ -53,7 +23,11 @@ export function LessonFooter({ brand, catalogueHref, accountHref, homeHref, grad
   </div></footer>;
 }
 
-export function LessonPageShell({ children, brand, contents, catalogueHref, materialsHref, accountHref, homeHref = '/', gradeLinks, dark, onTheme }: LessonHeaderProps & {
+export function LessonPageShell({ children, brand, contents, catalogueHref, materialsHref, accountHref, homeHref = '/', gradeLinks, dark, onTheme }: {
+  brand: ReactNode;
+  catalogueHref: string;
+  dark: boolean;
+  onTheme: () => void;
   children: ReactNode;
   contents: ReactNode;
   materialsHref: string;
@@ -63,7 +37,7 @@ export function LessonPageShell({ children, brand, contents, catalogueHref, mate
 }) {
   return <div className="lesson-page-shell">
     <a className="skip-link" href="#lesson-content">К тексту урока</a>
-    <LessonHeader brand={brand} catalogueHref={catalogueHref} dark={dark} onTheme={onTheme}/>
+    <OrbitHeader catalogueHref={catalogueHref} dark={dark} onTheme={onTheme}/>
     {contents}
     <div className="lesson-frame"><main id="lesson-content" className="lesson-article" tabIndex={-1}>{children}</main></div>
     <LessonFooter brand={brand} catalogueHref={materialsHref} accountHref={accountHref} homeHref={homeHref} gradeLinks={gradeLinks}/>

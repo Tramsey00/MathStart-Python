@@ -76,11 +76,13 @@ def prepare_view(settings, output):
     finally:
         engine.dispose()
     data = json.loads(output.read_text(encoding='utf-8'))
-    legacy = [path for path, view in data['routes'].items()
-              if not view.get('public_design') and view['page'].get('renderer_version') != 'react-v1']
+    information_paths = {'/kontakty/', '/o-proekte/'}
+    documents = set(data['routes']) & information_paths
+    if any(not view.get('public_design') and view['page'].get('renderer_version') != 'react-v1'
+           and path not in documents for path, view in data['routes'].items()):
+        raise ValueError('Active release contains retired public documents; prepare and review the current Content release')
     redirects = [r['old_path'] for r in manifest['redirects'] if r['old_path'] not in data['routes']]
-    data['backend_paths'] = sorted(set(legacy + redirects
-        + ['/sitemap.xml', '/robots.txt', '/favicon.ico']))
+    data['backend_paths'] = sorted(documents | set(redirects) | {'/sitemap.xml', '/robots.txt', '/favicon.ico'})
     curriculum = (ROOT / 'curriculum').resolve()
     paths = []
     for view in data['routes'].values():
