@@ -32,6 +32,11 @@ description: Выполнить MS-T011 — Завершить интеграц�
 | `frontend/scripts/convert-lesson.*` | CLI переноса выведен. Чистая функция исторического сравнения вызывается из `frontend/tests/helpers/` с закреплённым HTML и метаданными. |
 | Старые lesson/catalogue CSS, JS и переходный `public-migration.css` | Новые уроки и каталог используют общие React CSS и компоненты. `site-pages.css` содержит только правила двух действующих информационных страниц. |
 | Redirect source и генерация aliases | Старые записи перечислены в карте вывода. Новый publisher деактивирует соответствующие DB-записи и обходится без генерации aliases. Прежние immutable release bytes читаются своим правилом. |
+| `frontend/src/app/routes/public-foundation.tsx`, `scripts/dev/projection.py` | Убраны общий HTML-адаптер урока и второй legacy-wrapper каталога. React обслуживает главную, каталог и уроки. HTML и соответствующий dev proxy сохранены для «О проекте» и «Контактов». No-JS каталог остаётся внутри нынешнего React-каталога. Host-dev прекращает подготовку проекции, если активный выпуск всё ещё содержит выведенные документы. |
+| `frontend/src/shared/lesson/{lesson-shell.tsx,lesson-shell.css,lesson.css}`, `frontend/src/features/public-pages/{orbit-shell.tsx,landing.css}` | Общий `OrbitHeader` заменяет отдельную оболочку шапки урока. Убраны стили старой кнопки входа, алиаса прежнего preview и неиспользуемые токены. Сохранены общий подвал, учебное оглавление и действующие стили форм. |
+| `static/mathstart/js/ui/foundation.js` | Обработчик fixture-only DOM из прежней HTML-галереи. Текущий debug-маршрут обслуживает React `foundation-gallery.tsx`. Его CSS и общие staff-ресурсы сохраняются. |
+| `static/mathstart/css/ui/account.css` | Стиль прежнего HTML-кабинета. Действующие формы и кабинет используют CSS React identity. Исторический JS с потребителем в `tests/test_i03_account.js` сохраняется. |
+| `frontend/scripts/record-evidence.mjs` | Одноразовая выгрузка checkpoint 2, привязанная к историческому SHA и старому абсолютному пути. Действующих импортов и package-команд нет. Прежние receipts доступны в сохранённых редакциях. |
 
 Шрифты, публичные media, общие стили информационных страниц и приватные
 staff-ресурсы сохранены по действующим потребителям. Исторические сравнения и
@@ -69,6 +74,39 @@ Tests/typecheck/smoke/browser automation — **NOT_RUN_BY_USER_REQUEST**.
 Независимое полное ревью и итоговая приёмка **PENDING**; следующие правки
 пользователя ожидаются. Merge, закрытие Issue и production deploy не выполнены.
 [План подготовки и активации](../../../backend/READ_RUNTIME.md#обновление-публичного-выпуска-ms-t011).
+
+### Доработка четырёх пунктов MS-T011
+
+Вход `d7e03a115d3ed6549d660c280b1379bd3dee2b5d`, tree
+`776a9580b88f83ce655d9eea1cbf09c96ebf3637`. Итоговый SHA/tree и точный
+digest локального плана фиксируются в существующем [PR #85](https://github.com/Tramsey00/MathStart-Python/pull/85).
+До утверждения нового плана FastAPI обслуживает `ms-t011-81b6994-20261118`.
+Host-dev показывает изменения React/CSS поверх проверенной проекции этого
+выпуска. Замена автономного HTML 404 в immutable артефакте требует сборки и
+согласованной локальной публикации.
+
+Сверены 263 закреплённых URL в карте, индексе, поисковом наборе каталога,
+React-проекции и sitemap, а также 502 ссылки между соседними уроками.
+Проверено отсутствие пересечений проекции и backend proxy с выведенными
+путями, включая декодированные и slashless варианты. В активном индексе 267
+страниц, ноль aliases и redirects. Адресные GET/HEAD без следования Location
+охватили два canonical урока, старый slug, категорию, прежний alias, неверный
+вариант /materials/, неизвестный URL и /404. Уроки дали 200, остальные — 404.
+Прогретый immutable index ответил за 1,8–1,9 с с ожидаемым SHA-256.
+Холодная ветвь перед GET и HEAD проверяет весь выпуск. Предыдущий замер
+этого guard составлял около 74 с и объясняет ограничение клиента в 20 с.
+
+Уроки получают ту же `OrbitHeader`, что и главная, с поправкой на её высоту
+в оглавлении и якорях. Прямой запрос 404 в host-dev отдаёт полную страницу с
+noindex. В публикации FastAPI возвращает автономный документ с HTTP 404 на
+исходном URL. Лёгкая версия общей спирали проигрывается один раз до четырёх
+секунд, приостанавливается при скрытии вкладки и остаётся статичной при
+prefers-reduced-motion. Ошибки 500/503 сохраняют отдельное сообщение.
+
+Адреса для просмотра на localhost:8131 — /materials, /materials/5-math-1,
+/materials/7-algebra-1, /5-klass-chislovye-i-bukvennye-vyrazheniya/ и /auth.
+Tests/typecheck/smoke/browser automation — **NOT_RUN_BY_USER_REQUEST**.
+Визуальная, интерактивная и итоговая приёмка остаются **PENDING**.
 
 ## Как использовать карточку
 
@@ -185,7 +223,7 @@ Runtime читает pinned immutable Content release. Правка source JSON 
 
 ### Известные зависимости, которые нельзя обойти удалением файлов
 
-В базе подготовки e25f302210a91e01364cc637a794704870fbcf31 [load_bundle](../../../backend/content/sources.py) читает body.html/page.css/page.js и для react-v1; publication_digest и compatibility_assets_digest связывают source/публикацию с прежними входами. [Converter](../../../frontend/scripts/convert-lesson.mjs) также читает body.html. Перед реализацией перепроверить актуальный HEAD, затем обновить все действующие потребители удаляемого входа. Не оставлять пустые HTML-заглушки, константные digest, поддельные receipts или широкие fallback ради прохождения guards.
+В базе подготовки e25f302210a91e01364cc637a794704870fbcf31 load_bundle читал body.html/page.css/page.js и для react-v1; publication_digest и compatibility_assets_digest связывали source/публикацию с прежними входами. [Converter в исторической редакции](https://github.com/Tramsey00/MathStart-Python/blob/e25f302210a91e01364cc637a794704870fbcf31/frontend/scripts/convert-lesson.mjs) также читал body.html. Перед удалением входа проверь его действующих потребителей. Не оставляй пустые HTML-заглушки, константные digest, поддельные receipts или широкие fallback ради прохождения guards.
 
 Новая текущая source/publication binding должна проверять реальные bytes нового источника. Не переименовывать версии или менять schema/digest protocol без обоснованного addendum и review; не переписывать frozen fixtures и прошлые manifests/receipts. Если для чтения прежних immutable releases нужен совместимый reader, он не должен снова публиковать старые публичные уроки. Различать retired presentation и сохраняемую Content identity: нельзя снять is_published у общей темы так, что исчезнет новый canonical урок, или удалить её пользовательские связи.
 

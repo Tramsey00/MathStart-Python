@@ -2,26 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useCatalogue } from './catalogue-context';
 import { OrbitShell } from './orbit-shell';
 
-// One shared curve for both the visible ink and the travelling dot.
-const spiralTurns = 11, samplesPerTurn = 144;
-const spiralPoints = Array.from({ length: spiralTurns * samplesPerTurn + 1 }, (_, i) => {
-    const t = i / (spiralTurns * samplesPerTurn), angle = t * spiralTurns * Math.PI * 2;
-    return [(630 - 280 * t) * Math.cos(angle), (278 - 193 * t) * Math.sin(angle)];
-});
-const spiralPath = spiralPoints.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(3)} ${y.toFixed(3)}`).join(' ');
+import { OrbitGeometry } from './orbit-geometry';
+
 function OrbitArtwork({ paused, onToggle }: { paused: boolean; onToggle: () => void }) {
     return <button type="button" className="orbit-artwork orbit-artwork-control" onClick={onToggle}
         aria-label={paused ? 'Продолжить движение спирали' : 'Остановить движение спирали'} aria-pressed={paused}>
-        <svg className="orbit-artwork-svg" viewBox="-100 -100 1500 850" fill="none" aria-hidden="true" focusable="false">
-        <ellipse className="orbit-hit-area" cx="0" cy="0" rx="680" ry="330" transform="translate(715 335) rotate(-26)" fill="transparent" />
-        <g className="orbit-field"><g transform="translate(715 335) rotate(-26)">
-            <path d={spiralPath} className="orbit-line" />
-            {[0, 4, 8].map(turn => <path key={turn} className="orbit-line orbit-line-major" d={spiralPoints.slice(turn * samplesPerTurn, (turn + 1) * samplesPerTurn + 1).map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(3)} ${y.toFixed(3)}`).join(' ')} />)}
-            <g className="orbit-traveller" style={{ offsetPath: `path("${spiralPath}")`, offsetRotate: '0deg' }}>
-                <circle r="6" fill="var(--orb-warm)" stroke="var(--background)" strokeWidth="2" />
-            </g>
-        </g></g>
-    </svg></button>;
+        <OrbitGeometry />
+    </button>;
 }
 
 export function HomePage() {
