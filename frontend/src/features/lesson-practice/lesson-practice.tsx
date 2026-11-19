@@ -16,6 +16,8 @@ const pilots = new Set([
   'reshenie-linejnyh-uravnenij',
 ]);
 const anchorPattern = /^#practice-exercise-([\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12})$/i;
+// The first bank read also verifies the active Content release on a cold API.
+const bankReadTimeoutMs = 60_000;
 
 export function isPracticeTopic(slug: string) {
   return pilots.has(slug);
@@ -88,7 +90,7 @@ async function readBank(slug: string, signal: AbortSignal): Promise<LoadState> {
       if (cursor) params.set('cursor', cursor);
       const response = await fetch('/api/v1/topics/' + encodeURIComponent(slug) + '/exercises/?' + params, {
         credentials: 'same-origin', cache: 'no-store', redirect: 'error',
-        headers: { Accept: 'application/json' }, signal: AbortSignal.any([signal, AbortSignal.timeout(12_000)]),
+        headers: { Accept: 'application/json' }, signal: AbortSignal.any([signal, AbortSignal.timeout(bankReadTimeoutMs)]),
       });
       if (response.status === 401) return { state: 'unauthorized' };
       if (!response.ok || !/^application\/json(?:\s*;.*)?$/i.test(response.headers.get('Content-Type') ?? '')) return { state: 'error' };
