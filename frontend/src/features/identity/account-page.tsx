@@ -17,9 +17,10 @@ import './auth-appearance.css';
 export function IdentityShell({children,grades=[],catalogueHref='/materials'}:{children:ReactNode;grades?:readonly {title:string;href:string}[];catalogueHref?:string}){return <OrbitShell mainId="identity-main" grades={grades} catalogueHref={catalogueHref}><ValidationScope className="identity-page orbit-account">{children}</ValidationScope></OrbitShell>;}
 export function AuthPage(){
  const [params]=useSearchParams(),{user,status,refresh}=useSession();const raw=params.get('mode'),mode=['register','recover','verify','reset'].includes(raw??'')?raw:'login';
+ const returnTo=safeReturn(params.get('return'));
  const [token,setToken]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[locked,setLocked]=useState(false);
  useEffect(()=>{const value=new URLSearchParams(location.hash.slice(1)).get('token')??'';if(value)setToken(value);if(location.hash)history.replaceState(null,'',location.pathname+location.search);},[]);
- useEffect(()=>{if(status==='ready'&&user&&(mode==='login'||mode==='register'))location.replace('/account/');},[user,status,mode]);
+ useEffect(()=>{if(status==='ready'&&user&&(mode==='login'||mode==='register'))location.replace(mode==='login'?returnTo:'/account/');},[user,status,mode,returnTo]);
  async function action(e:FormEvent<HTMLFormElement>){e.preventDefault();if(busy||locked)return;setBusy(true);const form=e.currentTarget,data=new FormData(form);
   const r=mode==='recover'?await api.call('account_recover',{body:{username:String(data.get('username'))}}):mode==='verify'?await api.call('account_verify',{body:{token}}):await api.call('account_reset',{body:{token,new_password:String(data.get('new_password'))}});
   form.reset();setBusy(false);
@@ -31,13 +32,13 @@ export function AuthPage(){
  const title=mode==='register'?'Создать аккаунт':mode==='recover'?'Восстановить доступ':mode==='verify'?'Подтвердить почту':mode==='reset'?'Новый пароль':'С возвращением';
  useSiteTheme();
  const entry=mode==='login'||mode==='register';
- const authHref=(next:string)=>`/auth?mode=${next}${params.get('return')?'&return='+encodeURIComponent(safeReturn(params.get('return'))):''}`;
+ const authHref=(next:string)=>`/auth?mode=${next}${params.get('return')?'&return='+encodeURIComponent(returnTo):''}`;
  return <ValidationScope className="identity-page auth-page" resetKey={mode} data-auth-mode={mode}><a className="skip-link" href="#identity-main">К содержимому</a>
  <main id="identity-main" className="auth-main" tabIndex={-1}><div className="auth-surface"><div className="auth-brand"><Brand/></div>
  {entry&&<nav className="auth-tabs" data-mode={mode} aria-label="Вход и регистрация"><Link to={authHref('login')} aria-current={mode==='login'?'page':undefined}>Вход</Link><Link to={authHref('register')} aria-current={mode==='register'?'page':undefined}>Регистрация</Link></nav>}
  <AuthModeTransition mode={mode}><h1 tabIndex={-1}>{title}</h1>
  {entry?<><p className="identity-lead">{mode==='register'?'Придумайте логин и надёжный пароль.':'Войдите, чтобы продолжить обучение.'}</p>
- {status==='checking'||status==='ready'&&user?null:status==='error'?<div className="identity-retry"><p role="status">Не удалось проверить вход.</p><button className="identity-button" onClick={()=>void refresh()}>Попробовать снова</button></div>:<><AuthForm key={mode} register={mode==='register'} returnTo={safeReturn(params.get('return'))}/>{mode==='register'&&<p className="auth-mail-hint">Почту для восстановления можно добавить и подтвердить позже в кабинете.</p>}</>}</>:<>
+ {status==='checking'||status==='ready'&&user?null:status==='error'?<div className="identity-retry"><p role="status">Не удалось проверить вход.</p><button className="identity-button" onClick={()=>void refresh()}>Попробовать снова</button></div>:<><AuthForm key={mode} register={mode==='register'} returnTo={returnTo}/>{mode==='register'&&<p className="auth-mail-hint">Почту для восстановления можно добавить и подтвердить позже в кабинете.</p>}</>}</>:<>
  <p className="identity-lead">{mode==='recover'?'Введите логин. Восстановление доступно только с подтверждённой почтой из кабинета.':mode==='verify'?'Подтвердите адрес кнопкой ниже. Простое открытие ссылки не меняет настройки.':'Придумайте новый пароль. После сохранения все устройства выйдут из аккаунта.'}</p>
  {mode==='verify'&&status!=='ready'?status==='checking'?null:<div className="identity-retry"><p>Не удалось проверить вход.</p><button className="identity-button" onClick={()=>void refresh()}>Попробовать снова</button></div>:mode==='verify'&&!user?<p>Войдите в аккаунт, для которого добавляли почту. Затем снова откройте ссылку из письма. <a href="/auth?mode=login">Войти</a></p>:<form onSubmit={e=>void action(e)}><fieldset disabled={busy||locked||mode!=='recover'&&!token}>
  {mode==='recover'&&<div className="login-field"><label htmlFor="recover-login">Логин</label><div className="input-with-icon"><IdentityIcon name="user"/><ValidationInput id="recover-login" name="username" autoComplete="username" autoCapitalize="none" spellCheck={false} required maxLength={150}/></div></div>}
