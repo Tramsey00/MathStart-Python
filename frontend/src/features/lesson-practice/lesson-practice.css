@@ -89,6 +89,29 @@
   background: var(--lesson-panel);
 }
 
+.practice-field input[aria-invalid="true"],
+.practice-step[data-error] {
+  border-color: var(--lesson-accent-text);
+}
+
+.practice-result:not(:empty),
+.practice-help-block > :not(:empty) {
+  padding-block: 0.5rem;
+}
+
+.practice-result:not(:empty) {
+  border-block: 1px solid var(--lesson-divider);
+}
+
+.practice-result p,
+.practice-help-block p {
+  margin-block: 0.375rem;
+}
+
+.practice-help-block:has(> .practice-actions:empty:only-child) {
+  display: none;
+}
+
 .practice-step-list {
   display: grid;
   gap: 0.75rem;

@@ -3,7 +3,12 @@ import { dispatchExercise, type PublicExercise } from '../../shared/exercise/dis
 
 export type Draft = Attempt['draft'];
 export type StepType = Exclude<Draft['steps'][number]['step_type'], 'STRUCTURED_FIELDS'>;
-export type ExerciseForm = { mode: 'final-answer' } | { mode: 'ordered-steps'; types: StepType[] };
+type StructuredForm = { mode: 'structured-solution'; fields: {name: string; label: string}[] };
+export type ExerciseForm = StructuredForm | { mode: 'self-check' } | { mode: 'final-answer' } | { mode: 'ordered-steps'; types: StepType[] };
+const structuredFields = [
+  ['start', 'displacement', 'end'],
+  ['expanded_equation', 'isolated_term_equation', 'solution'],
+];
 
 export const emptyDraft: Draft = { payload: {}, steps: [] };
 export const maxSteps = 40;
@@ -19,6 +24,7 @@ export function stepField(type: StepType) {
 
 export function exerciseForm(exercise: PublicExercise): ExerciseForm | null {
   const slot = dispatchExercise(exercise);
+  if (slot === 'self-check') return { mode: slot };
   if (slot === 'final-answer') {
     const fields = exercise.input_schema?.fields;
     const field = fields?.[0];
@@ -26,6 +32,20 @@ export function exerciseForm(exercise: PublicExercise): ExerciseForm | null {
       && field.required && exercise.step_schema === null ? { mode: slot } : null;
   }
   const schema = exercise.step_schema;
+  if (slot === 'structured-solution') {
+    const fields = exercise.input_schema?.fields;
+    const names = fields?.map(field => field.name);
+    const parts = schema?.serialization;
+    if (!fields || !names || !structuredFields.some(known => sameNames(known, names))
+        || fields.some(field => field.input_type !== 'math_text' || !field.required || !field.label)
+        || schema?.ordering?.field !== 'step_no' || schema.ordering.direction !== 'ascending'
+        || !sameNames(schema.allowed_step_types, ['STRUCTURED_FIELDS', 'FINAL_STATEMENT'])
+        || parts?.length !== 2 || parts[0]?.step_type !== 'STRUCTURED_FIELDS'
+        || parts[1]?.step_type !== 'FINAL_STATEMENT'
+        || !sameNames(parts[0].payload_fields, names.slice(0, 2))
+        || !sameNames(parts[1].payload_fields, names.slice(2))) return null;
+    return { mode: slot, fields: fields.map(field => ({ name: field.name, label: field.label! })) };
+  }
   if (slot !== 'ordered-steps' || !schema || exercise.input_schema !== null || schema.serialization
       || schema.step_fields || schema.ordering?.field !== 'step_no' || schema.ordering.direction !== 'ascending') return null;
   const types = schema.allowed_step_types;
@@ -34,8 +54,26 @@ export function exerciseForm(exercise: PublicExercise): ExerciseForm | null {
   return workingType ? { mode: slot, types: [workingType, 'FINAL_STATEMENT'] } : null;
 }
 
+function sameNames(a: readonly string[], b: readonly string[]) {
+  return a.length === b.length && a.every((value, index) => value === b[index]);
+}
+
+export function structuredDraft(form: StructuredForm, payload: Draft['payload']): Draft {
+  return { payload, steps: [form.fields.slice(0, 2), form.fields.slice(2)].map((fields, index) => ({
+    step_no: index + 1,
+    step_type: index === 0 ? 'STRUCTURED_FIELDS' : 'FINAL_STATEMENT',
+    payload: Object.fromEntries(fields.filter(({name}) => Object.hasOwn(payload, name)).map(({name}) => [name, payload[name]])),
+    raw_text: null,
+  })) };
+}
+
 export function completeDraft(form: ExerciseForm, draft: Draft) {
   if (form.mode === 'final-answer') return typeof draft.payload.answer === 'string' && Boolean(draft.payload.answer.trim());
+  if (form.mode === 'self-check') return false;
+  if (form.mode === 'structured-solution') return form.fields.every(({name}) => {
+    const value = draft.payload[name];
+    return typeof value === 'string' && Boolean(value.trim());
+  });
   return draft.steps.length > 0 && draft.steps.every(step => completeStep(form.types, step));
 }
 

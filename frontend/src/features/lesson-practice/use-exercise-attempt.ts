@@ -1,6 +1,7 @@
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { createAttemptClient, attemptPollDelaysMs, type Attempt, type AttemptResult } from '../../shared/api/attempt-client';
 import { DraftUpdateRequest } from '../../shared/api/generated/attempt-validators.mjs';
+import type { AttemptContracts } from '../../shared/api/generated/attempt-contracts';
 import type { PublicExercise } from '../../shared/exercise/dispatcher';
 import { api } from '../identity/session';
 import { emptyDraft, sameDraft, type Draft } from './exercise-contract';
@@ -26,7 +27,8 @@ function restore(key: string, contract: number): Recovery {
     if (value && (value.id === null || uuid.test(value.id)) && Number.isSafeInteger(value.revision)
       && value.revision >= 0 && typeof value.dirty === 'boolean' && validDraft(value.draft)
       && (value.saving === null || Boolean(value.id && value.saving.revision === value.revision && validDraft(value.saving.draft)))
-      && (value.submitting === null || Boolean(value.id && value.submitting.revision === value.revision && uuid.test(value.submitting.key)))) {
+      && (value.submitting === null || Boolean(value.id && (value.submitting.revision === value.revision
+        || value.submitting.revision + 1 === value.revision) && uuid.test(value.submitting.key)))) {
       return value;
     }
   } catch {
@@ -64,7 +66,9 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
   const [conflict, setConflict] = useState(false);
   const [loading, setLoading] = useState(true);
   const [ready, setReady] = useState(false);
-  const [busy, setBusy] = useState<'save' | 'submit' | null>(null);
+  const [busy, setBusy] = useState<'save' | 'submit' | 'help' | 'new' | null>(null);
+  const [hint, setHint] = useState<AttemptContracts['request_hint']['response']['data'] | null>(null);
+  const [revealed, setRevealed] = useState<AttemptContracts['reveal_attempt']['response']['data']['revealed_content'] | null>(null);
   const [dirtyEdit, setDirtyEdit] = useState(0);
   const [storageFailed, setStorageFailed] = useState(false);
   const [message, setMessage] = useState('');
@@ -90,7 +94,7 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
     onSessionChange();
   }
 
-  function report(error: Failure, context: 'load' | 'save' | 'submit') {
+  function report(error: Failure, context: 'load' | 'save' | 'submit' | 'help') {
     if (error.status === 401 || error.status === 403) authChanged();
     if (error.retryAfterSeconds) {
       setMessage('Повторите через ' + error.retryAfterSeconds + ' с.');
@@ -102,6 +106,8 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
       setMessage('Не удалось подтвердить повтор операции. Ваша запись сохранена в редакторе.');
     } else if (error.outcome === 'unknown' && context === 'submit') {
       setMessage('Подтверждение отправки не получено. Проверьте состояние или повторите отправку.');
+    } else if (context === 'help') {
+      setMessage('Не удалось получить помощь. Повторите то же действие.');
     } else if (error.status === 400) {
       setMessage('Сервер не принял запись. Проверьте, что поля заполнены и запись помещается в ограничение длины.');
     } else {
@@ -140,7 +146,9 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
       draft: unsynced && !same ? local.draft : attempt.draft,
       dirty: unsynced && !same,
       saving: null,
-      submitting: attempt.state === 'STARTED' && local.submitting?.revision === attempt.revision ? local.submitting : null,
+      submitting: (attempt.state === 'STARTED' && local.submitting?.revision === attempt.revision
+        || attempt.state === 'SUBMITTED' && local.submitting && local.submitting.revision + 1 === attempt.revision)
+        ? local.submitting : null,
     });
     return true;
   }
@@ -180,7 +188,7 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
           return;
         }
         for (const row of result.value.data) {
-          if (matches(row) && (row.state === 'STARTED' || submitted(row))) latest = row;
+          if (matches(row) && (row.state === 'STARTED' || row.state === 'REVIEWED' || submitted(row))) latest = row;
         }
         cursor = result.value.meta.pagination?.next_cursor ?? null;
         if (cursor && seen.has(cursor)) {
@@ -262,6 +270,14 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
     return false;
   }
 
+  async function verifyOwner(signal: AbortSignal, context: 'save' | 'submit' | 'help') {
+    const identity = await api.call('get_me', { signal: requestSignal(signal) });
+    if (signal.aborted) return false;
+    if (!identity.ok) { report(identity.error, context); return false; }
+    if (String(identity.value.data.id) !== owner) { authChanged(); return false; }
+    return true;
+  }
+
   async function run(kind: 'save' | 'submit') {
     const signal = lifetime.current?.signal;
     if (!signal || signal.aborted || action.current || !ready || loading || locked || conflict) return;
@@ -270,16 +286,7 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
     setBusy(kind);
     setMessage('');
     try {
-      const identity = await api.call('get_me', { signal: requestSignal(signal) });
-      if (signal.aborted) return;
-      if (!identity.ok) {
-        report({ ...identity.error }, kind);
-        return;
-      }
-      if (String(identity.value.data.id) !== owner) {
-        authChanged();
-        return;
-      }
+      if (!await verifyOwner(signal, kind)) return;
       if (!current.current.submitting && !await save(signal)) return;
       if (signal.aborted) return;
       if (kind === 'save') {
@@ -300,7 +307,7 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
         accept(result.value.data);
         return;
       }
-      if (!result.ok && result.outcome !== 'unknown' && result.status !== null
+      if (remote?.state !== 'SUBMITTED' && !result.ok && result.outcome !== 'unknown' && result.status !== null
           && ![401, 403, 429, 503].includes(result.status)) {
         persist({ ...current.current, submitting: null });
       }
@@ -333,6 +340,96 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
     }
   }
 
+  const pollPending = useEffectEvent(async (snapshot: Attempt, signal: AbortSignal) => {
+    if (!snapshot.operation_id || !snapshot.snapshot_digest) return;
+    const receipt = { id: snapshot.id, operation_id: snapshot.operation_id, snapshot_digest: snapshot.snapshot_digest };
+    for (const delay of attemptPollDelaysMs) {
+      await retryDelay(delay, signal);
+      if (signal.aborted || action.current) return;
+      const response = await attempts.pollSubmission(receipt, requestSignal(signal));
+      if (signal.aborted || action.current) return;
+      if (response.ok && response.value.state === 'COMPLETED') {
+        accept(response.value.attempt);
+        return;
+      }
+      if (!response.ok && (response.status === 401 || response.status === 403)) {
+        report(response, 'load');
+        return;
+      }
+    }
+  });
+  useEffect(() => {
+    if (remote?.state !== 'SUBMITTED' || busy || loading || locked || conflict) return;
+    const controller = new AbortController();
+    void pollPending(remote, controller.signal);
+    return () => controller.abort();
+  }, [remote, busy, loading, locked, conflict]);
+
+  async function help(kind: 'reveal' | 'hint', level?: number) {
+    const signal = lifetime.current?.signal;
+    if (!signal || signal.aborted || action.current || loading || locked || !ready || conflict) return;
+    action.current = true;
+    setBusy('help');
+    setMessage('');
+    try {
+      if (!await verifyOwner(signal, 'help')) return;
+      if (!current.current.id && !await save(signal)) return;
+      const id = current.current.id;
+      if (!id || signal.aborted) return;
+      if (kind === 'hint' && level !== undefined) {
+        const result = await attempts.call('request_hint', { id, body: { contract_version: contract, level },
+          idempotencyKey: 'n014-hint:' + id + ':' + level, signal: requestSignal(signal) });
+        if (signal.aborted) return;
+        if (result.ok && result.value.data.exposure.exercise_version_id === version) setHint(result.value.data);
+        else if (!result.ok) report(result, 'help');
+      }
+      if (kind === 'reveal') {
+        const result = await attempts.call('reveal_attempt', { id, body: { contract_version: contract, confirm: true },
+          idempotencyKey: 'n014-reveal:' + id, signal: requestSignal(signal) });
+        if (signal.aborted) return;
+        if (!result.ok) { report(result, 'help'); return; }
+        if (result.value.data.attempt.id !== id || !matches(result.value.data.attempt)) return;
+        setRevealed(result.value.data.revealed_content);
+        const latest = await getAttempt(id, signal);
+        if (signal.aborted) return;
+        if (latest.ok) accept(latest.value.data);
+        else report(latest, 'load');
+      }
+    } finally {
+      action.current = false;
+      if (!signal.aborted) setBusy(null);
+    }
+  }
+
+  async function startOver() {
+    const signal = lifetime.current?.signal;
+    if (!signal || signal.aborted || action.current || locked || conflict || remote?.state !== 'COMPLETED') return;
+    action.current = true;
+    setBusy('new');
+    setMessage('');
+    try {
+      if (!await verifyOwner(signal, 'save')) return;
+      const result = await attempts.call('create_attempt', {
+        body: { exercise_id: exercise.id, version: exercise.version, contract_version: contract, previous_attempt_id: remote.id },
+        idempotencyKey: 'n014-next:' + remote.id, signal: requestSignal(signal),
+      });
+      if (signal.aborted) return;
+      if (!result.ok) { report(result, 'save'); return; }
+      if (!matches(result.value.data) || result.value.data.previous_attempt_id !== remote.id) return;
+      const latest = await getAttempt(result.value.data.id, signal);
+      if (signal.aborted) return;
+      if (!latest.ok) { report(latest, 'load'); return; }
+      if (!matches(latest.value.data) || latest.value.data.id !== result.value.data.id) return;
+      current.current = initial;
+      accept(latest.value.data);
+      setHint(null);
+      setRevealed(null);
+    } finally {
+      action.current = false;
+      if (!signal.aborted) setBusy(null);
+    }
+  }
+
   const autosave = useEffectEvent(() => { void run('save'); });
   useEffect(() => {
     if (dirtyEdit === lastSaveEdit.current || !work.dirty || busy || conflict || locked || !ready || work.submitting) return;
@@ -351,7 +448,7 @@ export function useExerciseAttempt(exercise: PublicExercise, owner: string, onSe
 
   return {
     work, remote, conflict, loading, ready, busy, storageFailed, message, locked,
-    sent: Boolean(remote && submitted(remote) && !conflict), edit, run, overwrite,
+    sent: Boolean(remote && submitted(remote) && !conflict), edit, run, overwrite, help, startOver, hint, revealed,
     reload: () => {
       const signal = lifetime.current?.signal;
       if (signal && !action.current) void load(signal);

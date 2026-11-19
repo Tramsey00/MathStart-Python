@@ -68,7 +68,9 @@ export function LessonPractice({ slug, path }: { slug: string; path: string }) {
       </div>
     </div>}
     {status === 'ready' && user && <ExerciseList key={String(user.id)} owner={String(user.id)} slug={slug}
-      selected={selected} choose={choose} onSessionChange={() => void refresh()} login={loginHref(path, selected)}/>}
+      selected={selected} choose={choose} onSessionChange={() => void refresh()} path={path}/>}
+    {status === 'ready' && !user && <ExerciseList key="guest" owner={null} slug={slug}
+      selected={selected} choose={choose} onSessionChange={() => void refresh()} path={path}/>}
   </section>;
 }
 
@@ -100,7 +102,7 @@ async function readBank(slug: string, signal: AbortSignal): Promise<LoadState> {
         if (!isPublicExercise(exercise) || exercise.topic.slug !== slug || exercise.exercise_version.status !== 'PUBLISHED') {
           return { state: 'unsupported' };
         }
-        if (exercise.interaction_mode === 'FINAL_ANSWER' || exercise.interaction_mode === 'STEP_BY_STEP') exercises.push(exercise);
+        exercises.push(exercise);
       }
       const next = payload.meta.pagination?.next_cursor;
       if (next !== null && (typeof next !== 'string' || next.length < 1 || next.length > 1024 || seen.has(next))) return { state: 'error' };
@@ -113,10 +115,11 @@ async function readBank(slug: string, signal: AbortSignal): Promise<LoadState> {
   }
 }
 
-function ExerciseList({ owner, slug, selected, choose, login, onSessionChange }: {
-  owner: string; slug: string; selected: string | null; choose: (id: string | null) => void;
-  login: string; onSessionChange: () => void;
+function ExerciseList({ owner, slug, selected, choose, path, onSessionChange }: {
+  owner: string | null; slug: string; selected: string | null; choose: (id: string | null) => void;
+  path: string; onSessionChange: () => void;
 }) {
+  const login = loginHref(path, selected);
   const [result, setResult] = useState<LoadState>({ state: 'loading' });
   const [retry, setRetry] = useState(0);
   useEffect(() => {
@@ -130,11 +133,11 @@ function ExerciseList({ owner, slug, selected, choose, login, onSessionChange }:
   useEffect(() => {
     if (result.state !== 'ready') return;
     const target = selectedFromLocation();
-    if (!target) return;
+    if (!target || (!owner && !result.exercises.some(exercise => exercise.id === target))) return;
     const card = document.getElementById(exerciseAnchor(target)) ?? document.getElementById(practiceSection.id);
     card?.focus({ preventScroll: true });
     card?.scrollIntoView({ block: 'start' });
-  }, [result]);
+  }, [result, owner]);
 
   if (result.state === 'loading') return <p role="status">Загружаем задания…</p>;
   if (result.state === 'unauthorized') return <div className="practice-recovery">
@@ -145,20 +148,23 @@ function ExerciseList({ owner, slug, selected, choose, login, onSessionChange }:
     <p role="status">Не удалось загрузить задания.</p>
     <Button onClick={() => { setResult({ state: 'loading' }); setRetry(value => value + 1); }}>Попробовать снова</Button>
   </div>;
-  if (!result.exercises.length) return <p>В этом уроке пока нет заданий для отправки.</p>;
+  const visible = owner ? result.exercises : result.exercises.filter(exercise => exercise.interaction_mode === 'SELF_CHECK');
+  if (!visible.length) return owner ? <p>В этом уроке пока нет заданий.</p> : null;
 
   return <div className="practice-exercises">
-    {selected && !result.exercises.some(exercise => exercise.id === selected) && <p role="status">Выбранное задание больше недоступно.</p>}
-    {result.exercises.map(exercise => {
+    {owner && selected && !visible.some(exercise => exercise.id === selected) && <p role="status">Выбранное задание больше недоступно.</p>}
+    {visible.map(exercise => {
       const form = exerciseForm(exercise);
       const id = exerciseAnchor(exercise.id);
       const open = selected === exercise.id;
       return <article className="worked-example practice-exercise" id={id} key={exercise.exercise_version.id}
         aria-labelledby={id + '-statement'} tabIndex={-1}>
         <h3 id={id + '-statement'}>{exercise.statement}</h3>
-        {!form ? <p>Такая форма решения пока недоступна.</p> : <>
+        {!owner ? <p>Самопроверка. Для показа ответа из банка <a href={loginHref(path, exercise.id)}>войдите</a>.</p>
+          : !form ? <p>Такая форма решения пока недоступна.</p> : <>
           <Button className="practice-toggle" aria-expanded={open} aria-controls={id + '-editor'} onClick={() => choose(open ? null : exercise.id)}>
-            {open ? 'Свернуть' : form.mode === 'final-answer' ? 'Ввести ответ' : 'Записать шаги'}
+            {open ? 'Свернуть' : form.mode === 'self-check' ? 'Самопроверка' : form.mode === 'final-answer' ? 'Ввести ответ'
+              : form.mode === 'structured-solution' ? 'Заполнить решение' : 'Записать шаги'}
           </Button>
           <div id={id + '-editor'} hidden={!open}>
             {open && <PracticeEditor form={form} exercise={exercise} owner={owner} login={login} onSessionChange={onSessionChange}/>}
