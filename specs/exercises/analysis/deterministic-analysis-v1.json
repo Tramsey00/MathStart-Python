@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "exact_scalar",
+      "schema": "integer-final-v1",
+      "key": "2",
+      "answer": "12/6",
+      "verdict": "CORRECT"
+    },
+    {
+      "id": "equivalent_affine_expression",
+      "schema": "expression-final-v1",
+      "key": "x+3",
+      "answer": "x/2+0,5x+3",
+      "verdict": "CORRECT"
+    },
+    {
+      "id": "wrong_final_without_diagnosis",
+      "schema": "integer-final-v1",
+      "key": "2",
+      "answer": "2,00000000001",
+      "verdict": "WRONG"
+    },
+    {
+      "id": "all_solutions",
+      "schema": "equation-steps-v1",
+      "key": "0=0",
+      "initial": "2(x+1)=2x+2",
+      "steps": ["2x+2=2x+2", "x=x"],
+      "answer": "0=0",
+      "verdict": "CORRECT",
+      "prefix": "VALID"
+    },
+    {
+      "id": "no_solutions",
+      "schema": "equation-steps-v1",
+      "key": "0=1",
+      "initial": "2x+3=2x+1",
+      "steps": ["3=1"],
+      "answer": "4=2",
+      "verdict": "CORRECT",
+      "prefix": "VALID"
+    },
+    {
+      "id": "first_error_with_cascade",
+      "schema": "equation-steps-v1",
+      "key": "x=2",
+      "initial": "2(x+3)=10",
+      "skills": ["linear_parentheses", "distributive_property"],
+      "steps": ["2x+3=10", "2x=7", "x=7/2"],
+      "answer": "7/2",
+      "verdict": "WRONG",
+      "prefix": "WRONG",
+      "first_error": 1,
+      "code": "DISTRIBUTIVE_PROPERTY"
+    },
+    {
+      "id": "gap_then_wrong_final",
+      "schema": "equation-steps-v1",
+      "key": "x=2",
+      "initial": "2(x+3)=10",
+      "skills": ["linear_parentheses", "distributive_property"],
+      "steps": ["2x+6=10", "1/x=4", "2x+3=10"],
+      "answer": "3",
+      "verdict": "UNSUPPORTED",
+      "final_verdict": "WRONG",
+      "prefix": "UNSUPPORTED",
+      "blocked_at": 2
+    },
+    {
+      "id": "syntax_gap_even_with_correct_final",
+      "schema": "arithmetic-steps-v1",
+      "key": "7",
+      "initial": "5-(-2)",
+      "skills": ["sign_rules_add_sub"],
+      "steps": ["5+", "5-2"],
+      "answer": "7",
+      "verdict": "INDETERMINATE",
+      "final_verdict": "CORRECT",
+      "prefix": "UNKNOWN",
+      "blocked_at": 1
+    }
+  ]
+}

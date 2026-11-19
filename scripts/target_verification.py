@@ -17,7 +17,7 @@ def target_checks():
     ]
     for name, pattern in [
         ("R03 contract suite", "test_r03_contract.py"),
-        ("R02/R02A contract and math parser suite", "test_r02*_contract.py"),
+        ("R02/R02A contract, parser and deterministic analysis suite", "test_r02*_contract.py"),
         ("R03A contract suite", "test_r03a_contract.py"),
         ("R02 protocol models (synthetic)", "test_migration_r02_protocols.py"),
         ("R03 verification adapter suite", "test_migration_r03*.py"),
