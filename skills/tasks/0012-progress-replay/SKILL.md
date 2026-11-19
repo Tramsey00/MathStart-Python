@@ -121,3 +121,27 @@ Docker builds и живые providers не запускались. Исходн�
 
 Новый SHA/tree/results фиксируются в существующем PR #99. Самопроверка завершена,
 повторное независимое ревью и человеческая приёмка pending; merge не выполнен.
+
+## Последнее замечание Руслана — legacy attempt owner
+
+Исправление поверх `d64ed812049d57103a2db46c90370ef0c3b5d35c`: global ownership
+attempt_id проверяется по immutable Progress events и attempt binding независимо
+от наличия completed_at. Legacy ingest берёт общую attempt advisory lock также для
+незавершённых событий. Проверяется и согласованность владельцев внутри batch;
+история/политики/DDL не менялись, синтетическое время завершения не создаётся.
+
+Точечный PostgreSQL 16.15 прогон (отдельный собственный cluster 55493, marker,
+уникальная новая DB на тест с последующим удалением):
+`python -m unittest backend.tests.test_progress.PostgreSQLProgressTests.test_legacy_incomplete_attempt_rejects_foreign_completion_in_both_orders backend.tests.test_progress.PostgreSQLProgressTests.test_legacy_incomplete_attempt_accepts_same_owner_in_both_orders backend.tests.test_progress.PostgreSQLProgressTests.test_legacy_incomplete_attempt_mixed_owner_batch_is_atomic -v`
+— **3 PASS**, 6.599s. Доказаны оба порядка foreign-owner отказа, оба порядка
+same-owner приёма и exact retry, mixed-owner batch refusal. Во втором пакете
+находится также допустимое независимое завершение; ошибка перехватывается перед
+commit внешней транзакции. Полный снимок всех Progress tables до/после отказа
+совпадает, включая projection/receipt/binding. Initial diagnostic run: 2 PASS,
+дополнительный mixed batch отклонён раньше frozen ContractError; тест уточнён
+на два незавершённых события, чтобы проверить именно новую owner-защиту.
+
+БД остановлена. Host-dev, браузер, сборки и несвязанные тесты не запускались.
+По новому поручению Руслана browser verification перенесена в MS-N015; прежний
+BLOCKED browser отчёт остаётся историей, не новым блокером N012. Новый SHA/tree
+и результат зафиксированы в том же PR #99; новый PR и merge не выполнялись.

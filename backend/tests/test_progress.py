@@ -459,6 +459,67 @@ class PostgreSQLProgressTests(unittest.TestCase):
             with self.engine.begin() as c:c.execute(skill.update().where(skill.c.id==self.sid).values(active=False))
             self.assertEqual(client.get('/api/v1/progress/topics/').json()['data'],[])
 
+    def legacy_pair(self, wrong_owner, completed_owner):
+        completed = self.delivery(kind='CORRECT_AFTER_HINT', owner=completed_owner)
+        wrong = deepcopy(completed.events[0])
+        wrong.update(event_id=str(uuid4()),user_id=str(wrong_owner.user_id),
+                     event_kind='WRONG_ATTEMPT',hint_used=False,evidence_ref='validated-wrong-step',
+                     occurred_at='2026-01-01T00:00:00Z')
+        wrong.pop('completed_at')
+        # The frozen importer requires completion evidence in the fact package;
+        # a bare extra fact must remain ignored, as the preceding regression proves.
+        return Delivery(events=[wrong]), completed
+
+    def legacy_import(self, session, delivery):
+        authority={'context_version':'legacy-completion-v1','records':[
+            {'fact':f,'attempt_state':'LEGACY_COMPLETION','mapped_skill_ids':[f['skill_id']]}
+            for f in delivery.facts]}
+        return self.service.import_legacy(session,delivery,authority)
+
+    def progress_snapshot(self):
+        with self.engine.connect() as c:
+            return {t.name:c.execute(sa.select(t).order_by(*t.primary_key.columns)).all() for t in PROGRESS_TABLES}
+
+    def test_legacy_incomplete_attempt_rejects_foreign_completion_in_both_orders(self):
+        for event_first in (True,False):
+            with self.subTest(event_first=event_first):
+                wrong,completed=self.legacy_pair(self.owner,self.other)
+                first,second=(wrong,completed) if event_first else (completed,wrong)
+                with Session(self.engine) as session,session.begin():self.legacy_import(session,first)
+                before=self.progress_snapshot()
+                # Mix an otherwise valid unrelated completion into the rejected
+                # second package, then catch the error and COMMIT the outer UoW.
+                extra=self.delivery(4,owner=self.other if event_first else self.owner)
+                batch=Delivery(events=extra.events+second.events,facts=extra.facts+second.facts)
+                with Session(self.engine) as session,session.begin():
+                    with self.assertRaises(r03.IdentityConflict):self.legacy_import(session,batch)
+                self.assertEqual(self.progress_snapshot(),before)
+
+    def test_legacy_incomplete_attempt_accepts_same_owner_in_both_orders(self):
+        for event_first in (True,False):
+            with self.subTest(event_first=event_first):
+                wrong,completed=self.legacy_pair(self.owner,self.owner)
+                parts=[wrong,completed] if event_first else [completed,wrong]
+                for part in parts:
+                    with Session(self.engine) as session,session.begin():self.legacy_import(session,part)
+                with self.engine.connect() as c:
+                    self.assertEqual(c.scalar(sa.select(event.c.user_id).where(event.c.event_id==wrong.events[0]['event_id'])),self.owner.user_id)
+                    self.assertEqual(c.scalar(sa.select(completion.c.user_id).where(completion.c.completion_id==UUID(completed.facts[0]['completion_id']))),self.owner.user_id)
+                before=self.progress_snapshot()
+                for part in parts:
+                    with Session(self.engine) as session,session.begin():self.legacy_import(session,part)
+                self.assertEqual(self.progress_snapshot(),before)
+
+    def test_legacy_incomplete_attempt_mixed_owner_batch_is_atomic(self):
+        wrong,_=self.legacy_pair(self.owner,self.other)
+        foreign=deepcopy(wrong.events[0])
+        foreign.update(event_id=str(uuid4()),user_id=str(self.other.user_id),evidence_ref='other-validated-step')
+        before=self.progress_snapshot()
+        with Session(self.engine) as session,session.begin():
+            with self.assertRaises(r03.IdentityConflict):
+                self.legacy_import(session,Delivery(events=wrong.events+[foreign]))
+        self.assertEqual(self.progress_snapshot(),before)
+
     def test_fresh_upgrade_acl_and_immutable_history(self):
         with self.engine.connect() as c:assert_baseline(c,'FRESH',allow_protocol=True,require_history=False)
         with self.database() as old:

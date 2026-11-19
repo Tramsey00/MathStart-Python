@@ -135,6 +135,22 @@ class ProgressService:
 
     def _write(self, session, events, facts, authorities, *, legacy=False):
         mapping = self.skills(session, {v['skill_id'] for v in events + facts})
+        # An unfinished legacy event still establishes global attempt ownership.
+        # Callers hold the attempt locks even when no terminal timestamp exists.
+        owners = {}
+        for value in events + facts:
+            attempt_id = value.get('attempt_id')
+            if attempt_id is None:
+                continue
+            owner = int(value['user_id'])
+            if owners.setdefault(attempt_id, owner) != owner:
+                raise r03.IdentityConflict('Attempt owner conflict')
+        if owners:
+            retained = session.execute(sa.union_all(
+                sa.select(event.c.attempt_id, event.c.user_id).where(event.c.attempt_id.in_(owners)),
+                sa.select(attempt_binding.c.attempt_id, attempt_binding.c.user_id).where(attempt_binding.c.attempt_id.in_(owners))))
+            if any(owners[row.attempt_id] != row.user_id for row in retained):
+                raise r03.IdentityConflict('Attempt owner conflict')
         affected, numeric_changed, duplicates = set(), set(), 0
         for value in events + facts:
             a = authorities.get(value.get('attempt_id'), {})
@@ -215,7 +231,7 @@ class ProgressService:
         if sorted(facts, key=encoded) != sorted(contexts, key=encoded):
             raise r03.ContractError('Legacy facts require exact authoritative provenance')
         scopes = {(int(v['user_id']), v['skill_id']) for v in events + facts}
-        locks(session, ['0:attempt:' + v['attempt_id'] for v in facts]
+        locks(session, ['0:attempt:' + v['attempt_id'] for v in events + facts if v.get('attempt_id') is not None]
               + ['1:event:' + e['event_id'] for e in events]
               + ['2:completion:' + f['completion_id'] for f in facts]
               + [f'3:scope:{u}:{s}' for u, s in scopes])
