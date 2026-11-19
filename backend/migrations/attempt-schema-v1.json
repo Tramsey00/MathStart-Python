@@ -1,0 +1,821 @@
+{
+  "tables": [
+    "assessment_action",
+    "assessment_attempt",
+    "assessment_attempt_event",
+    "assessment_exposure",
+    "assessment_reviewed_hint",
+    "assessment_solution_step"
+  ],
+  "columns": [
+    {
+      "table_name": "assessment_action",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "version_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "attempt_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "operation",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 24,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "key_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "request_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "response",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "status",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_action",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "version_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "previous_attempt_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "revision",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "state",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 12,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "draft",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "snapshot_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "operation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "submitted_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_attempt",
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "attempt_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "action_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "type",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 24,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "help_level",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "column_name": "request_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exposure",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exposure",
+      "column_name": "version_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exposure",
+      "column_name": "max_help_level",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exposure",
+      "column_name": "revealed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_exposure",
+      "column_name": "positive_credit_used",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "column_name": "version_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "column_name": "level",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "column_name": "text",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "column_name": "reviewed_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "attempt_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "step_no",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "step_type",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 20,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "raw_text",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "normalized_repr",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "column_name": "parse_status",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 12,
+      "datetime_precision": null
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "assessment_action",
+      "name": "assessment_action_attempt_id_user_id_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (attempt_id, user_id, version_id) REFERENCES assessment_attempt(id, user_id, version_id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_action",
+      "name": "assessment_action_identity",
+      "type": "u",
+      "definition": "UNIQUE (user_id, operation, key_digest)"
+    },
+    {
+      "table_name": "assessment_action",
+      "name": "assessment_action_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_binding",
+      "type": "u",
+      "definition": "UNIQUE (id, user_id, version_id)"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_operation_id_key",
+      "type": "u",
+      "definition": "UNIQUE (operation_id)"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_previous",
+      "type": "c",
+      "definition": "CHECK (((previous_attempt_id IS NULL) OR (previous_attempt_id <> id)))"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_previous_attempt_id_user_id_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (previous_attempt_id, user_id, version_id) REFERENCES assessment_attempt(id, user_id, version_id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_reviewed_time",
+      "type": "c",
+      "definition": "CHECK ((((state)::text = 'REVIEWED'::text) = (completed_at IS NOT NULL)))"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_revision",
+      "type": "c",
+      "definition": "CHECK ((revision >= 1))"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_snapshot",
+      "type": "c",
+      "definition": "CHECK (((((state)::text = 'SUBMITTED'::text) AND (snapshot_digest IS NOT NULL) AND (operation_id IS NOT NULL) AND (submitted_at IS NOT NULL)) OR (((state)::text <> 'SUBMITTED'::text) AND (snapshot_digest IS NULL) AND (operation_id IS NULL) AND (submitted_at IS NULL))))"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_state",
+      "type": "c",
+      "definition": "CHECK (((state)::text = ANY ((ARRAY['STARTED'::character varying, 'SUBMITTED'::character varying, 'REVIEWED'::character varying, 'ABANDONED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "assessment_attempt",
+      "name": "assessment_attempt_user_id_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id, version_id) REFERENCES assessment_exposure(user_id, version_id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "name": "assessment_attempt_event_action_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (action_id) REFERENCES assessment_action(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "name": "assessment_attempt_event_action_id_key",
+      "type": "u",
+      "definition": "UNIQUE (action_id)"
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "name": "assessment_attempt_event_attempt_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (attempt_id) REFERENCES assessment_attempt(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_attempt_event",
+      "name": "assessment_attempt_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "assessment_exposure",
+      "name": "assessment_exposure_level",
+      "type": "c",
+      "definition": "CHECK (((max_help_level >= 0) AND (max_help_level <= 3)))"
+    },
+    {
+      "table_name": "assessment_exposure",
+      "name": "assessment_exposure_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id, version_id)"
+    },
+    {
+      "table_name": "assessment_exposure",
+      "name": "assessment_exposure_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_exposure",
+      "name": "assessment_exposure_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (version_id) REFERENCES assessment_exercise_version(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "name": "assessment_hint_level",
+      "type": "c",
+      "definition": "CHECK (((level >= 1) AND (level <= 3)))"
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "name": "assessment_hint_text",
+      "type": "c",
+      "definition": "CHECK (((length(text) >= 1) AND (length(text) <= 512)))"
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "name": "assessment_reviewed_hint_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (version_id, level)"
+    },
+    {
+      "table_name": "assessment_reviewed_hint",
+      "name": "assessment_reviewed_hint_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (version_id) REFERENCES assessment_exercise_version(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "name": "assessment_solution_step_attempt_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (attempt_id) REFERENCES assessment_attempt(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "name": "assessment_solution_step_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "name": "assessment_step_number",
+      "type": "c",
+      "definition": "CHECK (((step_no >= 1) AND (step_no <= 40)))"
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "name": "assessment_step_order",
+      "type": "u",
+      "definition": "UNIQUE (attempt_id, step_no)"
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "name": "assessment_step_parse",
+      "type": "c",
+      "definition": "CHECK (((parse_status)::text = ANY ((ARRAY['OK'::character varying, 'UNSUPPORTED'::character varying, 'INVALID'::character varying, 'NOT_REQUIRED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "assessment_solution_step",
+      "name": "assessment_step_type",
+      "type": "c",
+      "definition": "CHECK (((step_type)::text = ANY ((ARRAY['MATH_EXPRESSION'::character varying, 'EQUATION_STATE'::character varying, 'STRUCTURED_FIELDS'::character varying, 'FINAL_STATEMENT'::character varying])::text[])))"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "assessment_action",
+      "indexname": "assessment_action_identity",
+      "indexdef": "CREATE UNIQUE INDEX assessment_action_identity ON public.assessment_action USING btree (user_id, operation, key_digest)"
+    },
+    {
+      "tablename": "assessment_action",
+      "indexname": "assessment_action_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_action_pkey ON public.assessment_action USING btree (id)"
+    },
+    {
+      "tablename": "assessment_attempt",
+      "indexname": "assessment_attempt_binding",
+      "indexdef": "CREATE UNIQUE INDEX assessment_attempt_binding ON public.assessment_attempt USING btree (id, user_id, version_id)"
+    },
+    {
+      "tablename": "assessment_attempt",
+      "indexname": "assessment_attempt_operation_id_key",
+      "indexdef": "CREATE UNIQUE INDEX assessment_attempt_operation_id_key ON public.assessment_attempt USING btree (operation_id)"
+    },
+    {
+      "tablename": "assessment_attempt",
+      "indexname": "assessment_attempt_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_attempt_pkey ON public.assessment_attempt USING btree (id)"
+    },
+    {
+      "tablename": "assessment_attempt",
+      "indexname": "ix_assessment_attempt_owner_order",
+      "indexdef": "CREATE INDEX ix_assessment_attempt_owner_order ON public.assessment_attempt USING btree (user_id, created_at, id)"
+    },
+    {
+      "tablename": "assessment_attempt_event",
+      "indexname": "assessment_attempt_event_action_id_key",
+      "indexdef": "CREATE UNIQUE INDEX assessment_attempt_event_action_id_key ON public.assessment_attempt_event USING btree (action_id)"
+    },
+    {
+      "tablename": "assessment_attempt_event",
+      "indexname": "assessment_attempt_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_attempt_event_pkey ON public.assessment_attempt_event USING btree (id)"
+    },
+    {
+      "tablename": "assessment_exposure",
+      "indexname": "assessment_exposure_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_exposure_pkey ON public.assessment_exposure USING btree (user_id, version_id)"
+    },
+    {
+      "tablename": "assessment_reviewed_hint",
+      "indexname": "assessment_reviewed_hint_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_reviewed_hint_pkey ON public.assessment_reviewed_hint USING btree (version_id, level)"
+    },
+    {
+      "tablename": "assessment_solution_step",
+      "indexname": "assessment_solution_step_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_solution_step_pkey ON public.assessment_solution_step USING btree (id)"
+    },
+    {
+      "tablename": "assessment_solution_step",
+      "indexname": "assessment_step_order",
+      "indexdef": "CREATE UNIQUE INDEX assessment_step_order ON public.assessment_solution_step USING btree (attempt_id, step_no)"
+    }
+  ],
+  "identity_columns": [],
+  "schema_objects": [
+    {
+      "kind": "routine",
+      "name": "assessment_guard_attempt",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_attempt()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            IF TG_OP = 'INSERT' THEN\n                IF NEW.state = 'STARTED' AND NEW.revision = 1 AND NEW.snapshot_digest IS NULL\n                   AND NEW.operation_id IS NULL AND NEW.submitted_at IS NULL AND NEW.completed_at IS NULL\n                   THEN RETURN NEW; END IF;\n            ELSIF TG_OP = 'UPDATE' AND OLD.state = 'STARTED'\n                AND NEW.id = OLD.id AND NEW.user_id = OLD.user_id AND NEW.version_id = OLD.version_id\n                AND NEW.previous_attempt_id IS NOT DISTINCT FROM OLD.previous_attempt_id\n                AND NEW.created_at = OLD.created_at THEN\n                IF NEW.state IN ('STARTED','SUBMITTED','ABANDONED') AND NEW.revision = OLD.revision + 1 THEN\n                    IF NEW.state = 'STARTED' OR NEW.draft = OLD.draft THEN\n                        IF NEW.state <> 'SUBMITTED' OR NOT EXISTS (\n                            SELECT 1 FROM public.assessment_exercise_version WHERE id = OLD.version_id AND mode = 'SELF_CHECK'\n                        ) THEN RETURN NEW; END IF;\n                    END IF;\n                ELSIF NEW.state = 'REVIEWED' AND NEW.revision = OLD.revision AND NEW.draft = OLD.draft\n                    AND EXISTS (SELECT 1 FROM public.assessment_exercise_version WHERE id = OLD.version_id AND mode = 'SELF_CHECK')\n                    AND EXISTS (SELECT 1 FROM public.assessment_exposure WHERE user_id = OLD.user_id\n                                AND version_id = OLD.version_id AND revealed_at IS NOT NULL) THEN\n                    RETURN NEW;\n                END IF;\n            END IF;\n            RAISE EXCEPTION 'Invalid Attempt mutation' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "routine",
+      "name": "assessment_guard_exposure",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_exposure()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            IF TG_OP = 'UPDATE' AND NEW.user_id = OLD.user_id AND NEW.version_id = OLD.version_id\n               AND NEW.max_help_level >= OLD.max_help_level\n               AND (OLD.revealed_at IS NULL OR NEW.revealed_at IS NOT DISTINCT FROM OLD.revealed_at)\n               AND (NOT OLD.positive_credit_used OR NEW.positive_credit_used) THEN RETURN NEW; END IF;\n            RAISE EXCEPTION 'Exposure cannot be reset' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "routine",
+      "name": "assessment_guard_history",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_history()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            RAISE EXCEPTION 'Assessment action history is immutable' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "routine",
+      "name": "assessment_guard_step",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_step()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        DECLARE parent_id uuid; parent_state text;\n        BEGIN\n            IF TG_OP = 'UPDATE' AND (NEW.id <> OLD.id OR NEW.attempt_id <> OLD.attempt_id) THEN\n                RAISE EXCEPTION 'Step identity is immutable' USING ERRCODE = '23514';\n            END IF;\n            IF TG_OP = 'DELETE' THEN parent_id := OLD.attempt_id; ELSE parent_id := NEW.attempt_id; END IF;\n            SELECT state INTO parent_state FROM public.assessment_attempt WHERE id = parent_id FOR UPDATE;\n            IF parent_state IS DISTINCT FROM 'STARTED' THEN\n                RAISE EXCEPTION 'Submitted steps are immutable' USING ERRCODE = '23514';\n            END IF;\n            IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_action_guard",
+      "definition": "CREATE TRIGGER assessment_action_guard BEFORE DELETE OR UPDATE ON public.assessment_action FOR EACH ROW EXECUTE FUNCTION assessment_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_action_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_action_truncate_guard BEFORE TRUNCATE ON public.assessment_action FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_attempt_event_guard",
+      "definition": "CREATE TRIGGER assessment_attempt_event_guard BEFORE DELETE OR UPDATE ON public.assessment_attempt_event FOR EACH ROW EXECUTE FUNCTION assessment_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_attempt_event_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_attempt_event_truncate_guard BEFORE TRUNCATE ON public.assessment_attempt_event FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_attempt_guard",
+      "definition": "CREATE TRIGGER assessment_attempt_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_attempt FOR EACH ROW EXECUTE FUNCTION assessment_guard_attempt()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_attempt_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_attempt_truncate_guard BEFORE TRUNCATE ON public.assessment_attempt FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exposure_guard",
+      "definition": "CREATE TRIGGER assessment_exposure_guard BEFORE DELETE OR UPDATE ON public.assessment_exposure FOR EACH ROW EXECUTE FUNCTION assessment_guard_exposure()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exposure_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_exposure_truncate_guard BEFORE TRUNCATE ON public.assessment_exposure FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_reviewed_hint_guard",
+      "definition": "CREATE TRIGGER assessment_reviewed_hint_guard BEFORE DELETE OR UPDATE ON public.assessment_reviewed_hint FOR EACH ROW EXECUTE FUNCTION assessment_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_reviewed_hint_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_reviewed_hint_truncate_guard BEFORE TRUNCATE ON public.assessment_reviewed_hint FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_solution_step_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_solution_step_truncate_guard BEFORE TRUNCATE ON public.assessment_solution_step FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_step_guard",
+      "definition": "CREATE TRIGGER assessment_step_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_solution_step FOR EACH ROW EXECUTE FUNCTION assessment_guard_step()",
+      "enabled": "O"
+    }
+  ]
+}

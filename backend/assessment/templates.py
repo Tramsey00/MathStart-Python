@@ -2,6 +2,27 @@
 from dataclasses import dataclass
 
 
+def matches_public_contract(template, public):
+    """N009 additive hint policy; text always lives in a separate reviewed bank.
+
+    N008 templates remain reveal-only. Enabling hints requires a new reviewed
+    immutable version, never patching an already published exercise.
+    """
+    expected = template.public_contract()
+    if public == expected:
+        return True
+    if not isinstance(public, dict) or set(public) != set(expected) | {'hint_policy'}:
+        return False
+    policy = public.get('hint_policy')
+    if (not isinstance(policy, dict) or policy.keys() != {'allowed', 'levels'} or policy['allowed'] is not True
+            or not isinstance(policy['levels'], list) or not policy['levels']
+            or any(type(n) is not int or n not in (1, 2, 3) for n in policy['levels'])
+            or sorted(set(policy['levels'])) != policy['levels']):
+        return False
+    expected.update(allowed_help_actions=['HINT', 'REVEAL'], hint_policy=policy)
+    return public == expected
+
+
 @dataclass(frozen=True)
 class Template:
     mode: str

@@ -10,7 +10,7 @@ from backend.infrastructure.http import transport as wire
 from backend.knowledge.models import skill
 
 from .models import exercise, exercise_skill, version
-from .templates import DIFFICULTY_BANDS, TEMPLATES
+from .templates import DIFFICULTY_BANDS, TEMPLATES, matches_public_contract
 
 CURSOR_SALT = 'assessment.topic-exercises.http-v1.cursor'
 UUID_PATTERN = re.compile(r'[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}')
@@ -29,8 +29,8 @@ def public_dto(row, codes):
     template = TEMPLATES.get(row.schema_code)
     if template is None or row.mode != template.mode or not codes:
         raise wire.unavailable()
-    public_schema = template.public_contract()
-    if row.public_schema != public_schema:
+    public_schema = row.public_schema
+    if not matches_public_contract(template, public_schema):
         raise wire.unavailable()
     return {
         'id': str(row.id), 'code': row.code, 'topic': {'id': row.topic_id, 'slug': row.slug},

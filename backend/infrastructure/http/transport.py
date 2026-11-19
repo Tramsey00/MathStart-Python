@@ -58,8 +58,11 @@ def success(request, data, *, pagination=None, delivery=False, schema=None):
 
 
 def error_response(request, error):
-    response = json_response({"error": {"code": error.code, "message": error.message, "field_errors": {},
-                                   "retryable": error.status in (429, 503), "request_id": request_id(request)}}, error.status)
+    body = {"error": {"code": error.code, "message": error.message, "field_errors": {},
+                      "retryable": error.status in (429, 503), "request_id": request_id(request)}}
+    if error.code == 'REVISION_CONFLICT' and hasattr(error, 'details'):
+        body['error'].update(error.details)
+    response = json_response(body, error.status)
     if error.status == 429 and hasattr(error, 'retry_after'):
         response.headers['Retry-After'] = str(error.retry_after)
     return response

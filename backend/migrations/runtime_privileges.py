@@ -3,6 +3,10 @@ from psycopg import sql
 
 ROLE = 'local_runtime'
 TABLE_PRIVILEGES = {
+    **dict.fromkeys(('assessment_exposure', 'assessment_attempt'), 'SELECT, INSERT, UPDATE'),
+    'assessment_solution_step': 'SELECT, INSERT, UPDATE, DELETE',
+    **dict.fromkeys(('assessment_action', 'assessment_attempt_event'), 'SELECT, INSERT'),
+    'assessment_reviewed_hint': 'SELECT',
     # Staff manage users, groups, and their relationship rows.
     **dict.fromkeys(('auth_user', 'auth_group'), 'SELECT, INSERT, UPDATE, DELETE'),
     **dict.fromkeys(('auth_user_groups', 'auth_user_user_permissions', 'auth_group_permissions',
@@ -28,7 +32,11 @@ TABLE_PRIVILEGES = {
                      'target_publication_journal', 'target_publication_gate', 'target_active_release',
                      'target_identity_cutover', 'django_session', 'django_migrations'), 'SELECT'),
 }
-LOCK_COLUMNS = {'auth_permission': 'name', 'django_content_type': 'model'}
+LOCK_COLUMNS = {'auth_permission': 'name', 'django_content_type': 'model',
+                # SELECT FOR SHARE on create needs one UPDATE column; the
+                # immutable version trigger rejects all provenance changes.
+                'assessment_exercise_version': 'provenance'}
+READ_COLUMNS = {'assessment_exercise_validation': ('version_id', 'answer_key', 'canonical_solution')}
 TABLE_RIGHTS = ('SELECT', 'INSERT', 'UPDATE', 'DELETE', 'TRUNCATE', 'REFERENCES', 'TRIGGER')
 SEQUENCE_RIGHTS = ('USAGE', 'SELECT', 'UPDATE')
 
@@ -44,6 +52,9 @@ def grant_runtime_privileges(connection):
     for table, column in LOCK_COLUMNS.items():
         connection.execute(sql.SQL('GRANT UPDATE ({}) ON TABLE public.{} TO {}').format(
             sql.Identifier(column), sql.Identifier(table), sql.Identifier(ROLE)))
+    for table, columns in READ_COLUMNS.items():
+        connection.execute(sql.SQL('GRANT SELECT ({}) ON TABLE public.{} TO {}').format(
+            sql.SQL(', ').join(map(sql.Identifier, columns)), sql.Identifier(table), sql.Identifier(ROLE)))
     check_runtime_privileges(connection)
 
 
@@ -81,12 +92,13 @@ def check_runtime_privileges(connection):
         SELECT c.relname, a.attname, p.privilege_name, has_column_privilege(%s, c.oid, a.attnum, p.privilege_name)
         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
         JOIN pg_attribute a ON a.attrelid = c.oid AND a.attnum > 0 AND NOT a.attisdropped
-        CROSS JOIN unnest(ARRAY['INSERT','UPDATE','REFERENCES']) AS p(privilege_name)
+        CROSS JOIN unnest(ARRAY['SELECT','INSERT','UPDATE','REFERENCES']) AS p(privilege_name)
         WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p', 'v', 'm', 'f')
     """, (ROLE,))
     for table, column, right, actual in columns:
         expected = right in TABLE_PRIVILEGES.get(table, '').split(', ')
         expected |= right == 'UPDATE' and LOCK_COLUMNS.get(table) == column
+        expected |= right == 'SELECT' and column in READ_COLUMNS.get(table, ())
         if actual != expected:
             raise RuntimeError(f'Unexpected local_runtime column privilege: {table}.{column} {right}')
     sequences, = connection.execute("""
