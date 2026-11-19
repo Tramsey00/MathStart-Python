@@ -27,6 +27,7 @@ VERSION = 'reviewed-schema-plan-v1'
 TARGET_SOURCES = {
     'TARGET_0002': 'v01_0002', 'TARGET_0003': 'v01_0003',
     'TARGET_0004': 'v01_0004', 'TARGET_0005': 'v01_0005',
+    'TARGET_0006': 'v01_0006',
 }
 PROFILES = ('FRESH', 'A', 'B', 'C', *TARGET_SOURCES)
 
@@ -56,7 +57,7 @@ def signed(key, domain, value):
 def code_digest():
     paths = [Path(__file__), ROOT / 'backend/users/bootstrap.py',
              ROOT / 'backend/knowledge/models.py', ROOT / 'backend/content/topic_skill_model.py',
-             ROOT / 'backend/assessment/models.py']
+             ROOT / 'backend/assessment/models.py', ROOT / 'backend/assessment/attempt_models.py']
     # The standalone release image has no local-dev scripts. Local installers
     # bind their grant callers too, in addition to the policy under migrations.
     paths.extend(path for name in ('team_local.py', 'container_dev.py')

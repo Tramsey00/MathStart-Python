@@ -292,6 +292,12 @@ TopicSkill принадлежит Content, включает role/importance/orde
 
 ### Assessment и четыре режима
 
+MS-N009 добавляет persistence/API жизненного цикла Attempt, immutable submit,
+permanent action identity и recorded Exposure. Точный implementation closeout,
+ограничения банка hints и передача N010/N013/N014 —
+[N009 lifecycle v1](specs/exercises/N009-attempt-lifecycle-v1.md).
+Это candidate для независимого ревью; статусы R02A/ADR-0004 не изменены.
+
 Exercise — стабильная identity; ExerciseVersion — immutable published statement,
 mode, difficulty, public schemas/parser profile/reveal policy и provenance.
 ExerciseValidation хранит server-only answer key/spec/canonical solution/variants
