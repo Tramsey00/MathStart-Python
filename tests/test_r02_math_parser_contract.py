@@ -212,7 +212,7 @@ class IsolatedParserTests(unittest.TestCase):
         batch, elapsed = self.run_worker_fixture(code, [ParseInput("1", SCALAR)])
         self.assertLess(elapsed, 2)
         self.assertEqual(batch.results[0].parse_status, ParseStatus.UNSUPPORTED)
-        self.assertEqual(batch.results[0].reason, ParseReason.TIMEOUT)
+        self.assertEqual(batch.results[0].reason, ParseReason.WORKER_TIMEOUT)
         self.assertIsNone(batch.results[0].normalized_repr)
         self.assertEqual(parse_expression("2+2", SCALAR).normalized_repr, "4")
 
@@ -230,7 +230,7 @@ for _ in json.load(sys.stdin):
         self.assertLess(completed, MAX_STEPS)
         for result in batch.results[completed:]:
             self.assertEqual(result.parse_status, ParseStatus.UNSUPPORTED)
-            self.assertEqual(result.reason, ParseReason.TIMEOUT)
+            self.assertEqual(result.reason, ParseReason.WORKER_TIMEOUT)
             self.assertIsNone(result.value)
 
     def test_worker_crash_is_safe_and_reaped(self):

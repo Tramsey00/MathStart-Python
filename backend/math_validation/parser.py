@@ -47,7 +47,7 @@ def _run_worker(items: list[ParseInput], batch_deadline: float) -> list[ParseRes
     queue: Queue[tuple[float, bytes] | None] = Queue()
     deadline = min(batch_deadline, monotonic() + EXPRESSION_SECONDS)
     if deadline <= monotonic():
-        return [failed(item, ParseReason.TIMEOUT) for item in items]
+        return [failed(item, ParseReason.WORKER_TIMEOUT) for item in items]
 
     # Give the worker only the Windows OS path if needed by CreateProcess.
     env = {"SystemRoot": os.environ["SystemRoot"]} if "SystemRoot" in os.environ else {}
@@ -90,17 +90,18 @@ def _run_worker(items: list[ParseInput], batch_deadline: float) -> list[ParseRes
             if delivery is None:
                 break
             finished, line = delivery
-            if finished >= deadline:
-                reason = ParseReason.TIMEOUT
-                break
             result = _decode(item, line)
+            # Only the child can attest that normalization used its budget.
             if result.reason == ParseReason.TIMEOUT:
                 reason = ParseReason.TIMEOUT
+                break
+            if finished >= deadline:
+                reason = ParseReason.WORKER_TIMEOUT
                 break
             results.append(result)
             deadline = min(batch_deadline, finished + EXPRESSION_SECONDS)
     except Empty:
-        reason = ParseReason.TIMEOUT
+        reason = ParseReason.WORKER_TIMEOUT
     except (KeyError, TypeError, ValueError, ZeroDivisionError, RuntimeError):
         # Startup or protocol failure is a controlled abstention.
         pass

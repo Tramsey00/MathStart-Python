@@ -5,6 +5,7 @@ from datetime import datetime
 import multiprocessing
 import os
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 from threading import Barrier, Event
 from types import SimpleNamespace
@@ -36,6 +37,7 @@ from backend.infrastructure.http.transport import APIError
 from backend.infrastructure.uow import UnitOfWork
 from backend.knowledge.models import skill
 from backend.math_validation.model import BatchResult, ParseReason, failed
+from backend.math_validation.parser import _worker_command, parse_batch
 from backend.migrations.runtime_privileges import grant_runtime_privileges
 from backend.migrations.upgrade import configuration
 from backend.models.baseline import User, utc_now
@@ -307,16 +309,12 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             self.assertEqual(len(self.events()), 1)
 
     def test_student_parse_deadline_is_terminal_without_evidence(self):
-        from backend.math_validation.parser import parse_batch
-
-        def timeout_student(items):
-            if items[0].text == '  −2  ':
-                return BatchResult(tuple(failed(item, ParseReason.TIMEOUT) for item in items))
-            return parse_batch(items)
-
+        budget_worker = [sys.executable, '-I', '-S', '-B', '-c',
+                         'import json, sys; json.load(sys.stdin); print(json.dumps({"reason": "TIMEOUT"}), flush=True)']
         with self.client() as (client, headers):
             path = self.draft(client, headers)
-            with patch('backend.solution_analyzer.deterministic.parse_batch', side_effect=timeout_student):
+            with patch('backend.math_validation.parser._worker_command',
+                       side_effect=[_worker_command(), budget_worker]):
                 receipt = self.submit(client, headers, path, 'budget').json()
             terminal = self.safe_read(client, path)
             self.assertEqual(terminal['state'], 'COMPLETED')
@@ -325,6 +323,40 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             self.assertEqual(self.submit(client, headers, path, 'budget').json(), receipt)
             self.assertEqual(self.safe_read(client, path), terminal)
             self.assertEqual(self.events(), [])
+
+    def test_worker_startup_delay_keeps_same_submission_recoverable(self):
+        slow_worker = [sys.executable, '-I', '-S', '-B', '-c', 'import time; time.sleep(10)']
+        self.assert_parse_timeout_recoverable([_worker_command(), slow_worker], ParseReason.WORKER_TIMEOUT)
+
+    def test_server_reference_budget_timeout_keeps_same_submission_recoverable(self):
+        budget_worker = [sys.executable, '-I', '-S', '-B', '-c',
+                         'import json, sys; json.load(sys.stdin); print(json.dumps({"reason": "TIMEOUT"}), flush=True)']
+        self.assert_parse_timeout_recoverable([budget_worker], ParseReason.TIMEOUT)
+
+    def assert_parse_timeout_recoverable(self, commands, expected_reason):
+        reasons = []
+
+        def observe_batch(items):
+            batch = parse_batch(items)
+            reasons.extend(result.reason for result in batch.results)
+            return batch
+
+        with self.client() as (client, headers):
+            path = self.draft(client, headers)
+            with patch('backend.math_validation.parser._worker_command', side_effect=commands) as launch:
+                with patch('backend.solution_analyzer.deterministic.parse_batch', side_effect=observe_batch):
+                    receipt = self.submit(client, headers, path, 'timeout-recovery').json()
+            self.assertEqual(launch.call_count, len(commands))
+            self.assertEqual(reasons[-1], expected_reason)
+            pending = self.safe_read(client, path)
+            self.assertEqual(pending['state'], 'SUBMITTED')
+            self.assertEqual(self.events(), [])
+            self.assertEqual(self.submit(client, headers, path, 'timeout-recovery').json(), receipt)
+            completed = self.safe_read(client, path)
+            self.assertEqual(completed['operation_id'], pending['operation_id'])
+            self.assertEqual(completed['state'], 'COMPLETED')
+            self.assertTrue(completed['result']['positive_credit_awarded'])
+            self.assertEqual(len(self.events()), 1)
 
     def test_resume_after_process_dies_inside_analyzer(self):
         with self.client() as (client, headers):

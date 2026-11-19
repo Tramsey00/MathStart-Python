@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 import sys
-from time import monotonic
+from time import process_time
 
 # The parent launches this file with -I -S. Resolve imports from this
 # checked-in path and keep ambient PYTHONPATH and site customization out.
@@ -16,7 +16,7 @@ from backend.math_validation.profiles import EXPRESSION_SECONDS, PROFILES
 
 def main() -> None:
     for text, profile in json.load(sys.stdin.buffer):
-        started = monotonic()
+        started = process_time()
         try:
             value = normalize(text, PROFILES[profile])
         except ParseFailure as error:
@@ -24,7 +24,7 @@ def main() -> None:
         else:
             sides = (value.left, value.right) if isinstance(value, LinearEquation) else (value,)
             result = {"terms": [[str(side.coefficient), str(side.constant)] for side in sides]}
-        if monotonic() - started >= EXPRESSION_SECONDS:
+        if process_time() - started >= EXPRESSION_SECONDS:
             print(json.dumps({"reason": ParseReason.TIMEOUT}), flush=True)
             return
         print(json.dumps(result), flush=True)

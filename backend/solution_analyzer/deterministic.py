@@ -63,7 +63,9 @@ def _bound_steps(submission: SubmittedSolution, plan: CheckPlan) -> tuple[Submit
     return steps
 
 
-def _parse(texts: list[str], profile: str, *, retry_worker_failure: bool) -> dict[str, ParseResult] | None:
+def _parse(
+    texts: list[str], profile: str, *, retry_worker_failure: bool, server_reference: bool = False,
+) -> dict[str, ParseResult] | None:
     if (sum(map(len, texts)) > MAX_REQUEST_BYTES
             or sum(len(text.encode("utf-8", errors="surrogatepass")) for text in texts) > MAX_REQUEST_BYTES):
         return None
@@ -73,9 +75,12 @@ def _parse(texts: list[str], profile: str, *, retry_worker_failure: bool) -> dic
     if batch.rejection is not None:
         return None
     if retry_worker_failure:
-        if any(result.reason == ParseReason.WORKER_FAILURE for result in batch.results):
+        if any(result.reason in (ParseReason.WORKER_FAILURE, ParseReason.WORKER_TIMEOUT)
+               for result in batch.results):
             raise AnalysisUnavailable('Deterministic math worker unavailable')
         if any(result.reason == ParseReason.TIMEOUT for result in batch.results):
+            if server_reference:
+                raise AnalysisUnavailable('Server math reference exceeded the parse budget')
             return None
     return dict(zip(distinct, batch.results, strict=True))
 
@@ -302,7 +307,7 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution, *, retry_worker_fail
             return unverified
         expected.append(plan.initial_state)
 
-    parsed_keys = _parse(expected, plan.profile, retry_worker_failure=retry_worker_failure)
+    parsed_keys = _parse(expected, plan.profile, retry_worker_failure=retry_worker_failure, server_reference=True)
     if parsed_keys is None:
         return unverified
     start = parsed_keys.get(plan.initial_state)
