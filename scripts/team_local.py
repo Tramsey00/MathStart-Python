@@ -29,7 +29,7 @@ STATE = LOCAL / 'installation.json'
 LEGACY_PRIVATE = ROOT / 'var/local/lesson-preview/private-env.json'
 POSTGRES = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
 SERVING = None
-SCHEMA_PROFILES = ('FRESH', 'TARGET_0003')
+SCHEMA_PROFILES = ('FRESH', 'TARGET_0003', 'TARGET_0004', 'TARGET_0005')
 
 
 @contextmanager
@@ -423,7 +423,7 @@ def main(argv=None):
             return 0
         owned_container(state)
         values = read_json(LOCAL / 'schema-env.json')
-        plan_name = 'schema.json' if args.profile == 'FRESH' else 'schema-target-0003.json'
+        plan_name = 'schema.json' if args.profile == 'FRESH' else f'schema-{args.profile.lower().replace("_", "-")}.json'
         if args.action == 'schema-preview':
             if (LOCAL / 'schema-apply-pending.json').exists():
                 raise RuntimeError('Prior schema apply requires operator review; complete ACL before preparing another plan')

@@ -18,6 +18,7 @@ from backend.infrastructure.database import DatabaseUnavailable
 from backend.infrastructure.uow import UnitOfWork
 from backend.infrastructure.http import transport as wire
 from backend.infrastructure.http.contracts import validate
+from backend.assessment.reads import get_exercise, list_exercises
 from backend.content.grades import list_grades
 from backend.content.releases import active_descriptor, active_release, safe_public_path
 from backend.content.releases import Descriptor
@@ -134,6 +135,36 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         return wire.success(request, data, delivery=True, schema='ContentDeliveryResponse')
 
     register('/api/v1/content/pages/{slug}/', delivery, 'get_content_page')
+
+    def exercise_user(request):
+        identity = authenticate(request) if authenticate is not None else None
+        return identity.user_id if identity is not None else None
+
+    def topic_exercises(request: Request):
+        method(request)
+        slug = request.path_params['slug']
+        if not re.fullmatch(r'[-A-Za-z0-9_]{1,255}', slug):
+            raise wire.invalid()
+        user_id = exercise_user(request)
+        with operation() as uow:
+            page = active_release(uow, release_store, namespace).page(slug)
+            if page['page_type'] != 'topic':
+                raise wire.missing()
+            data, pagination = list_exercises(uow.session, page, request.query_params, signer, user_id)
+        return wire.success(request, data, pagination=pagination, schema='PublicExerciseDTOListResponse')
+
+    def exercise_detail(request: Request):
+        method(request)
+        wire.singleton_query(request.query_params, set())
+        user_id = exercise_user(request)
+        with operation() as uow:
+            data = get_exercise(uow.session, lambda: active_release(uow, release_store, namespace),
+                                request.path_params['id'], user_id)
+        return wire.success(request, data, schema='PublicExerciseDTOResponse')
+
+    register('/api/v1/topics/{slug}/exercises/', topic_exercises, 'list_topic_exercises')
+    register('/api/v1/exercises/{id}/', exercise_detail, 'get_exercise')
+
 
     def staff_handler(resource, action):
         async def handler(request: Request):

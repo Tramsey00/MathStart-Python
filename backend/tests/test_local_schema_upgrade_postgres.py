@@ -1,4 +1,4 @@
-"""Reviewed MS-N007 upgrade and ACL recovery through both local operators."""
+"""Reviewed local upgrade and ACL recovery through host-dev and Compose."""
 from contextlib import ExitStack, contextmanager
 import os
 from pathlib import Path
@@ -12,12 +12,13 @@ import sqlalchemy as sa
 
 from backend import release_migrate
 from backend.migrations import runtime_privileges
-from backend.migrations.upgrade import configuration
+from backend.migrations.upgrade import HEAD, configuration
 from backend.tests import test_postgres as disposable
 from scripts import container_dev as compose, team_local as host
 
 
-NEW_TABLES = ('knowledge_skill', 'knowledge_skill_dependency', 'content_topic_skill')
+READ_TABLES = ('knowledge_skill', 'knowledge_skill_dependency', 'content_topic_skill',
+               'assessment_exercise', 'assessment_exercise_version', 'assessment_exercise_skill')
 ROOT = Path(__file__).resolve().parents[2]
 TEMP = ROOT / 'var' / 'tmp'
 ORIGIN = 'http://127.0.0.1:8131'
@@ -41,7 +42,7 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
             connection.exec_driver_sql(f'DROP ROLE {role}')
 
     @contextmanager
-    def installed_database(self):
+    def installed_database(self, source_head):
         with self.fixture.database() as admin:
             with self.fixture.admin.connect() as connection:
                 name = connection.dialect.identifier_preparer.quote(admin.url.database)
@@ -52,9 +53,10 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
             runtime = sa.create_engine(runtime_url, poolclass=sa.pool.NullPool, hide_parameters=True)
             try:
                 with schema.begin() as connection:
-                    command.upgrade(configuration(connection), 'v01_0003')
+                    command.upgrade(configuration(connection), source_head)
+                    installed_tables = set(sa.inspect(connection).get_table_names())
                     previous = {name: grants for name, grants in runtime_privileges.TABLE_PRIVILEGES.items()
-                                if name not in NEW_TABLES}
+                                if name in installed_tables}
                     with patch.dict(runtime_privileges.TABLE_PRIVILEGES, previous, clear=True):
                         runtime_privileges.grant_runtime_privileges(connection.connection.driver_connection)
                     connection.exec_driver_sql("INSERT INTO auth_user (username, password, is_superuser, first_name, "
@@ -73,17 +75,17 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
             self.assertEqual(connection.exec_driver_sql('SELECT version_num FROM alembic_version').scalar_one(), expected)
 
     def assert_installed_acl(self, schema, runtime):
-        self.assert_head(schema, 'v01_0004')
+        self.assert_head(schema, HEAD)
         with runtime.connect() as connection:
             self.assertEqual(connection.exec_driver_sql('SELECT username FROM auth_user').scalar_one(), 'retained')
-            for table in NEW_TABLES:
+            for table in READ_TABLES:
                 self.assertEqual(connection.exec_driver_sql(f'SELECT count(*) FROM {table}').scalar_one(), 0)
                 with self.assertRaises(sa.exc.ProgrammingError) as denied, connection.begin_nested():
                     connection.exec_driver_sql(f'DELETE FROM {table}')
                 self.assertEqual(denied.exception.orig.sqlstate, '42501')
 
     def assert_awaiting_acl(self, schema, runtime):
-        self.assert_head(schema, 'v01_0004')
+        self.assert_head(schema, HEAD)
         with runtime.connect() as connection, self.assertRaises(sa.exc.ProgrammingError) as denied:
             connection.exec_driver_sql('SELECT count(*) FROM knowledge_skill')
         self.assertEqual(denied.exception.orig.sqlstate, '42501')
@@ -101,28 +103,32 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
         self.assertEqual(historical_plan.read_text(encoding='utf-8'), '{}')
 
     @staticmethod
-    def host_command(action, digest=None):
-        args = [action, '--profile', 'TARGET_0003']
+    def host_command(action, digest=None, *, profile='TARGET_0003'):
+        args = [action, '--profile', profile]
         if digest is not None:
             args += ['--reviewed-plan-sha256', digest]
         return host.main(args)
 
     def test_host_dev_review_apply_and_runtime_reads(self):
-        with self.installed_database() as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
-            local = Path(directory)
-            with self.host_setup(local, values):
-                self.assertEqual(self.host_command('schema-preview'), 0)
-                plan = host.read_json(local / 'schema-target-0003.json')
-                self.assertEqual(plan['profile'], 'TARGET_0003')
-                self.assertEqual(self.host_command('schema-apply', '0' * 64), 1)
-                self.assertFalse((local / 'schema-apply-pending.json').exists())
-                self.assert_head(schema, 'v01_0003')
-                self.assertEqual(self.host_command('schema-apply', release_migrate.plan_digest(plan)), 0)
-                self.assertFalse((local / 'schema-apply-pending.json').exists())
-            self.assert_installed_acl(schema, runtime)
+        for source_head, profile in (('v01_0004', 'TARGET_0004'), ('v01_0005', 'TARGET_0005')):
+            with (self.subTest(profile=profile), self.installed_database(source_head) as (schema, runtime, values),
+                  TemporaryDirectory(dir=TEMP) as directory):
+                local = Path(directory)
+                filename = f"schema-{profile.lower().replace('_', '-')}.json"
+                with self.host_setup(local, values):
+                    self.assertEqual(self.host_command('schema-preview', profile=profile), 0)
+                    plan = host.read_json(local / filename)
+                    self.assertEqual(plan['profile'], profile)
+                    self.assertEqual(self.host_command('schema-apply', '0' * 64, profile=profile), 1)
+                    self.assertFalse((local / 'schema-apply-pending.json').exists())
+                    self.assert_head(schema, source_head)
+                    self.assertEqual(self.host_command('schema-apply', release_migrate.plan_digest(plan),
+                                                       profile=profile), 0)
+                    self.assertFalse((local / 'schema-apply-pending.json').exists())
+                self.assert_installed_acl(schema, runtime)
 
     def test_host_dev_resume_from_applied_receipt_without_ddl(self):
-        with self.installed_database() as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
+        with self.installed_database('v01_0003') as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
             local = Path(directory)
             with self.host_setup(local, values):
                 self.assertEqual(self.host_command('schema-preview'), 0)
@@ -161,7 +167,7 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
             self.assert_installed_acl(schema, runtime)
 
     @contextmanager
-    def compose_setup(self, local, values):
+    def compose_setup(self, local, values, source_head):
         state = local / 'state.json'
         schema = local / 'schema-env.json'
         private = local / 'api-env.json'
@@ -173,7 +179,8 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
         host.write_json(private, {'MATHSTART_PUBLIC_ORIGIN': ORIGIN})
         host.write_json(secrets, {})
         migrations = compose.migration_files()
-        previous = {name: digest for name, digest in migrations.items() if 'v01_0004' not in name}
+        previous = {name: digest for name, digest in migrations.items()
+                    if Path(name).name.split('_', 2)[:2] <= source_head.split('_')}
         installed = {'version': 1, 'schema_code': 'previous-schema-code', 'applied_migrations': previous,
                      'release': 'dev-retained', 'content_digest': 'retained-content',
                      'dev_content_digest': 'retained-dev-content', 'work': None}
@@ -198,20 +205,22 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
         self.assertEqual(compose.pending_schema_work(current), [])
 
     def test_compose_review_apply_and_runtime_reads(self):
-        with self.installed_database() as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
-            with self.compose_setup(Path(directory), values) as (installed, migrations):
-                self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=None)), 42)
-                review = compose.read(compose.REVIEW)
-                self.assertEqual(review['summary']['profile'], 'TARGET_0003')
-                self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest='0' * 64)), 42)
-                self.assert_head(schema, 'v01_0003')
-                self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=review['digest'])), 0)
-                self.assert_compose_complete(installed, migrations)
-            self.assert_installed_acl(schema, runtime)
+        for source_head, profile in (('v01_0004', 'TARGET_0004'), ('v01_0005', 'TARGET_0005')):
+            with (self.subTest(profile=profile), self.installed_database(source_head) as (schema, runtime, values),
+                  TemporaryDirectory(dir=TEMP) as directory):
+                with self.compose_setup(Path(directory), values, source_head) as (installed, migrations):
+                    self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=None)), 42)
+                    review = compose.read(compose.REVIEW)
+                    self.assertEqual(review['summary']['profile'], profile)
+                    self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest='0' * 64)), 42)
+                    self.assert_head(schema, source_head)
+                    self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=review['digest'])), 0)
+                    self.assert_compose_complete(installed, migrations)
+                self.assert_installed_acl(schema, runtime)
 
     def test_compose_resume_updates_installer_metadata_without_ddl(self):
-        with self.installed_database() as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
-            with self.compose_setup(Path(directory), values) as (installed, migrations):
+        with self.installed_database('v01_0003') as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
+            with self.compose_setup(Path(directory), values, 'v01_0003') as (installed, migrations):
                 self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=None)), 42)
                 args = SimpleNamespace(schema_digest=compose.read(compose.REVIEW)['digest'])
                 with patch.object(host, 'finish_schema_privileges', side_effect=RuntimeError('Interrupted before ACL')):

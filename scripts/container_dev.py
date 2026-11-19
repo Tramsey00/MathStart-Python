@@ -346,16 +346,19 @@ def schema_update(args):
         state.pop('schema_work')
         work = work_directory(state, schema, 'schema_work')
         path = work / 'schema.json'
+    applied = tuple(Path(name).name for name in state.get('applied_migrations', {}))
+    profile = next((f'TARGET_{number}' for number in ('0005', '0004')
+                    if any(name.startswith(f'v01_{number}_') for name in applied)), 'TARGET_0003')
     with team.installation_paths(work, PRIVATE, SECRETS, SERVING):
         if not path.exists():
-            team.cli('backend.release_migrate', ['preview', '--profile', 'TARGET_0003',
+            team.cli('backend.release_migrate', ['preview', '--profile', profile,
                      '--plan-file', str(path)], 'schema-preview', values)
         plan = read(path)
         digest = plan_digest(plan)
         if args.schema_digest != digest:
             return require_review('schema', path, digest, {key: plan[key] for key in
                 ('profile', 'target_head', 'database', 'table_count', 'expires_at')})
-        team.schema_apply(values, digest, profile='TARGET_0003')
+        team.schema_apply(values, digest, profile=profile)
     complete_schema_update(state, schema, work, migrations)
     print('Schema and runtime ACL updated. Existing Content release retained.', flush=True)
     return 0
@@ -384,7 +387,7 @@ def finish_acl(args):
     require_unchanged_migrations(state, migrations)
     with team.installation_paths(path, PRIVATE, SECRETS, SERVING):
         team.finish_schema_privileges(read(SCHEMA), args.schema_digest,
-                                      profile='TARGET_0003' if upgrade else 'FRESH')
+                                      profile=read(path / 'schema.json')['profile'] if upgrade else 'FRESH')
     if upgrade:
         complete_schema_update(state, schema, path, migrations)
     else:

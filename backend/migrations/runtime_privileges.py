@@ -24,6 +24,7 @@ TABLE_PRIVILEGES = {
     **dict.fromkeys(('content_grade', 'content_subject', 'content_section', 'content_contentpage',
                      'content_lessonpublication', 'content_mediaasset', 'content_redirect',
                      'knowledge_skill', 'knowledge_skill_dependency', 'content_topic_skill',
+                     'assessment_exercise', 'assessment_exercise_version', 'assessment_exercise_skill',
                      'target_publication_journal', 'target_publication_gate', 'target_active_release',
                      'target_identity_cutover', 'django_session', 'django_migrations'), 'SELECT'),
 }

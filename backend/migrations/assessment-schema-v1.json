@@ -1,0 +1,476 @@
+{
+  "tables": [
+    "assessment_exercise",
+    "assessment_exercise_skill",
+    "assessment_exercise_validation",
+    "assessment_exercise_version"
+  ],
+  "columns": [
+    {
+      "table_name": "assessment_exercise",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise",
+      "column_name": "code",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise",
+      "column_name": "topic_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "column_name": "version_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "column_name": "skill_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "column_name": "role",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 9,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "version_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "checker_type",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 48,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "checker_version",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "answer_key",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "accepted_variants",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "validation_spec",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "canonical_solution",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "column_name": "digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "exercise_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "version",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "status",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 9,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "mode",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 19,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "difficulty",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "statement",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "public_schema",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "schema_code",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 48,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "provenance",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "column_name": "digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "assessment_exercise",
+      "name": "assessment_exercise_code_key",
+      "type": "u",
+      "definition": "UNIQUE (code)"
+    },
+    {
+      "table_name": "assessment_exercise",
+      "name": "assessment_exercise_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "assessment_exercise",
+      "name": "assessment_exercise_topic_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (topic_id) REFERENCES content_contentpage(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "name": "assessment_exercise_skill_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (version_id, skill_id)"
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "name": "assessment_exercise_skill_role",
+      "type": "c",
+      "definition": "CHECK (((role)::text = ANY ((ARRAY['PRIMARY'::character varying, 'SECONDARY'::character varying])::text[])))"
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "name": "assessment_exercise_skill_skill_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (skill_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_exercise_skill",
+      "name": "assessment_exercise_skill_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (version_id) REFERENCES assessment_exercise_version(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "name": "assessment_checker_version",
+      "type": "c",
+      "definition": "CHECK ((checker_version > 0))"
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "name": "assessment_exercise_validation_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (version_id)"
+    },
+    {
+      "table_name": "assessment_exercise_validation",
+      "name": "assessment_exercise_validation_version_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (version_id) REFERENCES assessment_exercise_version(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_exercise_version_exercise_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (exercise_id) REFERENCES assessment_exercise(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_exercise_version_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_version_difficulty",
+      "type": "c",
+      "definition": "CHECK (((difficulty >= 1) AND (difficulty <= 4)))"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_version_mode",
+      "type": "c",
+      "definition": "CHECK (((mode)::text = ANY ((ARRAY['SELF_CHECK'::character varying, 'FINAL_ANSWER'::character varying, 'STEP_BY_STEP'::character varying, 'STRUCTURED_SOLUTION'::character varying])::text[])))"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_version_number",
+      "type": "u",
+      "definition": "UNIQUE (exercise_id, version)"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_version_positive",
+      "type": "c",
+      "definition": "CHECK ((version > 0))"
+    },
+    {
+      "table_name": "assessment_exercise_version",
+      "name": "assessment_version_status",
+      "type": "c",
+      "definition": "CHECK (((status)::text = ANY ((ARRAY['DRAFT'::character varying, 'PUBLISHED'::character varying, 'ARCHIVED'::character varying])::text[])))"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "assessment_exercise",
+      "indexname": "assessment_exercise_code_key",
+      "indexdef": "CREATE UNIQUE INDEX assessment_exercise_code_key ON public.assessment_exercise USING btree (code)"
+    },
+    {
+      "tablename": "assessment_exercise",
+      "indexname": "assessment_exercise_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_exercise_pkey ON public.assessment_exercise USING btree (id)"
+    },
+    {
+      "tablename": "assessment_exercise",
+      "indexname": "ix_assessment_exercise_topic_id",
+      "indexdef": "CREATE INDEX ix_assessment_exercise_topic_id ON public.assessment_exercise USING btree (topic_id)"
+    },
+    {
+      "tablename": "assessment_exercise_skill",
+      "indexname": "assessment_exercise_skill_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_exercise_skill_pkey ON public.assessment_exercise_skill USING btree (version_id, skill_id)"
+    },
+    {
+      "tablename": "assessment_exercise_skill",
+      "indexname": "ix_assessment_exercise_skill_skill_id",
+      "indexdef": "CREATE INDEX ix_assessment_exercise_skill_skill_id ON public.assessment_exercise_skill USING btree (skill_id)"
+    },
+    {
+      "tablename": "assessment_exercise_skill",
+      "indexname": "ix_assessment_version_primary",
+      "indexdef": "CREATE UNIQUE INDEX ix_assessment_version_primary ON public.assessment_exercise_skill USING btree (version_id) WHERE ((role)::text = 'PRIMARY'::text)"
+    },
+    {
+      "tablename": "assessment_exercise_validation",
+      "indexname": "assessment_exercise_validation_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_exercise_validation_pkey ON public.assessment_exercise_validation USING btree (version_id)"
+    },
+    {
+      "tablename": "assessment_exercise_version",
+      "indexname": "assessment_exercise_version_pkey",
+      "indexdef": "CREATE UNIQUE INDEX assessment_exercise_version_pkey ON public.assessment_exercise_version USING btree (id)"
+    },
+    {
+      "tablename": "assessment_exercise_version",
+      "indexname": "assessment_version_number",
+      "indexdef": "CREATE UNIQUE INDEX assessment_version_number ON public.assessment_exercise_version USING btree (exercise_id, version)"
+    },
+    {
+      "tablename": "assessment_exercise_version",
+      "indexname": "ix_assessment_version_current",
+      "indexdef": "CREATE UNIQUE INDEX ix_assessment_version_current ON public.assessment_exercise_version USING btree (exercise_id) WHERE ((status)::text = 'PUBLISHED'::text)"
+    },
+    {
+      "tablename": "assessment_exercise_version",
+      "indexname": "ix_assessment_version_selection",
+      "indexdef": "CREATE INDEX ix_assessment_version_selection ON public.assessment_exercise_version USING btree (status, mode, difficulty)"
+    }
+  ],
+  "identity_columns": [],
+  "schema_objects": [
+    {
+      "kind": "routine",
+      "name": "assessment_guard_exercise",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_exercise()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            RAISE EXCEPTION 'Assessment exercise identity is retained' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "routine",
+      "name": "assessment_guard_version",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_version()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            IF TG_OP = 'INSERT' THEN\n                IF NEW.status = 'DRAFT' THEN RETURN NEW; END IF;\n            ELSIF TG_OP = 'UPDATE' THEN\n                IF (to_jsonb(NEW) - 'status') = (to_jsonb(OLD) - 'status') THEN\n                    IF OLD.status = 'PUBLISHED' AND NEW.status = 'ARCHIVED' THEN RETURN NEW; END IF;\n                    IF OLD.status = 'DRAFT' AND NEW.status = 'PUBLISHED'\n                       AND EXISTS (SELECT 1 FROM public.assessment_exercise_validation WHERE version_id = OLD.id)\n                       AND EXISTS (SELECT 1 FROM public.assessment_exercise_skill\n                                   WHERE version_id = OLD.id AND role = 'PRIMARY') THEN\n                        RETURN NEW;\n                    END IF;\n                END IF;\n            END IF;\n            RAISE EXCEPTION 'Invalid Assessment version change' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "routine",
+      "name": "assessment_guard_version_child",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_version_child()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        DECLARE bound_id uuid;\n        BEGIN\n            IF TG_OP = 'UPDATE' OR TG_OP = 'DELETE' THEN\n                RAISE EXCEPTION 'Assessment version data is retained' USING ERRCODE = '23514';\n            END IF;\n            bound_id := NEW.version_id;\n            PERFORM 1 FROM public.assessment_exercise_version\n                WHERE id = bound_id AND status = 'DRAFT' FOR UPDATE;\n            IF NOT FOUND THEN\n                RAISE EXCEPTION 'Assessment version is sealed' USING ERRCODE = '23514';\n            END IF;\n            RETURN NEW;\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exercise_skill_guard",
+      "definition": "CREATE TRIGGER assessment_exercise_skill_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_skill FOR EACH ROW EXECUTE FUNCTION assessment_guard_version_child()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exercise_validation_guard",
+      "definition": "CREATE TRIGGER assessment_exercise_validation_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_validation FOR EACH ROW EXECUTE FUNCTION assessment_guard_version_child()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_guard_exercise",
+      "definition": "CREATE TRIGGER assessment_guard_exercise BEFORE DELETE OR UPDATE ON public.assessment_exercise FOR EACH ROW EXECUTE FUNCTION assessment_guard_exercise()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_guard_version",
+      "definition": "CREATE TRIGGER assessment_guard_version BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_version FOR EACH ROW EXECUTE FUNCTION assessment_guard_version()",
+      "enabled": "O"
+    }
+  ]
+}
