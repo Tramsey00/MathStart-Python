@@ -161,7 +161,8 @@ Init/schema/content — первая установка: существующи�
 
 ## 4. Ежедневный старт и остановка
 
-Для установленной N009/N011 (`v01_0007`) используйте план `TARGET_0007`.
+Для установленной N012 (`v01_0008`) используйте план `TARGET_0008`.
+Для N009/N011 (`v01_0007`) сохранён профиль `TARGET_0007`.
 Для N008 (`v01_0006`) сохранён профиль `TARGET_0006`.
 Для схем `v01_0005`, `v01_0004` и `v01_0003` используйте соответственно
 `TARGET_0005`, `TARGET_0004` и `TARGET_0003` во всех командах ниже и откройте
@@ -170,17 +171,17 @@ Init/schema/content — первая установка: существующи�
 ```powershell
 npm.cmd --prefix frontend run dev:host:stop
 & .\.venv\Scripts\python.exe scripts/team_local.py db-start
-& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview --profile TARGET_0007
-# Просмотрите var/local/team/schema-target-0007.json и подтвердите точный SHA256.
-& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --profile TARGET_0007 --reviewed-plan-sha256 <SCHEMA_SHA256>
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview --profile TARGET_0008
+# Просмотрите var/local/team/schema-target-0008.json и подтвердите точный SHA256.
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --profile TARGET_0008 --reviewed-plan-sha256 <SCHEMA_SHA256>
 ```
 
-Команда проверяет итоговую схему `v01_0008` и выдаёт `local_runtime` минимальные
-права для lifecycle Assessment и Progress. Если сохранены маркер и квитанция `APPLIED` в
-`logs/schema-target-0007-apply.log`, завершите выдачу прав той же квитанцией:
+Команда проверяет схему `v01_0009` и выдаёт `local_runtime` права для
+финализации Assessment и записи Progress. Если сохранены маркер и квитанция
+`APPLIED` в `logs/schema-target-0008-apply.log`, используйте тот же digest.
 
 ```powershell
-& .\.venv\Scripts\python.exe scripts/team_local.py finish-acl --profile TARGET_0007 --reviewed-plan-sha256 <SCHEMA_SHA256>
+& .\.venv\Scripts\python.exe scripts/team_local.py finish-acl --profile TARGET_0008 --reviewed-plan-sha256 <SCHEMA_SHA256>
 ```
 
 После успеха продолжайте обычным `dev:host`. Существующая публикация Content

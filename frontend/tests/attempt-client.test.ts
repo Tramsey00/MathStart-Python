@@ -43,6 +43,23 @@ it('preserves key and body on explicit lost-ACK retry, never automatically retri
   expect(fetch.mock.calls[1]?.[1].body).toBe(fetch.mock.calls[3]?.[1].body);
   expect(fetch.mock.calls[3]?.[1].headers['Idempotency-Key']).toBe(options.idempotencyKey);
 });
+it('polls the same submitted snapshot and distinguishes a safe terminal fallback',async()=>{
+  const accepted=pending();
+  const terminal={...accepted,data:{...accepted.data,state:'COMPLETED',completed_at:'2026-11-19T00:00:02Z',
+    eligibility:{independent:false,positive_credit_eligible:false,reason:'UNSUPPORTED_INPUT'},
+    result:{outcome:'UNSUPPORTED',service_state:'DEGRADED',safe_feedback:'Try another entry',
+      positive_credit_awarded:false,first_error_step_id:null,misconception_code:null}}};
+  const fetch=vi.fn().mockResolvedValueOnce(json(csrf)).mockResolvedValueOnce(json(accepted,202))
+    .mockResolvedValueOnce(json(accepted)).mockResolvedValueOnce(json(terminal))
+    .mockResolvedValueOnce(json({...terminal,data:{...terminal.data,snapshot_digest:'b'.repeat(64)}}));
+  const client=createAttemptClient(fetch);
+  const submit=await client.submit(options);
+  if(!submit.ok)throw Error('Expected a durable submit receipt');
+  expect(await client.pollSubmission(submit.value)).toMatchObject({ok:true,pending:true,value:{state:'SUBMITTED'}});
+  expect(await client.pollSubmission(submit.value)).toMatchObject({ok:true,pending:false,value:{
+    state:'COMPLETED',result:{outcome:'UNSUPPORTED',service_state:'DEGRADED'}}});
+  expect(await client.pollSubmission(submit.value)).toMatchObject({ok:false,code:'MISMATCHED_SUBMISSION'});
+});
 it('keeps 503 uncertain and rejects fabricated 202 without a snapshot',async()=>{
   for(const response of [json(failure('SERVICE_UNAVAILABLE'),503),json(fixture.started,202)]){
     const fetch=vi.fn().mockResolvedValueOnce(json(csrf)).mockResolvedValueOnce(response);

@@ -1,14 +1,17 @@
 """Strict, authenticated Attempt transport; no framework coercion or auto redirects."""
 from fastapi import Request
+from starlette.background import BackgroundTask
 from starlette.concurrency import run_in_threadpool
 
 from backend.infrastructure.http import transport as wire
 from backend.infrastructure.http.contracts import document
 from .attempts import AttemptService, identifier
+from .finalization import FinalizationService
 
 
 def install(app, identity_service, signer, public_release):
     service = AttemptService(identity_service, signer, public_release=public_release)
+    finalization = FinalizationService(service)
     operations = [row for row in document('specs/api/http-policy-v1.json')['operations']
                   if row['tag'] == 'Attempts']
     paths = {}
@@ -36,7 +39,10 @@ def install(app, identity_service, signer, public_release):
             route = config['path'].replace('{id}', str(identifier(raw_id))) if raw_id else config['path']
             response, status = await run_in_threadpool(service.mutate, identity, operation, route, body,
                 request.headers.get('idempotency-key'), wire.request_id(request), raw_id)
-            return wire.json_response(response, status)
+            reply = wire.json_response(response, status)
+            if operation == 'submit_attempt' and status == 202:
+                reply.background = BackgroundTask(finalization.resume, identity, response['data'])
+            return reply
         return endpoint
 
     for path, methods in paths.items():
