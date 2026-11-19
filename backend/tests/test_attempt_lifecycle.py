@@ -647,12 +647,12 @@ service.mutate(identity,operation,f'/api/v1/attempts/{sys.argv[7]}/{suffix}',bod
         with self.assertRaises(sa.exc.IntegrityError), self.engine.begin() as c:
             c.execute(action.update().where(action.c.attempt_id == UUID(pk)).values(status=200))
 
-    def test_runtime_privileges_do_not_grant_checker_or_ddl(self):
+    def test_runtime_privileges_limit_checker_access_and_deny_ddl(self):
         with self.engine.begin() as c:
             c.execute(sa.text('DO $$ BEGIN CREATE ROLE local_runtime; EXCEPTION WHEN duplicate_object THEN NULL; END $$'))
             grant_runtime_privileges(c.connection.driver_connection)
             self.assertFalse(c.scalar(sa.text("SELECT has_table_privilege('local_runtime','assessment_exercise_validation','SELECT')")))
-            self.assertFalse(c.scalar(sa.text("SELECT has_column_privilege('local_runtime','assessment_exercise_validation','validation_spec','SELECT')")))
+            self.assertTrue(c.scalar(sa.text("SELECT has_column_privilege('local_runtime','assessment_exercise_validation','validation_spec','SELECT')")))
             self.assertTrue(c.scalar(sa.text("SELECT has_column_privilege('local_runtime','assessment_exercise_validation','canonical_solution','SELECT')")))
         runtime = sa.create_engine(self.url, hide_parameters=True)
         self.addCleanup(runtime.dispose)

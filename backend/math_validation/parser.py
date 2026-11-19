@@ -15,7 +15,7 @@ from .model import (
     BatchResult, LinearEquation, LinearExpression, ParseInput, ParseReason, ParseResult, ParseStatus, failed,
 )
 from .profiles import (
-    BATCH_SECONDS, EXPRESSION_SECONDS, MAX_CHARS, MAX_RATIONAL_BITS, MAX_REQUEST_BYTES, MAX_STEPS, PROFILES,
+    BATCH_SECONDS, MAX_CHARS, MAX_RATIONAL_BITS, MAX_REQUEST_BYTES, MAX_STEPS, PROFILES,
 )
 
 
@@ -45,9 +45,8 @@ def _decode(item: ParseInput, line: bytes) -> ParseResult:
 def _run_worker(items: list[ParseInput], batch_deadline: float) -> list[ParseResult]:
     payload = json.dumps([[item.text, item.profile] for item in items]).encode("ascii")
     queue: Queue[tuple[float, bytes] | None] = Queue()
-    deadline = min(batch_deadline, monotonic() + EXPRESSION_SECONDS)
-    if deadline <= monotonic():
-        return [failed(item, ParseReason.TIMEOUT) for item in items]
+    if batch_deadline <= monotonic():
+        return [failed(item, ParseReason.WORKER_TIMEOUT) for item in items]
 
     # Give the worker only the Windows OS path if needed by CreateProcess.
     env = {"SystemRoot": os.environ["SystemRoot"]} if "SystemRoot" in os.environ else {}
@@ -86,21 +85,21 @@ def _run_worker(items: list[ParseInput], batch_deadline: float) -> list[ParseRes
         reader.start()
         reader_started = True
         for item in items:
-            delivery = queue.get(timeout=max(0.0, deadline - monotonic()))
+            delivery = queue.get(timeout=max(0.0, batch_deadline - monotonic()))
             if delivery is None:
                 break
             finished, line = delivery
-            if finished >= deadline:
-                reason = ParseReason.TIMEOUT
+            if finished >= batch_deadline:
+                reason = ParseReason.WORKER_TIMEOUT
                 break
             result = _decode(item, line)
+            # Only the child can attest that normalization used its budget.
             if result.reason == ParseReason.TIMEOUT:
                 reason = ParseReason.TIMEOUT
                 break
             results.append(result)
-            deadline = min(batch_deadline, finished + EXPRESSION_SECONDS)
     except Empty:
-        reason = ParseReason.TIMEOUT
+        reason = ParseReason.WORKER_TIMEOUT
     except (KeyError, TypeError, ValueError, ZeroDivisionError, RuntimeError):
         # Startup or protocol failure is a controlled abstention.
         pass

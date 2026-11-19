@@ -3,9 +3,13 @@ from psycopg import sql
 
 ROLE = 'local_runtime'
 TABLE_PRIVILEGES = {
+    **dict.fromkeys(('progress_attempt_binding', 'progress_event', 'progress_completion',
+                     'progress_self_report_receipt'), 'SELECT, INSERT'),
+    'progress_user_skill_state': 'SELECT, INSERT, UPDATE',
     **dict.fromkeys(('assessment_exposure', 'assessment_attempt'), 'SELECT, INSERT, UPDATE'),
     'assessment_solution_step': 'SELECT, INSERT, UPDATE, DELETE',
-    **dict.fromkeys(('assessment_action', 'assessment_attempt_event'), 'SELECT, INSERT'),
+    **dict.fromkeys(('assessment_action', 'assessment_attempt_event',
+                     'assessment_analysis_record', 'assessment_completion_fact'), 'SELECT, INSERT'),
     'assessment_reviewed_hint': 'SELECT',
     # Staff manage users, groups, and their relationship rows.
     **dict.fromkeys(('auth_user', 'auth_group'), 'SELECT, INSERT, UPDATE, DELETE'),
@@ -36,7 +40,8 @@ LOCK_COLUMNS = {'auth_permission': 'name', 'django_content_type': 'model',
                 # SELECT FOR SHARE on create needs one UPDATE column; the
                 # immutable version trigger rejects all provenance changes.
                 'assessment_exercise_version': 'provenance'}
-READ_COLUMNS = {'assessment_exercise_validation': ('version_id', 'answer_key', 'canonical_solution')}
+READ_COLUMNS = {'assessment_exercise_validation': ('version_id', 'answer_key', 'canonical_solution',
+    'checker_type', 'checker_version', 'accepted_variants', 'validation_spec', 'digest')}
 TABLE_RIGHTS = ('SELECT', 'INSERT', 'UPDATE', 'DELETE', 'TRUNCATE', 'REFERENCES', 'TRIGGER')
 SEQUENCE_RIGHTS = ('USAGE', 'SELECT', 'UPDATE')
 

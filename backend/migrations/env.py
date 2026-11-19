@@ -1,6 +1,7 @@
 from alembic import context
 import backend.assessment.models
 import backend.assessment.attempt_models
+import backend.progress.models
 import backend.content.topic_skill_model
 import backend.models.identity
 from backend.models.baseline import metadata

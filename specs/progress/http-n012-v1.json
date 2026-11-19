@@ -1,0 +1,70 @@
+{
+  "version": "progress-http-n012-v1",
+  "operations": [
+    {
+      "path": "/api/v1/progress/skills/",
+      "method": "get",
+      "operation_id": "list_progress_skills",
+      "tag": "Progress",
+      "request": null,
+      "response": "SkillProgressListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/progress/topics/",
+      "method": "get",
+      "operation_id": "list_progress_topics",
+      "tag": "Progress",
+      "request": null,
+      "response": "TopicProgressListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/progress/events/",
+      "method": "get",
+      "operation_id": "list_progress_events",
+      "tag": "Progress",
+      "request": null,
+      "response": "ProgressEventListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/progress/self-reports/",
+      "method": "post",
+      "operation_id": "create_self_report",
+      "tag": "Progress",
+      "request": "SelfReportRequest",
+      "response": "SelfReportResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/progress/completions/",
+      "method": "get",
+      "operation_id": "list_progress_completions",
+      "tag": "Progress",
+      "request": null,
+      "response": "CompletionHistoryListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    }
+  ]
+}

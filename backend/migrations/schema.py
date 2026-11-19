@@ -8,10 +8,11 @@ from alembic.script import ScriptDirectory
 from backend.models.baseline import SNAPSHOT
 
 
-HEAD = 'v01_0007'
+HEAD = 'v01_0009'
 REVISION_PARENTS = {
     'v01_0001': None, 'v01_0002': 'v01_0001', 'v01_0003': 'v01_0002', 'v01_0004': 'v01_0003',
-    'v01_0005': 'v01_0004', 'v01_0006': 'v01_0005', HEAD: 'v01_0006',
+    'v01_0005': 'v01_0004', 'v01_0006': 'v01_0005', 'v01_0007': 'v01_0006',
+    'v01_0008': 'v01_0007', HEAD: 'v01_0008',
 }
 ADDITIVE_MANIFESTS = {
     'v01_0002': 'protocol-schema-v1.json',
@@ -19,7 +20,9 @@ ADDITIVE_MANIFESTS = {
     'v01_0004': 'knowledge-schema-v1.json',
     'v01_0005': 'assessment-schema-v1.json',
     'v01_0006': 'assessment-truncate-guards-v1.json',
-    HEAD: 'attempt-schema-v1.json',
+    'v01_0007': 'attempt-schema-v1.json',
+    'v01_0008': 'progress-schema-v1.json',
+    HEAD: 'finalization-schema-v1.json',
 }
 
 
@@ -142,16 +145,28 @@ def assert_baseline(connection, profile, *, allow_protocol=False, require_histor
     baseline_tables = set(expected['tables'])
     allowed = baseline_tables | {'alembic_version'}
     manifests = []
+    manifest_tables = set()
     if allow_protocol:
         if target_head not in ADDITIVE_MANIFESTS:
             raise SchemaMismatch('Unsupported target schema revision')
         for revision, filename in ADDITIVE_MANIFESTS.items():
             manifest = json.loads(Path(__file__).with_name(filename).read_text(encoding='utf-8'))
+            tables = set(manifest['tables'])
+            if manifest_tables & tables != set(manifest.get('replaced_tables', [])):
+                raise SchemaMismatch('Invalid additive table replacement: ' + revision)
+            manifest_tables.update(tables)
             manifests.append((revision, manifest))
-            allowed.update(manifest['tables'])
+            allowed.update(tables)
             if revision == target_head:
                 break
-    objects = [row for _, manifest in manifests for row in manifest.get('schema_objects', [])]
+    objects = []
+    for _, manifest in manifests:
+        replaced = {tuple(pair) for pair in manifest.get('replaced_schema_objects', [])}
+        current = {(row['kind'], row['name']) for row in manifest.get('schema_objects', [])}
+        if replaced != current & {(row['kind'], row['name']) for row in objects}:
+            raise SchemaMismatch('Invalid additive schema object replacement')
+        objects = [row for row in objects if (row['kind'], row['name']) not in replaced]
+        objects.extend(manifest.get('schema_objects', []))
     if sorted(actual['unexpected_objects'], key=str) != sorted(objects, key=str):
         raise SchemaMismatch('Unknown, missing or changed schema objects')
     if set(actual['tables']) - allowed or baseline_tables - set(actual['tables']):
@@ -170,14 +185,16 @@ def assert_baseline(connection, profile, *, allow_protocol=False, require_histor
     if require_history and actual['migrations'] != expected['migrations']:
         raise SchemaMismatch('Unknown or incomplete Django migration head/history')
     allowed_sequences = names
-    for revision, target in manifests:
-        target_tables = set(target['tables'])
+    for index, (revision, target) in enumerate(manifests):
+        replaced = {name for _, later in manifests[index + 1:] for name in later.get('replaced_tables', [])}
+        target_tables = set(target['tables']) - replaced
         if not target_tables <= set(actual['tables']):
             raise SchemaMismatch('Missing additive tables: ' + revision)
         for key, table_key in [('columns', 'table_name'), ('constraints', 'table_name'),
                                ('indexes', 'tablename'), ('identity_columns', 'table_name')]:
             observed = [row for row in actual[key] if row[table_key] in target_tables]
-            if sorted(observed, key=str) != sorted(target[key], key=str):
+            wanted = [row for row in target[key] if row[table_key] in target_tables]
+            if sorted(observed, key=str) != sorted(wanted, key=str):
                 raise SchemaMismatch(f'Additive schema drift: {revision} {key}')
         expected_sequences = target.get('sequences', [])
         target_sequences = {row['sequencename'] for row in expected_sequences}

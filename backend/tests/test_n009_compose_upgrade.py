@@ -13,6 +13,7 @@ from sqlalchemy.engine import make_url
 
 from backend import release_migrate
 from backend.migrations import runtime_privileges
+from backend.migrations.schema import HEAD
 from backend.tests import test_local_schema_upgrade_postgres as local_checks
 from scripts import container_dev as compose, team_local as host
 
@@ -69,7 +70,7 @@ class N009ComposeUpgradeTests(unittest.TestCase):
             connection.exec_driver_sql(f'DROP ROLE {role}')
 
     def assert_n009_acl(self, schema, runtime):
-        self.assert_head(schema, 'v01_0007')
+        self.assert_head(schema, HEAD)
         with schema.begin() as connection:
             runtime_privileges.check_runtime_privileges(connection.connection.driver_connection)
         with runtime.connect() as connection:
@@ -77,7 +78,7 @@ class N009ComposeUpgradeTests(unittest.TestCase):
             for name in ('assessment_attempt', 'assessment_exposure', 'assessment_action', 'assessment_attempt_event',
                          'assessment_solution_step', 'assessment_reviewed_hint'):
                 self.assertEqual(connection.exec_driver_sql('SELECT count(*) FROM ' + name).scalar_one(), 0)
-            self.assertFalse(connection.scalar(sa.text("SELECT has_column_privilege(current_user,'assessment_exercise_validation','validation_spec','SELECT')")))
+            self.assertFalse(connection.scalar(sa.text("SELECT has_table_privilege(current_user,'assessment_exercise_validation','SELECT')")))
             self.assertTrue(connection.scalar(sa.text("SELECT has_column_privilege(current_user,'assessment_exercise_validation','canonical_solution','SELECT')")))
             self.assertFalse(connection.scalar(sa.text("SELECT has_table_privilege(current_user,'assessment_action','UPDATE')")))
 
@@ -87,7 +88,7 @@ class N009ComposeUpgradeTests(unittest.TestCase):
                 self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=None)), 42)
                 review = compose.read(compose.REVIEW)
                 self.assertEqual(review['summary']['profile'], 'TARGET_0006')
-                self.assertEqual(review['summary']['target_head'], 'v01_0007')
+                self.assertEqual(review['summary']['target_head'], HEAD)
                 self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest='0' * 64)), 42)
                 self.assert_head(schema, 'v01_0006')
                 self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=review['digest'])), 0)
@@ -102,7 +103,7 @@ class N009ComposeUpgradeTests(unittest.TestCase):
                 with patch.object(host, 'finish_schema_privileges', side_effect=RuntimeError('Interrupted before ACL')):
                     with self.assertRaisesRegex(RuntimeError, 'Interrupted before ACL'):
                         compose.schema_update(args)
-                self.assert_head(schema, 'v01_0007')
+                self.assert_head(schema, HEAD)
                 with runtime.connect() as connection, self.assertRaises(sa.exc.ProgrammingError):
                     connection.exec_driver_sql('SELECT count(*) FROM assessment_attempt')
                 current = compose.read(compose.STATE)
