@@ -29,7 +29,7 @@ STATE = LOCAL / 'installation.json'
 LEGACY_PRIVATE = ROOT / 'var/local/lesson-preview/private-env.json'
 POSTGRES = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
 SERVING = None
-SCHEMA_PROFILES = ('FRESH', 'TARGET_0003', 'TARGET_0004')
+SCHEMA_PROFILES = ('FRESH', 'TARGET_0003', 'TARGET_0004', 'TARGET_0005')
 
 
 @contextmanager

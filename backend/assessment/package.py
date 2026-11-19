@@ -118,11 +118,29 @@ def read_package(path):
     if len(raw) > max_bytes:
         raise BankError('Oversized bank package')
     data = decode_json(raw)
-    if not isinstance(data, dict) or data.keys() != {'bank_version', 'exercises'} or (
-            data['bank_version'] != 'pilot-v1' or not isinstance(data['exercises'], list)):
+    required = {'bank_version', 'exercises'}
+    if (not isinstance(data, dict) or not required <= data.keys() <= required | {'archive'}
+            or data['bank_version'] != 'pilot-v1' or not isinstance(data['exercises'], list)
+            or not isinstance(data.get('archive', []), list)):
         raise BankError('Unknown or malformed pilot bank package')
-    rows = data['exercises']
-    return rows, validate_rows(rows), sha256(raw).hexdigest()
+    rows, archive = data['exercises'], data.get('archive', [])
+    coverage = validate_rows(rows)
+    retirement_targets(rows, archive)
+    return rows, coverage, sha256(raw).hexdigest(), archive
+
+
+def retirement_targets(rows, archive):
+    incoming = {row['code']: row['version'] for row in rows}
+    targets = {}
+    for item in archive:
+        if (not isinstance(item, dict) or item.keys() != {'code', 'version'} or not code_value(item['code'])
+                or type(item['version']) is not int or not 1 <= item['version'] < 2**31):
+            raise BankError('Invalid archive target; specify the exercise code and exact version')
+        code, number = item['code'], item['version']
+        if code in targets or (code in incoming and incoming[code] <= number):
+            raise BankError('An archive target must be unique and omitted or superseded by the reviewed bank')
+        targets[code] = number
+    return targets
 
 
 def validate_rows(rows):

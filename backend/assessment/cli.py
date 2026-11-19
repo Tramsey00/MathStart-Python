@@ -29,8 +29,8 @@ def main(argv=None):
     try:
         receipt = {'action': args.action}
         if args.action != 'archive':
-            rows, coverage, package_sha = read_package(args.package)
-            receipt.update(coverage=coverage, package_sha256=package_sha)
+            rows, coverage, package_sha, archive_versions = read_package(args.package)
+            receipt.update(coverage=coverage, package_sha256=package_sha, archive=archive_versions)
             if args.action != 'preview' and not hmac.compare_digest(package_sha, args.reviewed_sha256):
                 raise BankError('Reviewed package SHA-256 does not match')
         if args.action != 'preview':
@@ -43,7 +43,7 @@ def main(argv=None):
                 receipt.update(exercise_code=args.exercise_code, version=args.version,
                                changed=archive(engine, args.exercise_code, args.version))
             else:
-                receipt['changed'] = apply_bank(engine, rows, args.action)
+                receipt['changed'] = apply_bank(engine, rows, args.action, archive_versions=archive_versions)
     except BankError as error:
         print('ASSESSMENT_BANK_REFUSED: ' + str(error), file=sys.stderr)
         return 1

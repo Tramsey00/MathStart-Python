@@ -1,0 +1,39 @@
+{
+  "tables": [],
+  "columns": [],
+  "constraints": [],
+  "indexes": [],
+  "identity_columns": [],
+  "schema_objects": [
+    {
+      "kind": "routine",
+      "name": "assessment_guard_truncate",
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_truncate()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            RAISE EXCEPTION 'Assessment history cannot be truncated' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exercise_skill_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_exercise_skill_truncate_guard BEFORE TRUNCATE ON public.assessment_exercise_skill FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exercise_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_exercise_truncate_guard BEFORE TRUNCATE ON public.assessment_exercise FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exercise_validation_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_exercise_validation_truncate_guard BEFORE TRUNCATE ON public.assessment_exercise_validation FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "assessment_exercise_version_truncate_guard",
+      "definition": "CREATE TRIGGER assessment_exercise_version_truncate_guard BEFORE TRUNCATE ON public.assessment_exercise_version FOR EACH STATEMENT EXECUTE FUNCTION assessment_guard_truncate()",
+      "enabled": "O"
+    }
+  ]
+}

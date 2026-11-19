@@ -9,7 +9,7 @@ from backend.knowledge.models import skill
 from backend.models.baseline import metadata, utc_now
 
 from .models import exercise, exercise_skill, validation, version
-from .package import BankError, TOPICS, digest, validate_rows, validation_data
+from .package import BankError, TOPICS, digest, retirement_targets, validate_rows, validation_data
 from .templates import TEMPLATES
 
 
@@ -94,24 +94,41 @@ def store_candidate(connection, row, topic_ids, skill_ids, action):
     if existing['status'] != 'DRAFT' or any(
             item['version'] > row['version'] and item['status'] != 'DRAFT' for item in versions):
         raise BankError('Archived or superseded versions cannot be published')
-    connection.execute(version.update().where(version.c.exercise_id == exercise_id, version.c.status == 'PUBLISHED')
-                       .values(status='ARCHIVED'))
     connection.execute(version.update().where(version.c.id == version_id).values(status='PUBLISHED'))
     return 1
 
 
-def apply_bank(engine, rows, action):
+def archive_replacements(connection, incoming_versions, targets):
+    e, v = exercise.c, version.c
+    selected = connection.execute(sa.select(e.code, v.version, v.status, v.id)
+        .join(version, v.exercise_id == e.id).where(sa.or_(
+            v.status == 'PUBLISHED', sa.tuple_(e.code, v.version).in_(targets.items())
+        ))).all()
+    outgoing = [row for row in selected if row.status == 'PUBLISHED'
+                and incoming_versions.get(row.code) != row.version]
+    if any(targets.get(row.code) != row.version for row in outgoing):
+        raise BankError('Every outgoing published version must be named in the reviewed archive list')
+    compatible = {(row.code, row.version) for row in selected if row.status in {'PUBLISHED', 'ARCHIVED'}}
+    if not set(targets.items()) <= compatible:
+        raise BankError('Reviewed archive target was never published')
+    if outgoing:
+        changed = connection.execute(version.update().where(
+            v.id.in_([row.id for row in outgoing]), v.status == 'PUBLISHED'
+        ).values(status='ARCHIVED')).rowcount
+        if changed != len(outgoing):
+            raise BankError('Reviewed archive target changed during publication')
+
+
+def apply_bank(engine, rows, action, *, archive_versions=()):
     if action not in {'import', 'publish'}:
         raise BankError('Unknown bank action')
     validate_rows(rows)
+    targets = retirement_targets(rows, archive_versions)
     with engine.connect().execution_options(isolation_level='READ COMMITTED') as connection, connection.begin():
         lock_bank(connection)
-        if action == 'publish':
-            active = set(connection.scalars(sa.select(exercise.c.code).join(
-                version, version.c.exercise_id == exercise.c.id).where(version.c.status == 'PUBLISHED')))
-            if active - {row['code'] for row in rows}:
-                raise BankError('Archive previously published exercises omitted by the reviewed package first')
         topics, skills = references(connection, rows)
+        if action == 'publish':
+            archive_replacements(connection, {row['code']: row['version'] for row in rows}, targets)
         return sum(store_candidate(connection, row, topics, skills, action) for row in rows)
 
 

@@ -346,8 +346,9 @@ def schema_update(args):
         state.pop('schema_work')
         work = work_directory(state, schema, 'schema_work')
         path = work / 'schema.json'
-    profile = ('TARGET_0004' if any(Path(name).name.startswith('v01_0004_')
-                                    for name in state.get('applied_migrations', {})) else 'TARGET_0003')
+    applied = tuple(Path(name).name for name in state.get('applied_migrations', {}))
+    profile = next((f'TARGET_{number}' for number in ('0005', '0004')
+                    if any(name.startswith(f'v01_{number}_') for name in applied)), 'TARGET_0003')
     with team.installation_paths(work, PRIVATE, SECRETS, SERVING):
         if not path.exists():
             team.cli('backend.release_migrate', ['preview', '--profile', profile,

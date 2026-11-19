@@ -1,6 +1,11 @@
 """MS-N008 checks run only against an explicitly marked disposable PostgreSQL server."""
+from contextlib import redirect_stderr, redirect_stdout
 from copy import deepcopy
+from hashlib import sha256
+from io import StringIO
+import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 import os
 import unittest
@@ -15,9 +20,10 @@ from starlette.testclient import TestClient
 
 from backend import release_migrate
 from backend.assessment.bank import apply_bank, archive
+from backend.assessment import cli
 from backend.assessment.models import exercise, exercise_skill, validation, version
 from backend.assessment.package import BankError, TOPICS, read_package, validate_rows
-from backend.assessment.reads import public_dto
+from backend.assessment.reads import public_dto, public_rows
 from backend.assessment.templates import TEMPLATES
 from backend.content.import_pilot_knowledge import import_pilot, read_fixture
 from backend.content.topic_skill_model import content_page, topic_skill
@@ -113,7 +119,7 @@ class PostgreSQLBankTests(unittest.TestCase):
         self.addCleanup(self.drop_database, name)
         self.engine = sa.create_engine(self.url.set(database=name), hide_parameters=True)
         self.addCleanup(self.engine.dispose)
-        self.rows, self.coverage, _ = read_package(Path(PACKAGE))
+        self.rows, self.coverage, _, _ = read_package(Path(PACKAGE))
 
     def drop_database(self, name):
         with self.admin.connect() as conn:
@@ -193,6 +199,125 @@ class PostgreSQLBankTests(unittest.TestCase):
             self.assertIsNotNone(conn.scalar(sa.select(validation.c.version_id).where(validation.c.version_id == old_id)))
             self.assertIsNotNone(conn.scalar(sa.select(exercise_skill.c.version_id).where(exercise_skill.c.version_id == old_id)))
             assert_baseline(conn, 'FRESH', allow_protocol=True, require_history=False)
+
+    def test_reviewed_replacement_is_atomic_even_on_late_conflict(self):
+        self.migrate('FRESH')
+        seed(self.engine)
+        apply_bank(self.engine, self.rows, 'import')
+        apply_bank(self.engine, self.rows, 'publish')
+
+        def published():
+            with self.engine.connect() as conn:
+                return {row.code: row.version_id for row in conn.execute(public_rows())}
+
+        before = published()
+        replacement = deepcopy(self.rows)
+        old_code = replacement[0]['code']
+        new_code = old_code + '_replacement'
+        replacement[0]['code'] = new_code
+        unchanged_code = replacement[1]['code']
+        replacement[1]['version'] += 1
+        targets = [{'code': old_code, 'version': self.rows[0]['version']},
+                   {'code': unchanged_code, 'version': self.rows[1]['version']}]
+        with TemporaryDirectory(dir=Path('var/tmp')) as directory:
+            path = Path(directory) / 'replacement.json'
+            path.write_text(json.dumps({'bank_version': 'pilot-v1', 'exercises': replacement, 'archive': targets}),
+                            encoding='utf-8')
+            digest = sha256(path.read_bytes()).hexdigest()
+            args = ['--package', str(path), '--reviewed-sha256', digest]
+            url = self.engine.url.render_as_string(hide_password=False)
+            database = {'MATHSTART_DB_BACKEND': 'postgresql', 'MATHSTART_DATABASE_URL': url}
+            with patch.dict(os.environ, database), redirect_stdout(StringIO()):
+                self.assertEqual(cli.main(['import', *args]), 0)
+                self.assertEqual(published(), before)
+                with self.assertRaisesRegex(BankError, 'Every outgoing'):
+                    apply_bank(self.engine, replacement, 'publish', archive_versions=targets[:1])
+                stale = [{**targets[0], 'version': targets[0]['version'] + 1}, targets[1]]
+                with self.assertRaisesRegex(BankError, 'Every outgoing'):
+                    apply_bank(self.engine, replacement, 'publish', archive_versions=stale)
+                invalid = deepcopy(replacement)
+                invalid[-1]['statement'] += ' Late conflict'
+                with self.assertRaisesRegex(BankError, 'Version already exists'):
+                    apply_bank(self.engine, invalid, 'publish', archive_versions=targets)
+                self.assertEqual(published(), before)
+                self.assertEqual(cli.main(['publish', *args]), 0)
+        after = published()
+        self.assertEqual(set(after), set(before) - {old_code} | {new_code})
+        self.assertNotEqual(after[unchanged_code], before[unchanged_code])
+        stable = set(before) - {old_code, unchanged_code}
+        self.assertEqual({code: after[code] for code in stable}, {code: before[code] for code in stable})
+        with self.engine.connect() as conn:
+            for code in (old_code, unchanged_code):
+                old_id = before[code]
+                self.assertEqual(conn.scalar(sa.select(version.c.status).where(version.c.id == old_id)), 'ARCHIVED')
+                self.assertIsNotNone(conn.scalar(sa.select(validation.c.version_id)
+                                                .where(validation.c.version_id == old_id)))
+                self.assertIsNotNone(conn.scalar(sa.select(exercise_skill.c.version_id)
+                                                .where(exercise_skill.c.version_id == old_id)))
+        self.assertEqual(apply_bank(self.engine, replacement, 'publish', archive_versions=targets), 0)
+        self.assertEqual(published(), after)
+
+    def test_v0005_upgrade_checks_active_guards_and_blocks_writer_truncate(self):
+        with self.engine.begin() as conn:
+            conn.exec_driver_sql("DO $$ BEGIN CREATE ROLE local_schema NOLOGIN; "
+                                 "EXCEPTION WHEN duplicate_object THEN NULL; END $$")
+            conn.exec_driver_sql('GRANT USAGE, CREATE ON SCHEMA public TO local_schema')
+        writer = sa.create_engine(self.engine.url, hide_parameters=True, poolclass=sa.pool.NullPool)
+        self.addCleanup(writer.dispose)
+
+        @sa.event.listens_for(writer, 'connect')
+        def use_schema_owner(raw, _):
+            with raw.cursor() as cursor:
+                cursor.execute('SET ROLE local_schema')
+            raw.commit()
+
+        self.engine.dispose()
+        self.engine = writer
+        with writer.begin() as conn:
+            command.upgrade(configuration(conn), 'v01_0005')
+        seed(writer)
+        apply_bank(writer, self.rows, 'import')
+        apply_bank(writer, self.rows, 'publish')
+        tables = (exercise, version, validation, exercise_skill)
+        with writer.connect() as conn:
+            before = [stored(conn, table) for table in tables]
+        self.migrate('TARGET_0005')
+
+        def check_schema(expected):
+            database = {'MATHSTART_DB_BACKEND': 'postgresql',
+                        'MATHSTART_DATABASE_URL': writer.url.render_as_string(hide_password=False)}
+            out, errors = StringIO(), StringIO()
+            with (patch.dict(os.environ, database),
+                  patch.object(release_migrate, 'create_engine', return_value=writer),
+                  redirect_stdout(out), redirect_stderr(errors)):
+                result = release_migrate.main(['check'])
+            self.assertEqual(result, expected, errors.getvalue())
+            if expected:
+                self.assertIn('SchemaMismatch', errors.getvalue())
+            else:
+                self.assertIn('CHECKED', out.getvalue())
+
+        check_schema(0)
+        for table in (validation, exercise_skill, exercise):
+            with self.subTest(table=table.name):
+                with self.assertRaises(sa.exc.IntegrityError) as denied, writer.begin() as conn:
+                    self.assertTrue(conn.scalar(sa.text(
+                        "SELECT current_user = 'local_schema' AND has_table_privilege(:name, 'TRUNCATE')"
+                    ), {'name': table.name}))
+                    conn.exec_driver_sql(f'TRUNCATE public.{table.name} CASCADE')
+                self.assertEqual(denied.exception.orig.sqlstate, '23514')
+
+        protections = ((version.name, 'assessment_guard_version', 'DISABLE TRIGGER'),
+                       (validation.name, validation.name + '_truncate_guard', 'ENABLE REPLICA TRIGGER'))
+        for table, trigger, disable in protections:
+            with self.subTest(trigger=trigger), writer.begin() as conn:
+                conn.exec_driver_sql(f'ALTER TABLE public.{table} {disable} {trigger}')
+            check_schema(1)
+            with writer.begin() as conn:
+                conn.exec_driver_sql(f'ALTER TABLE public.{table} ENABLE TRIGGER {trigger}')
+            check_schema(0)
+        with writer.connect() as conn:
+            self.assertEqual([stored(conn, table) for table in tables], before)
 
     def test_http_access_order_and_private_nested_values(self):
         self.migrate('FRESH')

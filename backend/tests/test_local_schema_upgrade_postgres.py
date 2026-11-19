@@ -110,19 +110,22 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
         return host.main(args)
 
     def test_host_dev_review_apply_and_runtime_reads(self):
-        with self.installed_database('v01_0004') as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
-            local = Path(directory)
-            with self.host_setup(local, values):
-                self.assertEqual(self.host_command('schema-preview', profile='TARGET_0004'), 0)
-                plan = host.read_json(local / 'schema-target-0004.json')
-                self.assertEqual(plan['profile'], 'TARGET_0004')
-                self.assertEqual(self.host_command('schema-apply', '0' * 64, profile='TARGET_0004'), 1)
-                self.assertFalse((local / 'schema-apply-pending.json').exists())
-                self.assert_head(schema, 'v01_0004')
-                self.assertEqual(self.host_command('schema-apply', release_migrate.plan_digest(plan),
-                                                        profile='TARGET_0004'), 0)
-                self.assertFalse((local / 'schema-apply-pending.json').exists())
-            self.assert_installed_acl(schema, runtime)
+        for source_head, profile in (('v01_0004', 'TARGET_0004'), ('v01_0005', 'TARGET_0005')):
+            with (self.subTest(profile=profile), self.installed_database(source_head) as (schema, runtime, values),
+                  TemporaryDirectory(dir=TEMP) as directory):
+                local = Path(directory)
+                filename = f"schema-{profile.lower().replace('_', '-')}.json"
+                with self.host_setup(local, values):
+                    self.assertEqual(self.host_command('schema-preview', profile=profile), 0)
+                    plan = host.read_json(local / filename)
+                    self.assertEqual(plan['profile'], profile)
+                    self.assertEqual(self.host_command('schema-apply', '0' * 64, profile=profile), 1)
+                    self.assertFalse((local / 'schema-apply-pending.json').exists())
+                    self.assert_head(schema, source_head)
+                    self.assertEqual(self.host_command('schema-apply', release_migrate.plan_digest(plan),
+                                                       profile=profile), 0)
+                    self.assertFalse((local / 'schema-apply-pending.json').exists())
+                self.assert_installed_acl(schema, runtime)
 
     def test_host_dev_resume_from_applied_receipt_without_ddl(self):
         with self.installed_database('v01_0003') as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
@@ -202,16 +205,18 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
         self.assertEqual(compose.pending_schema_work(current), [])
 
     def test_compose_review_apply_and_runtime_reads(self):
-        with self.installed_database('v01_0004') as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:
-            with self.compose_setup(Path(directory), values, 'v01_0004') as (installed, migrations):
-                self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=None)), 42)
-                review = compose.read(compose.REVIEW)
-                self.assertEqual(review['summary']['profile'], 'TARGET_0004')
-                self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest='0' * 64)), 42)
-                self.assert_head(schema, 'v01_0004')
-                self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=review['digest'])), 0)
-                self.assert_compose_complete(installed, migrations)
-            self.assert_installed_acl(schema, runtime)
+        for source_head, profile in (('v01_0004', 'TARGET_0004'), ('v01_0005', 'TARGET_0005')):
+            with (self.subTest(profile=profile), self.installed_database(source_head) as (schema, runtime, values),
+                  TemporaryDirectory(dir=TEMP) as directory):
+                with self.compose_setup(Path(directory), values, source_head) as (installed, migrations):
+                    self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=None)), 42)
+                    review = compose.read(compose.REVIEW)
+                    self.assertEqual(review['summary']['profile'], profile)
+                    self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest='0' * 64)), 42)
+                    self.assert_head(schema, source_head)
+                    self.assertEqual(compose.schema_update(SimpleNamespace(schema_digest=review['digest'])), 0)
+                    self.assert_compose_complete(installed, migrations)
+                self.assert_installed_acl(schema, runtime)
 
     def test_compose_resume_updates_installer_metadata_without_ddl(self):
         with self.installed_database('v01_0003') as (schema, runtime, values), TemporaryDirectory(dir=TEMP) as directory:

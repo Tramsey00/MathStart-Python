@@ -24,7 +24,10 @@ from backend.users.cutover import LOCK, _normal, writer_fact
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'reviewed-schema-plan-v1'
-TARGET_SOURCES = {'TARGET_0002': 'v01_0002', 'TARGET_0003': 'v01_0003', 'TARGET_0004': 'v01_0004'}
+TARGET_SOURCES = {
+    'TARGET_0002': 'v01_0002', 'TARGET_0003': 'v01_0003',
+    'TARGET_0004': 'v01_0004', 'TARGET_0005': 'v01_0005',
+}
 PROFILES = ('FRESH', 'A', 'B', 'C', *TARGET_SOURCES)
 
 

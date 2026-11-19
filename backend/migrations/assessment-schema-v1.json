@@ -433,37 +433,44 @@
     {
       "kind": "routine",
       "name": "assessment_guard_exercise",
-      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_exercise()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            RAISE EXCEPTION 'Assessment exercise identity is retained' USING ERRCODE = '23514';\n        END;\n        $function$\n"
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_exercise()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            RAISE EXCEPTION 'Assessment exercise identity is retained' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
     },
     {
       "kind": "routine",
       "name": "assessment_guard_version",
-      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_version()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            IF TG_OP = 'INSERT' THEN\n                IF NEW.status = 'DRAFT' THEN RETURN NEW; END IF;\n            ELSIF TG_OP = 'UPDATE' THEN\n                IF (to_jsonb(NEW) - 'status') = (to_jsonb(OLD) - 'status') THEN\n                    IF OLD.status = 'PUBLISHED' AND NEW.status = 'ARCHIVED' THEN RETURN NEW; END IF;\n                    IF OLD.status = 'DRAFT' AND NEW.status = 'PUBLISHED'\n                       AND EXISTS (SELECT 1 FROM public.assessment_exercise_validation WHERE version_id = OLD.id)\n                       AND EXISTS (SELECT 1 FROM public.assessment_exercise_skill\n                                   WHERE version_id = OLD.id AND role = 'PRIMARY') THEN\n                        RETURN NEW;\n                    END IF;\n                END IF;\n            END IF;\n            RAISE EXCEPTION 'Invalid Assessment version change' USING ERRCODE = '23514';\n        END;\n        $function$\n"
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_version()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            IF TG_OP = 'INSERT' THEN\n                IF NEW.status = 'DRAFT' THEN RETURN NEW; END IF;\n            ELSIF TG_OP = 'UPDATE' THEN\n                IF (to_jsonb(NEW) - 'status') = (to_jsonb(OLD) - 'status') THEN\n                    IF OLD.status = 'PUBLISHED' AND NEW.status = 'ARCHIVED' THEN RETURN NEW; END IF;\n                    IF OLD.status = 'DRAFT' AND NEW.status = 'PUBLISHED'\n                       AND EXISTS (SELECT 1 FROM public.assessment_exercise_validation WHERE version_id = OLD.id)\n                       AND EXISTS (SELECT 1 FROM public.assessment_exercise_skill\n                                   WHERE version_id = OLD.id AND role = 'PRIMARY') THEN\n                        RETURN NEW;\n                    END IF;\n                END IF;\n            END IF;\n            RAISE EXCEPTION 'Invalid Assessment version change' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
     },
     {
       "kind": "routine",
       "name": "assessment_guard_version_child",
-      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_version_child()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        DECLARE bound_id uuid;\n        BEGIN\n            IF TG_OP = 'UPDATE' OR TG_OP = 'DELETE' THEN\n                RAISE EXCEPTION 'Assessment version data is retained' USING ERRCODE = '23514';\n            END IF;\n            bound_id := NEW.version_id;\n            PERFORM 1 FROM public.assessment_exercise_version\n                WHERE id = bound_id AND status = 'DRAFT' FOR UPDATE;\n            IF NOT FOUND THEN\n                RAISE EXCEPTION 'Assessment version is sealed' USING ERRCODE = '23514';\n            END IF;\n            RETURN NEW;\n        END;\n        $function$\n"
+      "definition": "CREATE OR REPLACE FUNCTION public.assessment_guard_version_child()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        DECLARE bound_id uuid;\n        BEGIN\n            IF TG_OP = 'UPDATE' OR TG_OP = 'DELETE' THEN\n                RAISE EXCEPTION 'Assessment version data is retained' USING ERRCODE = '23514';\n            END IF;\n            bound_id := NEW.version_id;\n            PERFORM 1 FROM public.assessment_exercise_version\n                WHERE id = bound_id AND status = 'DRAFT' FOR UPDATE;\n            IF NOT FOUND THEN\n                RAISE EXCEPTION 'Assessment version is sealed' USING ERRCODE = '23514';\n            END IF;\n            RETURN NEW;\n        END;\n        $function$\n",
+      "enabled": null
     },
     {
       "kind": "trigger",
       "name": "assessment_exercise_skill_guard",
-      "definition": "CREATE TRIGGER assessment_exercise_skill_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_skill FOR EACH ROW EXECUTE FUNCTION assessment_guard_version_child()"
+      "definition": "CREATE TRIGGER assessment_exercise_skill_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_skill FOR EACH ROW EXECUTE FUNCTION assessment_guard_version_child()",
+      "enabled": "O"
     },
     {
       "kind": "trigger",
       "name": "assessment_exercise_validation_guard",
-      "definition": "CREATE TRIGGER assessment_exercise_validation_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_validation FOR EACH ROW EXECUTE FUNCTION assessment_guard_version_child()"
+      "definition": "CREATE TRIGGER assessment_exercise_validation_guard BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_validation FOR EACH ROW EXECUTE FUNCTION assessment_guard_version_child()",
+      "enabled": "O"
     },
     {
       "kind": "trigger",
       "name": "assessment_guard_exercise",
-      "definition": "CREATE TRIGGER assessment_guard_exercise BEFORE DELETE OR UPDATE ON public.assessment_exercise FOR EACH ROW EXECUTE FUNCTION assessment_guard_exercise()"
+      "definition": "CREATE TRIGGER assessment_guard_exercise BEFORE DELETE OR UPDATE ON public.assessment_exercise FOR EACH ROW EXECUTE FUNCTION assessment_guard_exercise()",
+      "enabled": "O"
     },
     {
       "kind": "trigger",
       "name": "assessment_guard_version",
-      "definition": "CREATE TRIGGER assessment_guard_version BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_version FOR EACH ROW EXECUTE FUNCTION assessment_guard_version()"
+      "definition": "CREATE TRIGGER assessment_guard_version BEFORE INSERT OR DELETE OR UPDATE ON public.assessment_exercise_version FOR EACH ROW EXECUTE FUNCTION assessment_guard_version()",
+      "enabled": "O"
     }
   ]
 }
