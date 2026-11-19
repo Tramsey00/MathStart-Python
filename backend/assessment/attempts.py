@@ -10,7 +10,7 @@ from sqlalchemy.dialects.postgresql import insert
 from backend.infrastructure.http import transport as wire
 from backend.infrastructure.http.contracts import validate, validator
 from backend.infrastructure.uow import UnitOfWork
-from backend.models.baseline import User, utc_now
+from backend.models.baseline import User
 from backend.users.service import receipt_digest, receipt_key, validate_current
 from backend.users.rate_limits import admit_assessment_action
 from .attempt_models import action, analysis_record, attempt, event, exposure, hint, step
@@ -228,7 +228,7 @@ class AttemptService:
                     if saved.request_digest != request_hash:
                         raise conflict('IDEMPOTENCY_CONFLICT')
                     return deepcopy(saved.response), saved.status
-            now, action_id = utc_now(), uuid4()
+            action_id = uuid4()
             if operation == 'create_attempt':
                 if body['version'] != body['contract_version']:
                     raise conflict('VERSION_CONFLICT')
@@ -252,6 +252,7 @@ class AttemptService:
                 session.execute(insert(exposure).values(user_id=owner, version_id=v.id,
                     max_help_level=0, revealed_at=None, positive_credit_used=False).on_conflict_do_nothing())
                 self.exposure(session, owner, v.id, lock=True)
+                now = session.scalar(sa.select(sa.func.clock_timestamp()))
                 pk = uuid4()
                 session.execute(attempt.insert().values(id=pk, user_id=owner, version_id=v.id,
                     previous_attempt_id=previous.id if previous else None, revision=1, state='STARTED',
@@ -261,6 +262,8 @@ class AttemptService:
             else:
                 self.exposure(session, owner, row.version_id, lock=True)
                 row = self.owned(session, owner, row.id, lock=True)
+                # History timestamps follow the order enforced by the Exposure lock.
+                now = session.scalar(sa.select(sa.func.clock_timestamp()))
                 v = self.version(session, row.version_id)
                 if body['contract_version'] != v.version:
                     raise conflict('VERSION_CONFLICT')

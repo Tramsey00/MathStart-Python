@@ -1,6 +1,7 @@
 """N013 HTTP, finalization, recovery and replay on explicitly owned PostgreSQL."""
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
+from datetime import datetime
 import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -231,7 +232,8 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             late = self.safe_read(client, path)
             self.assertEqual(late['result'], result['result'])
             self.assertEqual(late['eligibility'], result['eligibility'])
-            self.assertIsNotNone(late['exposure']['revealed_at'])
+            self.assertGreaterEqual(datetime.fromisoformat(late['exposure']['revealed_at']),
+                                    datetime.fromisoformat(late['completed_at']))
 
         self.assertEqual([e['event_kind'] for e in self.events()], ['CORRECT_FIRST_TRY'])
         self.assertEqual(self.events()[0]['policy_version'], 'progress-v1')
@@ -403,6 +405,8 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             result = self.safe_read(client, path)
             self.assertEqual(result['result']['outcome'], 'CORRECT')
             self.assertEqual(result['eligibility']['reason'], 'REVEAL_EXPOSURE')
+            self.assertLessEqual(datetime.fromisoformat(result['exposure']['revealed_at']),
+                                 datetime.fromisoformat(result['completed_at']))
             self.assertEqual(self.events(), [])
 
     def test_old_steps_supported_final_without_proof_and_single_proven_defect(self):
