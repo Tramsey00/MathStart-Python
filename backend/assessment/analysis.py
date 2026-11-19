@@ -77,6 +77,7 @@ _STRUCTURED_FORMS = {
 
 def analyze_submission(
     exercise: ExerciseValidation, submission: SubmittedSolution, *, graph: PilotGraphRead | None = None,
+    retry_worker_failure: bool = False,
 ) -> AnalysisResult:
     """Join an owned submitted snapshot to its authoritative version and active skills.
 
@@ -127,4 +128,4 @@ def analyze_submission(
         allowed_skills=known,
         integer_key=template.checker == "integer_exact",
         requires_transformation=mode == EquationAnswerMode.TRANSFORMED_EQUATION,
-    ), submission)
+    ), submission, retry_worker_failure=retry_worker_failure)

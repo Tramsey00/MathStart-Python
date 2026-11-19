@@ -99,3 +99,37 @@ hint = sa.Table(
 )
 
 ATTEMPT_TABLES = (exposure, attempt, step, action, event, hint)
+
+# v01_0007 creates ATTEMPT_TABLES with the original lifecycle constraints.
+# v01_0009 adds the terminal state and these separate immutable records.
+analysis_record = sa.Table(
+    'assessment_analysis_record', metadata,
+    sa.Column('operation_id', sa.Uuid, sa.ForeignKey(action.c.id, ondelete='RESTRICT'), primary_key=True),
+    sa.Column('attempt_id', sa.Uuid, nullable=False, unique=True),
+    sa.Column('user_id', User.__table__.c.id.type, nullable=False),
+    sa.Column('version_id', sa.Uuid, nullable=False),
+    sa.Column('snapshot_digest', sa.String(64), nullable=False),
+    sa.Column('exercise_digest', sa.String(64), nullable=False),
+    sa.Column('checker_digest', sa.String(64), nullable=False),
+    sa.Column('checker_version', sa.Integer, nullable=False),
+    sa.Column('analysis', JSON_VALUE, nullable=False),
+    sa.Column('result', JSON_VALUE, nullable=False),
+    sa.Column('eligibility', JSON_VALUE, nullable=False),
+    sa.Column('positive_credit_awarded', sa.Boolean, nullable=False),
+    sa.Column('progress_event', JSON_VALUE),
+    sa.ForeignKeyConstraint(['attempt_id', 'user_id', 'version_id'],
+                            [attempt.c.id, attempt.c.user_id, attempt.c.version_id], ondelete='RESTRICT'),
+    sa.Index('ix_assessment_analysis_positive_credit', 'user_id', 'version_id', unique=True,
+             postgresql_where=sa.text('positive_credit_awarded'), sqlite_where=sa.text('positive_credit_awarded')),
+)
+
+completion_fact = sa.Table(
+    'assessment_completion_fact', metadata,
+    sa.Column('completion_id', sa.Uuid, primary_key=True),
+    sa.Column('attempt_id', sa.Uuid, sa.ForeignKey(analysis_record.c.attempt_id, ondelete='RESTRICT'), nullable=False),
+    sa.Column('skill_id', sa.Uuid, sa.ForeignKey('knowledge_skill.id', ondelete='RESTRICT'), nullable=False),
+    sa.Column('payload', JSON_VALUE, nullable=False),
+    sa.UniqueConstraint('attempt_id', 'skill_id', name='assessment_completion_source'),
+)
+
+FINALIZATION_TABLES = (analysis_record, completion_fact)

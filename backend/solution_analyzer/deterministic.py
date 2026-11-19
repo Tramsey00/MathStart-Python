@@ -4,7 +4,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from uuid import UUID
 
-from backend.math_validation.model import ParseInput, ParseResult
+from backend.math_validation.model import ParseInput, ParseReason, ParseResult
 from backend.math_validation.parser import parse_batch
 from backend.math_validation.profiles import MAX_REQUEST_BYTES, MAX_STEPS
 from backend.math_validation.validators import (
@@ -14,6 +14,10 @@ from .model import (
     RULE_TAXONOMY, AnalysisResult, Answer, Classification, EvidenceKind, EvidenceRef,
     SubmittedSolution, SubmittedStep, Verdict, valid_id,
 )
+
+
+class AnalysisUnavailable(Exception):
+    """A worker failure leaves a submitted operation eligible for retry."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,7 +63,7 @@ def _bound_steps(submission: SubmittedSolution, plan: CheckPlan) -> tuple[Submit
     return steps
 
 
-def _parse(texts: list[str], profile: str) -> dict[str, ParseResult] | None:
+def _parse(texts: list[str], profile: str, *, retry_worker_failure: bool) -> dict[str, ParseResult] | None:
     if (sum(map(len, texts)) > MAX_REQUEST_BYTES
             or sum(len(text.encode("utf-8", errors="surrogatepass")) for text in texts) > MAX_REQUEST_BYTES):
         return None
@@ -68,6 +72,10 @@ def _parse(texts: list[str], profile: str) -> dict[str, ParseResult] | None:
     batch = parse_batch(tuple(ParseInput(text, profile) for text in distinct))
     if batch.rejection is not None:
         return None
+    if retry_worker_failure and any(
+        result.reason in (ParseReason.WORKER_FAILURE, ParseReason.TIMEOUT) for result in batch.results
+    ):
+        raise AnalysisUnavailable('Deterministic math worker unavailable')
     return dict(zip(distinct, batch.results, strict=True))
 
 
@@ -244,7 +252,7 @@ def _coherent_key(plan: CheckPlan, key: dict[str, ParseResult], start: ParseResu
             and (start is None or compare(expanded, start, Form.EQUATION) == Check.VALID))
 
 
-def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
+def analyze(plan: CheckPlan, submission: SubmittedSolution, *, retry_worker_failure: bool = False) -> AnalysisResult:
     """Run pure analysis from one immutable Assessment snapshot and its private checker."""
     unverified = AnalysisResult(Verdict.INDETERMINATE, parser_version=plan.profile)
     unsupported = AnalysisResult(Verdict.UNSUPPORTED, parser_version=plan.profile)
@@ -293,7 +301,7 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
             return unverified
         expected.append(plan.initial_state)
 
-    parsed_keys = _parse(expected, plan.profile)
+    parsed_keys = _parse(expected, plan.profile, retry_worker_failure=retry_worker_failure)
     if parsed_keys is None:
         return unverified
     start = parsed_keys.get(plan.initial_state)
@@ -301,7 +309,7 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
         structured_keys = [{name: parsed_keys[key[name]] for name in names} for key in plan.keys]
         if not all(_coherent_key(plan, key, start) for key in structured_keys):
             return unverified
-        parsed_student = _parse(student, plan.profile)
+        parsed_student = _parse(student, plan.profile, retry_worker_failure=retry_worker_failure)
         if parsed_student is None:
             return unsupported
         return _structured(plan, submission, steps, parsed_student, structured_keys, start)
@@ -327,7 +335,7 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
             compare(key, start, anchor_form) != Check.VALID for key in final_keys
         ):
             return unverified
-    parsed_student = _parse(student, plan.profile)
+    parsed_student = _parse(student, plan.profile, retry_worker_failure=retry_worker_failure)
     if parsed_student is None:
         return unsupported
     if plan.transition_form is not None:

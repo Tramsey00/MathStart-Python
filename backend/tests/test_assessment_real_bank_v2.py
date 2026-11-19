@@ -394,9 +394,9 @@ class RealBankV2Tests(unittest.TestCase):
                                    .select_from(exercise.join(version).join(validation))
                                    .where(version.c.status == "PUBLISHED", validation.c.checker_version == 2)
                                    .order_by(exercise.c.code)).mappings().all()
-            require(not conn.scalar(sa.text("select has_column_privilege('local_runtime', "
-                                           "'assessment_exercise_validation', 'validation_spec', 'SELECT')")),
-                    "Public runtime gained private checker access")
+            require(not conn.scalar(sa.text("select has_table_privilege('local_runtime', "
+                                           "'assessment_exercise_validation', 'SELECT')")),
+                    "Table-wide checker read exceeds the reviewed column grants")
         require(len(published) == 43 and not private_keys(published) and len(private) == 6, "Published DTO scope")
         require(set(archived) == {(row["code"], row["version"]) for row in package["archive"]},
                 "Archived versions differ from the reviewed list")

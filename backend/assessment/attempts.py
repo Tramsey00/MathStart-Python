@@ -1,8 +1,4 @@
-"""Short atomic lifecycle transactions; lock order action key -> Exposure -> Attempt.
-
-No parser, evaluator, provider or Progress writer is invoked here. SUBMITTED is
-durable pending work for N013, never a fabricated mathematical outcome.
-"""
+"""Short lifecycle transactions; lock order action key -> Exposure -> Attempt."""
 from copy import deepcopy
 from datetime import datetime
 import json
@@ -17,7 +13,7 @@ from backend.infrastructure.uow import UnitOfWork
 from backend.models.baseline import User, utc_now
 from backend.users.service import receipt_digest, receipt_key, validate_current
 from backend.users.rate_limits import admit_assessment_action
-from .attempt_models import action, attempt, event, exposure, hint, step
+from .attempt_models import action, analysis_record, attempt, event, exposure, hint, step
 from .models import exercise, validation, version
 from .package import digest
 from .reads import public_rows, UUID_PATTERN
@@ -46,6 +42,18 @@ def timestamp(value):
 def exposure_dto(row):
     return {'exercise_version_id': str(row.version_id), 'max_help_level': row.max_help_level,
             'revealed_at': timestamp(row.revealed_at), 'positive_credit_used': row.positive_credit_used}
+
+
+def ordered_steps(session, attempt_id):
+    rows = session.execute(sa.select(step).where(step.c.attempt_id == attempt_id).order_by(step.c.step_no))
+    return [{key: getattr(row, key) for key in
+             ('step_no', 'step_type', 'payload', 'raw_text', 'normalized_repr', 'parse_status')}
+            | {'step_id': str(row.id)} for row in rows]
+
+
+def snapshot_digest(row, v, steps, revision):
+    return digest({'attempt_id': str(row.id), 'version_id': str(v.id), 'contract_version': v.version,
+                   'revision': revision, 'draft': row.draft, 'steps': steps})
 
 
 def eligibility(v, e, state):
@@ -139,16 +147,20 @@ class AttemptService:
     def dto(self, session, row, v=None, e=None):
         v = v or self.version(session, row.version_id)
         e = e or self.exposure(session, row.user_id, row.version_id)
-        steps = session.execute(sa.select(step).where(step.c.attempt_id == row.id).order_by(step.c.step_no)).all()
+        result = None
+        decision = eligibility(v, e, row.state)
+        if row.state == 'COMPLETED':
+            stored = session.execute(sa.select(analysis_record).where(
+                analysis_record.c.operation_id == row.operation_id)).one()
+            result = stored.result | {'positive_credit_awarded': stored.positive_credit_awarded}
+            decision = stored.eligibility
         data = {'id': str(row.id), 'exercise_version': {'id': str(v.id), 'exercise_id': str(v.exercise_id),
                 'version': v.version, 'contract_version': v.version, 'status': v.status},
                 'previous_attempt_id': str(row.previous_attempt_id) if row.previous_attempt_id else None,
                 'interaction_mode': v.mode, 'revision': row.revision, 'state': row.state,
-                'draft': row.draft, 'steps': [{key: getattr(s, key) for key in
-                    ('step_no', 'step_type', 'payload', 'raw_text', 'normalized_repr', 'parse_status')}
-                    | {'step_id': str(s.id)} for s in steps],
+                'draft': row.draft, 'steps': ordered_steps(session, row.id),
                 'snapshot_digest': row.snapshot_digest, 'operation_id': str(row.operation_id) if row.operation_id else None,
-                'result': None, 'exposure': exposure_dto(e), 'eligibility': eligibility(v, e, row.state),
+                'result': result, 'exposure': exposure_dto(e), 'eligibility': decision,
                 'created_at': timestamp(row.created_at), 'submitted_at': timestamp(row.submitted_at),
                 'completed_at': timestamp(row.completed_at)}
         return validate(data, 'Attempt')
@@ -270,11 +282,9 @@ class AttemptService:
                             raise conflict()
                         validate_draft(row.draft, v, complete=True)
                         admit_assessment_action(session, owner, operation, self.identity.security.key)
-                        snapshot = {'attempt_id': str(row.id), 'version_id': str(v.id), 'contract_version': v.version,
-                                    'revision': row.revision + 1, 'draft': row.draft,
-                                    'steps': self.dto(session, row, v)['steps']}
+                        frozen = snapshot_digest(row, v, ordered_steps(session, row.id), row.revision + 1)
                         session.execute(attempt.update().where(attempt.c.id == row.id).values(
-                            state='SUBMITTED', revision=row.revision + 1, snapshot_digest=digest(snapshot),
+                            state='SUBMITTED', revision=row.revision + 1, snapshot_digest=frozen,
                             operation_id=action_id, submitted_at=now))
                     row = self.owned(session, owner, row.id)
                     data = self.dto(session, row, v)

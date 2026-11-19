@@ -5,6 +5,10 @@ import {isJsonTree,parseJson} from './json-boundary';
 
 export type AttemptOperation=keyof AttemptContracts;
 export type Attempt=AttemptContracts['get_attempt']['response']['data'];
+export type SubmissionReceipt=Pick<Attempt,'id'> & {operation_id:string;snapshot_digest:string};
+export type SubmissionStatus=
+  | {state:'SUBMITTED';attempt:Attempt;result:null}
+  | {state:'COMPLETED';attempt:Attempt;result:NonNullable<Attempt['result']>};
 export const attemptPollDelaysMs=[1000,2000,4000] as const;
 type Options<K extends AttemptOperation>={signal?:AbortSignal}
   & (K extends 'create_attempt'|'list_attempts'?{id?:never}:{id:string})
@@ -19,7 +23,7 @@ const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 /** No automatic mutation retries. Retain the same key and raw draft on unknown outcome. */
 export function createAttemptClient(fetcher:Fetcher=globalThis.fetch.bind(globalThis)){
   const identity=createApiClient(fetcher);
-  return {async call<K extends AttemptOperation>(operation:K,options:Options<K>):Promise<AttemptResult<AttemptContracts[K]['response']>>{
+  async function call<K extends AttemptOperation>(operation:K,options:Options<K>):Promise<AttemptResult<AttemptContracts[K]['response']>>{
     let sent=false;
     const fail=(code:string,status:number|null=null,outcome:'not-sent'|'rejected'|'unknown'='not-sent')=>
       ({ok:false as const,status,outcome,code});
@@ -89,7 +93,31 @@ export function createAttemptClient(fetcher:Fetcher=globalThis.fetch.bind(global
       return error.code==='REVISION_CONFLICT'&&error.current_revision!==undefined&&error.reload_url!==undefined
         ?{...result,currentRevision:error.current_revision,reloadUrl:error.reload_url}:result;
     }catch{return fail(options.signal?.aborted?'CANCELLED':'NETWORK_ERROR',null,sent?'unknown':'not-sent');}
-  }};
+  }
+  return {
+    call,
+    async submit(options:Options<'submit_attempt'>):Promise<AttemptResult<SubmissionReceipt>> {
+      const response=await call('submit_attempt',options);
+      if(!response.ok)return response;
+      const {id,operation_id,snapshot_digest}=response.value.data;
+      if(operation_id&&snapshot_digest)
+        return {ok:true,pending:true,value:{id,operation_id,snapshot_digest}};
+      return {ok:false,status:202,outcome:'unknown',code:'INVALID_RESPONSE'};
+    },
+    async pollSubmission(receipt:SubmissionReceipt,signal?:AbortSignal):Promise<AttemptResult<SubmissionStatus>> {
+      const response=await call('get_attempt',{id:receipt.id,...(signal?{signal}:{})});
+      if(!response.ok)return response;
+      const attempt=response.value.data;
+      if(attempt.id===receipt.id&&attempt.operation_id===receipt.operation_id&&
+        attempt.snapshot_digest===receipt.snapshot_digest){
+        if(attempt.state==='SUBMITTED'&&attempt.result===null)
+          return {ok:true,pending:true,value:{state:'SUBMITTED',attempt,result:null}};
+        if(attempt.state==='COMPLETED'&&attempt.result)
+          return {ok:true,pending:false,value:{state:'COMPLETED',attempt,result:attempt.result}};
+      }
+      return {ok:false,status:200,outcome:'not-sent',code:'MISMATCHED_SUBMISSION'};
+    },
+  };
 }
 
 /** Memory-only recovery handoff; never discard raw input or replace the submit key. */
