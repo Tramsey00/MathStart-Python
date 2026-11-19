@@ -495,3 +495,15 @@ semantics, provider/security/deployment оформляется ADR/contract adde
 BKT/IRT, teacher/parent dashboards, payments, voice/native apps, Neo4j и
 необоснованные queues/caches. Новое поручение определяет ровно один следующий
 increment из единого реестра.
+
+## Progress MS-N012: runtime и handoff
+
+R03A/ADR-0005 подтверждены Русланом через поручение пользователя 19.11.2026;
+[contract closeout](specs/progress/N012-runtime-closeout-v1.md) фиксирует точные
+границы и additive read schemas. `backend/progress` владеет immutable event/mirror,
+Decimal projection, permanent dedupe и replay. Event policy остаётся progress-v1,
+новые facts/state — progress-v1.1. Assessment предоставляет проверенный immutable DTO;
+Progress не читает Assessment ORM. Native reader закрыт до авторитетной финализации
+MS-N013; обычный SUBMITTED не даёт знания. UI относится к MS-N015.
+Миграция v01_0008 и TARGET_0007 добавляют storage/ACL без startup DDL.
+Реализация готова к отдельному ревью; человеческая приёмка и merge не выполнены.

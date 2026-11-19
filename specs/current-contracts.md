@@ -1,5 +1,14 @@
 # Применение сохранённых контрактов
 
+## Progress MS-N012 — подтверждение 19.11.2026
+
+Пользователь передал подтверждение Руслана R03A/ADR-0005 и поручил runtime N012.
+[Contract closeout](progress/N012-runtime-closeout-v1.md) фиксирует текущие решения:
+ProgressEvent progress-v1, CompletionFact/projection progress-v1.1, neutral recent-ten,
+global dual identity и verified Assessment DTO. Historical Proposed/PENDING и frozen
+bytes не переписываются; для N012 применяется этот явный closeout. Реализация и
+её отдельное ревью/человеческая приёмка учитываются отдельно. Finalization — N013.
+
 20.10.2026. Основная архитектура — [ARCHITECTURE](../ARCHITECTURE.md).
 R02/ADR-0002 и R03/ADR-0003 сохраняют domain invariants и exact fixtures.
 R02A/ADR-0004, R03A/ADR-0005 и I02/I03 сохраняют source/proposed/accepted scope

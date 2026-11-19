@@ -8,10 +8,10 @@ from alembic.script import ScriptDirectory
 from backend.models.baseline import SNAPSHOT
 
 
-HEAD = 'v01_0007'
+HEAD = 'v01_0008'
 REVISION_PARENTS = {
     'v01_0001': None, 'v01_0002': 'v01_0001', 'v01_0003': 'v01_0002', 'v01_0004': 'v01_0003',
-    'v01_0005': 'v01_0004', 'v01_0006': 'v01_0005', HEAD: 'v01_0006',
+    'v01_0005': 'v01_0004', 'v01_0006': 'v01_0005', 'v01_0007': 'v01_0006', HEAD: 'v01_0007',
 }
 ADDITIVE_MANIFESTS = {
     'v01_0002': 'protocol-schema-v1.json',
@@ -19,7 +19,8 @@ ADDITIVE_MANIFESTS = {
     'v01_0004': 'knowledge-schema-v1.json',
     'v01_0005': 'assessment-schema-v1.json',
     'v01_0006': 'assessment-truncate-guards-v1.json',
-    HEAD: 'attempt-schema-v1.json',
+    'v01_0007': 'attempt-schema-v1.json',
+    HEAD: 'progress-schema-v1.json',
 }
 
 

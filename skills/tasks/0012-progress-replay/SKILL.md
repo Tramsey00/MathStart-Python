@@ -66,3 +66,35 @@ Reviewed migrations/services, parity/concurrency report и retained policy-versi
 ## GitHub и ветка
 
 Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.
+
+## Выполнение 19.11.2026 — READY_FOR_REVIEW
+
+Issue: https://github.com/Tramsey00/MathStart-Python/issues/98. База после fetch:
+`d8d76f1d08e4eecca0a6f7eb20369029e4649c73` (N011 включена), отдельная ветка
+`ms-n012-progress-replay`, новый изолированный worktree. Existing checkout/worktree,
+учебные материалы, чужие DB/Docker не менялись.
+
+Пользователь явно передал подтверждение Руслана R03A/ADR-0005. Решения зафиксированы
+в [closeout](../../../specs/progress/N012-runtime-closeout-v1.md); historical pending
+artifacts не переписывались. Добавлены persistence/immutable guards, v01_0008/ACL,
+version registry, точный reducer, permanent dual dedupe, immutable DTO/read boundary,
+legacy import, self-report, own read API и typed client. N013/N015 не реализованы.
+
+Проверено на новом собственном PostgreSQL 16.15 (loopback 55493, отдельный cluster,
+уникальная DB на каждый тест, удалены после прогона; сервер остановлен):
+
+- `python -m unittest backend.tests.test_progress backend.tests.test_unit.UnitTests.test_single_chain -v`: 14 PASS; fresh и upgrade v01_0007→v01_0008, ACL/immutable guards,
+  online/replay, late delivery, neutral status-only, global ID races/atomic refusal,
+  self-report/auth/CSRF/privacy/pagination/legacy IDs.
+- `python -m unittest discover -s tests -p test_r03_contract.py -v`: 18 PASS.
+- `python -m unittest discover -s tests -p test_r03a_contract.py -v`: 41 PASS.
+- `node scripts/generate-progress.mjs --check`: PASS; scoped TypeScript check: PASS;
+  `vitest run tests/progress-client.test.ts`: 3 PASS.
+
+Native finalization reader намеренно fail-closed до N013: для положительных consumer
+PG тестов использован явный trusted server DTO fixture с реальными version/mappings;
+отдельно доказан отказ отсутствующим/нефинализированным source rows. Это не тест
+будущего production end-to-end Assessment→Progress. Полные тяжёлые наборы, UI/browser,
+Docker builds и живые providers не запускались. Исходные frozen R03/R03A fixtures
+сохранены. Результирующий SHA/tree и PR фиксируются в PR; самопроверка не заменяет
+независимое ревью и человеческую приёмку. Merge не выполнялся.
