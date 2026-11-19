@@ -207,10 +207,20 @@ class IsolatedParserTests(unittest.TestCase):
         self.assertIsNotNone(launches[0].poll(), "worker survived the parent call")
         return batch, elapsed
 
-    def test_expression_timeout_reaps_a_worker_blocked_mid_frame(self):
+    def test_valid_frame_can_arrive_after_expression_cpu_budget(self):
+        code = """import json, sys, time
+json.load(sys.stdin)
+time.sleep(0.35)
+print('{"terms":[["0","1"]]}', flush=True)
+"""
+        batch, _ = self.run_worker_fixture(code, [ParseInput("1", SCALAR)])
+        self.assertEqual(batch.results[0].normalized_repr, "1")
+
+    def test_batch_timeout_reaps_a_worker_blocked_mid_frame(self):
         code = "import json, sys, time; json.load(sys.stdin); print('{', end='', flush=True); time.sleep(10)"
         batch, elapsed = self.run_worker_fixture(code, [ParseInput("1", SCALAR)])
-        self.assertLess(elapsed, 2)
+        self.assertGreater(elapsed, 1.8)
+        self.assertLess(elapsed, 3.5)
         self.assertEqual(batch.results[0].parse_status, ParseStatus.UNSUPPORTED)
         self.assertEqual(batch.results[0].reason, ParseReason.WORKER_TIMEOUT)
         self.assertIsNone(batch.results[0].normalized_repr)

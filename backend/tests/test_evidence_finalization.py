@@ -308,14 +308,33 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             self.assertEqual(self.submit(client, headers, path, 'recovery').json(), accepted)
             self.assertEqual(len(self.events()), 1)
 
-    def test_student_parse_deadline_is_terminal_without_evidence(self):
+    def test_student_cpu_budget_interrupts_running_normalization(self):
+        root = str(Path(__file__).resolve().parents[2])
+        code = f"""import sys
+sys.path.insert(0, {root!r})
+from backend.math_validation import _worker
+normalize_once = _worker.normalize
+def keep_computing(text, profile):
+    while True:
+        normalize_once(text, profile)
+_worker.normalize = keep_computing
+_worker.main()
+"""
+        self.assert_student_budget_completion([sys.executable, '-I', '-S', '-B', '-c', code])
+
+    def test_student_timeout_message_is_terminal_without_evidence(self):
         budget_worker = [sys.executable, '-I', '-S', '-B', '-c',
                          'import json, sys; json.load(sys.stdin); print(json.dumps({"reason": "TIMEOUT"}), flush=True)']
+        self.assert_student_budget_completion(budget_worker)
+
+    def assert_student_budget_completion(self, budget_worker):
         with self.client() as (client, headers):
             path = self.draft(client, headers)
             with patch('backend.math_validation.parser._worker_command',
                        side_effect=[_worker_command(), budget_worker]):
-                receipt = self.submit(client, headers, path, 'budget').json()
+                accepted = self.submit(client, headers, path, 'budget')
+                self.assertEqual(accepted.status_code, 202, accepted.text)
+                receipt = accepted.json()
             terminal = self.safe_read(client, path)
             self.assertEqual(terminal['state'], 'COMPLETED')
             self.assertEqual(terminal['result']['outcome'], 'UNSUPPORTED')
