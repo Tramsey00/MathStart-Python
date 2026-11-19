@@ -1,0 +1,634 @@
+{
+  "tables": [
+    "progress_attempt_binding",
+    "progress_completion",
+    "progress_event",
+    "progress_self_report_receipt",
+    "progress_user_skill_state"
+  ],
+  "columns": [
+    {
+      "table_name": "progress_attempt_binding",
+      "column_name": "attempt_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_attempt_binding",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_attempt_binding",
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "progress_attempt_binding",
+      "column_name": "version_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "completion_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "skill_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "attempt_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "policy_version",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "authority",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_completion",
+      "column_name": "received_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "event_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "skill_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "attempt_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "event_kind",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "evidence_ref",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "policy_version",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_event",
+      "column_name": "received_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "progress_self_report_receipt",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_self_report_receipt",
+      "column_name": "key_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_self_report_receipt",
+      "column_name": "request_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_self_report_receipt",
+      "column_name": "response",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "skill_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "mastery",
+      "data_type": "numeric",
+      "udt_name": "numeric",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "confidence",
+      "data_type": "numeric",
+      "udt_name": "numeric",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "evidence_count",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "status",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 12,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "last_updated",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "reducer_version",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "numerical",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "event_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "column_name": "result",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "progress_attempt_binding",
+      "name": "progress_attempt_binding_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "table_name": "progress_attempt_binding",
+      "name": "progress_attempt_binding_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_completion",
+      "name": "progress_completion_attempt_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (attempt_id) REFERENCES progress_attempt_binding(attempt_id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_completion",
+      "name": "progress_completion_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (completion_id)"
+    },
+    {
+      "table_name": "progress_completion",
+      "name": "progress_completion_policy",
+      "type": "c",
+      "definition": "CHECK (((policy_version)::text = 'progress-v1.1'::text))"
+    },
+    {
+      "table_name": "progress_completion",
+      "name": "progress_completion_skill_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (skill_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_completion",
+      "name": "progress_completion_source",
+      "type": "u",
+      "definition": "UNIQUE (attempt_id, skill_id)"
+    },
+    {
+      "table_name": "progress_completion",
+      "name": "progress_completion_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_event",
+      "name": "progress_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "table_name": "progress_event",
+      "name": "progress_event_policy",
+      "type": "c",
+      "definition": "CHECK (((policy_version)::text = 'progress-v1'::text))"
+    },
+    {
+      "table_name": "progress_event",
+      "name": "progress_event_skill_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (skill_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_event",
+      "name": "progress_event_source",
+      "type": "u",
+      "definition": "UNIQUE (attempt_id, skill_id, event_kind, evidence_ref)"
+    },
+    {
+      "table_name": "progress_event",
+      "name": "progress_event_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_self_report_receipt",
+      "name": "progress_self_report_receipt_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id, key_digest)"
+    },
+    {
+      "table_name": "progress_self_report_receipt",
+      "name": "progress_self_report_receipt_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "name": "progress_state_bounds",
+      "type": "c",
+      "definition": "CHECK ((((mastery >= (0)::numeric) AND (mastery <= (100)::numeric)) AND ((confidence >= (0)::numeric) AND (confidence <= (100)::numeric)) AND (evidence_count >= 0)))"
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "name": "progress_state_policy",
+      "type": "c",
+      "definition": "CHECK (((reducer_version)::text = 'progress-v1.1'::text))"
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "name": "progress_state_status",
+      "type": "c",
+      "definition": "CHECK (((status)::text = ANY ((ARRAY['NOT_STARTED'::character varying, 'LEARNING'::character varying, 'WEAK'::character varying, 'MASTERED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "name": "progress_user_skill_state_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id, skill_id)"
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "name": "progress_user_skill_state_skill_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (skill_id) REFERENCES knowledge_skill(id) ON DELETE RESTRICT"
+    },
+    {
+      "table_name": "progress_user_skill_state",
+      "name": "progress_user_skill_state_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE RESTRICT"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "progress_attempt_binding",
+      "indexname": "progress_attempt_binding_pkey",
+      "indexdef": "CREATE UNIQUE INDEX progress_attempt_binding_pkey ON public.progress_attempt_binding USING btree (attempt_id)"
+    },
+    {
+      "tablename": "progress_completion",
+      "indexname": "ix_progress_completion_order",
+      "indexdef": "CREATE INDEX ix_progress_completion_order ON public.progress_completion USING btree (user_id, skill_id, completed_at, attempt_id)"
+    },
+    {
+      "tablename": "progress_completion",
+      "indexname": "progress_completion_pkey",
+      "indexdef": "CREATE UNIQUE INDEX progress_completion_pkey ON public.progress_completion USING btree (completion_id)"
+    },
+    {
+      "tablename": "progress_completion",
+      "indexname": "progress_completion_source",
+      "indexdef": "CREATE UNIQUE INDEX progress_completion_source ON public.progress_completion USING btree (attempt_id, skill_id)"
+    },
+    {
+      "tablename": "progress_event",
+      "indexname": "ix_progress_event_order",
+      "indexdef": "CREATE INDEX ix_progress_event_order ON public.progress_event USING btree (user_id, skill_id, occurred_at, event_id)"
+    },
+    {
+      "tablename": "progress_event",
+      "indexname": "ix_progress_event_self_report",
+      "indexdef": "CREATE UNIQUE INDEX ix_progress_event_self_report ON public.progress_event USING btree (user_id, skill_id) WHERE ((event_kind)::text = 'SELF_REPORTED_KNOWN'::text)"
+    },
+    {
+      "tablename": "progress_event",
+      "indexname": "progress_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX progress_event_pkey ON public.progress_event USING btree (event_id)"
+    },
+    {
+      "tablename": "progress_event",
+      "indexname": "progress_event_source",
+      "indexdef": "CREATE UNIQUE INDEX progress_event_source ON public.progress_event USING btree (attempt_id, skill_id, event_kind, evidence_ref)"
+    },
+    {
+      "tablename": "progress_self_report_receipt",
+      "indexname": "progress_self_report_receipt_pkey",
+      "indexdef": "CREATE UNIQUE INDEX progress_self_report_receipt_pkey ON public.progress_self_report_receipt USING btree (user_id, key_digest)"
+    },
+    {
+      "tablename": "progress_user_skill_state",
+      "indexname": "progress_user_skill_state_pkey",
+      "indexdef": "CREATE UNIQUE INDEX progress_user_skill_state_pkey ON public.progress_user_skill_state USING btree (user_id, skill_id)"
+    }
+  ],
+  "identity_columns": [],
+  "schema_objects": [
+    {
+      "kind": "routine",
+      "name": "progress_guard_history",
+      "definition": "CREATE OR REPLACE FUNCTION public.progress_guard_history()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog', 'public'\nAS $function$\n        BEGIN\n            RAISE EXCEPTION 'Progress source history is immutable' USING ERRCODE = '23514';\n        END;\n        $function$\n",
+      "enabled": null
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_attempt_binding_history_guard",
+      "definition": "CREATE TRIGGER progress_attempt_binding_history_guard BEFORE DELETE OR UPDATE ON public.progress_attempt_binding FOR EACH ROW EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_attempt_binding_truncate_guard",
+      "definition": "CREATE TRIGGER progress_attempt_binding_truncate_guard BEFORE TRUNCATE ON public.progress_attempt_binding FOR EACH STATEMENT EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_completion_history_guard",
+      "definition": "CREATE TRIGGER progress_completion_history_guard BEFORE DELETE OR UPDATE ON public.progress_completion FOR EACH ROW EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_completion_truncate_guard",
+      "definition": "CREATE TRIGGER progress_completion_truncate_guard BEFORE TRUNCATE ON public.progress_completion FOR EACH STATEMENT EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_event_history_guard",
+      "definition": "CREATE TRIGGER progress_event_history_guard BEFORE DELETE OR UPDATE ON public.progress_event FOR EACH ROW EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_event_truncate_guard",
+      "definition": "CREATE TRIGGER progress_event_truncate_guard BEFORE TRUNCATE ON public.progress_event FOR EACH STATEMENT EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_self_report_receipt_history_guard",
+      "definition": "CREATE TRIGGER progress_self_report_receipt_history_guard BEFORE DELETE OR UPDATE ON public.progress_self_report_receipt FOR EACH ROW EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_self_report_receipt_truncate_guard",
+      "definition": "CREATE TRIGGER progress_self_report_receipt_truncate_guard BEFORE TRUNCATE ON public.progress_self_report_receipt FOR EACH STATEMENT EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    },
+    {
+      "kind": "trigger",
+      "name": "progress_user_skill_state_truncate_guard",
+      "definition": "CREATE TRIGGER progress_user_skill_state_truncate_guard BEFORE TRUNCATE ON public.progress_user_skill_state FOR EACH STATEMENT EXECUTE FUNCTION progress_guard_history()",
+      "enabled": "O"
+    }
+  ]
+}

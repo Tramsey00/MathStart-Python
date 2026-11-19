@@ -3,6 +3,9 @@ from psycopg import sql
 
 ROLE = 'local_runtime'
 TABLE_PRIVILEGES = {
+    **dict.fromkeys(('progress_attempt_binding', 'progress_event', 'progress_completion',
+                     'progress_self_report_receipt'), 'SELECT, INSERT'),
+    'progress_user_skill_state': 'SELECT, INSERT, UPDATE',
     **dict.fromkeys(('assessment_exposure', 'assessment_attempt'), 'SELECT, INSERT, UPDATE'),
     'assessment_solution_step': 'SELECT, INSERT, UPDATE, DELETE',
     **dict.fromkeys(('assessment_action', 'assessment_attempt_event'), 'SELECT, INSERT'),

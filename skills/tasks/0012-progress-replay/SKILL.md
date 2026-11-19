@@ -66,3 +66,82 @@ Reviewed migrations/services, parity/concurrency report и retained policy-versi
 ## GitHub и ветка
 
 Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.
+
+## Выполнение 19.11.2026 — READY_FOR_REVIEW
+
+Issue: https://github.com/Tramsey00/MathStart-Python/issues/98. База после fetch:
+`d8d76f1d08e4eecca0a6f7eb20369029e4649c73` (N011 включена), отдельная ветка
+`ms-n012-progress-replay`, новый изолированный worktree. Existing checkout/worktree,
+учебные материалы, чужие DB/Docker не менялись.
+
+Пользователь явно передал подтверждение Руслана R03A/ADR-0005. Решения зафиксированы
+в [closeout](../../../specs/progress/N012-runtime-closeout-v1.md); historical pending
+artifacts не переписывались. Добавлены persistence/immutable guards, v01_0008/ACL,
+version registry, точный reducer, permanent dual dedupe, immutable DTO/read boundary,
+legacy import, self-report, own read API и typed client. N013/N015 не реализованы.
+
+Проверено на новом собственном PostgreSQL 16.15 (loopback 55493, отдельный cluster,
+уникальная DB на каждый тест, удалены после прогона; сервер остановлен):
+
+- `python -m unittest backend.tests.test_progress backend.tests.test_unit.UnitTests.test_single_chain -v`: 14 PASS; fresh и upgrade v01_0007→v01_0008, ACL/immutable guards,
+  online/replay, late delivery, neutral status-only, global ID races/atomic refusal,
+  self-report/auth/CSRF/privacy/pagination/legacy IDs.
+- `python -m unittest discover -s tests -p test_r03_contract.py -v`: 18 PASS.
+- `python -m unittest discover -s tests -p test_r03a_contract.py -v`: 41 PASS.
+- `node scripts/generate-progress.mjs --check`: PASS; scoped TypeScript check: PASS;
+  `vitest run tests/progress-client.test.ts`: 3 PASS.
+
+Native finalization reader намеренно fail-closed до N013: для положительных consumer
+PG тестов использован явный trusted server DTO fixture с реальными version/mappings;
+отдельно доказан отказ отсутствующим/нефинализированным source rows. Это не тест
+будущего production end-to-end Assessment→Progress. Полные тяжёлые наборы, UI/browser,
+Docker builds и живые providers не запускались. Исходные frozen R03/R03A fixtures
+сохранены. Результирующий SHA/tree и PR фиксируются в PR; самопроверка не заменяет
+независимое ревью и человеческую приёмку. Merge не выполнялся.
+
+## Повторное ревью PR #99 — исправления b11ce66
+
+Четыре замечания Руслана обработаны одним пакетом: optional inline completion time
+для negative/reveal и atomic refusal, только reference-confirmed legacy completions,
+активные skill links + pinned Content topics, AJV namespace import как в PR #97.
+Добавлены четыре профильных PG regression tests (включая матрицу трёх event kinds,
+двух inline вариантов и двух очередностей). Frozen reducer/fixtures не менялись.
+
+- `python -m unittest backend.tests.test_progress -v`: 17 PASS, 43.801s, собственный
+  disposable PostgreSQL 16.15 / 55493; повторены только Progress checks.
+- `node scripts/generate-progress.mjs --check`: PASS после regeneration.
+- `node node_modules/vitest/vitest.mjs run tests/progress-client.test.ts`: 3 PASS.
+- Targeted Vite 7.3.7 ES browser build entry `src/shared/api/progress-client.ts`
+  (`configFile:false`, library format es; output в ignored var/tmp/ms-n012/browser-bundle):
+  PASS, 27 modules, 578ms. Это проверка bundling, не browser-runtime PASS.
+- Full host-dev/browser: BLOCKED; конкретные причины и выполненная диагностика
+  записаны в closeout. Новая собственная host-dev DB/volume создана штатным init
+  на 55494, FRESH schema+ACL применены; Content preparation не завершилась.
+  Ни publication, ни изменение чужих установок не выполнялись. Own DB/Vite остановлены.
+
+Новый SHA/tree/results фиксируются в существующем PR #99. Самопроверка завершена,
+повторное независимое ревью и человеческая приёмка pending; merge не выполнен.
+
+## Последнее замечание Руслана — legacy attempt owner
+
+Исправление поверх `d64ed812049d57103a2db46c90370ef0c3b5d35c`: global ownership
+attempt_id проверяется по immutable Progress events и attempt binding независимо
+от наличия completed_at. Legacy ingest берёт общую attempt advisory lock также для
+незавершённых событий. Проверяется и согласованность владельцев внутри batch;
+история/политики/DDL не менялись, синтетическое время завершения не создаётся.
+
+Точечный PostgreSQL 16.15 прогон (отдельный собственный cluster 55493, marker,
+уникальная новая DB на тест с последующим удалением):
+`python -m unittest backend.tests.test_progress.PostgreSQLProgressTests.test_legacy_incomplete_attempt_rejects_foreign_completion_in_both_orders backend.tests.test_progress.PostgreSQLProgressTests.test_legacy_incomplete_attempt_accepts_same_owner_in_both_orders backend.tests.test_progress.PostgreSQLProgressTests.test_legacy_incomplete_attempt_mixed_owner_batch_is_atomic -v`
+— **3 PASS**, 6.599s. Доказаны оба порядка foreign-owner отказа, оба порядка
+same-owner приёма и exact retry, mixed-owner batch refusal. Во втором пакете
+находится также допустимое независимое завершение; ошибка перехватывается перед
+commit внешней транзакции. Полный снимок всех Progress tables до/после отказа
+совпадает, включая projection/receipt/binding. Initial diagnostic run: 2 PASS,
+дополнительный mixed batch отклонён раньше frozen ContractError; тест уточнён
+на два незавершённых события, чтобы проверить именно новую owner-защиту.
+
+БД остановлена. Host-dev, браузер, сборки и несвязанные тесты не запускались.
+По новому поручению Руслана browser verification перенесена в MS-N015; прежний
+BLOCKED browser отчёт остаётся историей, не новым блокером N012. Новый SHA/tree
+и результат зафиксированы в том же PR #99; новый PR и merge не выполнялись.

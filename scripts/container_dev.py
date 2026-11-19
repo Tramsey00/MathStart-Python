@@ -347,7 +347,7 @@ def schema_update(args):
         work = work_directory(state, schema, 'schema_work')
         path = work / 'schema.json'
     applied = tuple(Path(name).name for name in state.get('applied_migrations', {}))
-    profile = next((f'TARGET_{number}' for number in ('0006', '0005', '0004')
+    profile = next((f'TARGET_{number}' for number in ('0007', '0006', '0005', '0004')
                     if any(name.startswith(f'v01_{number}_') for name in applied)), 'TARGET_0003')
     with team.installation_paths(work, PRIVATE, SECRETS, SERVING):
         if not path.exists():
