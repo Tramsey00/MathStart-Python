@@ -6,7 +6,6 @@ import { IdentityIcon } from '../identity/identity-icon';
 import { safeReturn, useSession } from '../identity/session';
 import { exerciseForm } from './exercise-contract';
 import { PracticeEditor } from './practice-editor';
-import './lesson-practice.css';
 
 export const practiceSection = { id: 'practice', title: 'Практика' };
 const pilots = new Set([

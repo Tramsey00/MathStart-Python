@@ -44,8 +44,11 @@ export function PracticeEditor({ form, exercise, owner, login, onSessionChange }
   const readOnly = sent || Boolean(work.submitting) || busy === 'submit'
     || Boolean(remote && remote.state !== 'STARTED');
   const answer = work.draft.payload.answer;
+  const algebra = exercise.parser_profile?.startsWith('algebra_');
   return <form className="practice-form" onSubmit={submit}>
-    <p className="practice-help" id={id + '-input-help'}>Записывайте обычным текстом. Например, <code>2x</code>, <code>2*x</code>, <code>3/4</code>.</p>
+    <p className="practice-help" id={id + '-input-help'}>Записывайте обычным текстом. Например, {algebra
+      ? <><code>2x</code>, <code>2*x</code></>
+      : <code>2*3</code>}, <code>3/4</code>.</p>
     {form.mode === 'final-answer' ? <div className="practice-field">
       <label htmlFor={id + '-answer'}>Ответ</label>
       <input type="text" id={id + '-answer'} name="answer" value={typeof answer === 'string' ? answer : ''}
@@ -68,7 +71,7 @@ export function PracticeEditor({ form, exercise, owner, login, onSessionChange }
     </div>}
     <p className="practice-message" role="status">
       {sent ? 'Решение отправлено' : loading ? 'Загружаем черновик…' : busy === 'save' ? 'Сохраняем черновик…'
-        : busy === 'submit' ? 'Подтверждаем отправку…' : message}
+        : busy === 'submit' ? 'Подтверждаем отправку…' : message || (work.dirty && !conflict ? 'Черновик ещё не сохранён на сервере.' : '')}
     </p>
     {!ready && !loading && <Button onClick={attempt.reload}>Повторить загрузку</Button>}
     {!sent && !conflict && ready && (!remote || remote.state === 'STARTED') && <div className="practice-actions">
