@@ -18,6 +18,7 @@ class Form(StrEnum):
     SCALAR = "SCALAR"
     EXPRESSION = "EXPRESSION"
     EQUATION = "EQUATION"
+    EQUATION_STATE = "EQUATION_STATE"
     SOLUTION = "SOLUTION"
     EQUATION_OR_SOLUTION = "EQUATION_OR_SOLUTION"
 
@@ -32,7 +33,7 @@ class Rule(StrEnum):
     ADD_TO_BOTH_SIDES = "add_to_both_sides"
 
 
-type ComparableValue = Fraction | LinearExpression | tuple[EquationSolutions, Fraction | None]
+type ComparableValue = Fraction | LinearExpression | LinearEquation | tuple[EquationSolutions, Fraction | None]
 
 
 def parse_check(parsed: ParseResult) -> Check:
@@ -64,6 +65,8 @@ def comparison_value(parsed: ParseResult, form: Form) -> tuple[Check, Comparable
         if form in (Form.SOLUTION, Form.EQUATION_OR_SOLUTION) and not value.coefficient:
             return Check.VALID, (EquationSolutions.UNIQUE, value.constant)
     elif isinstance(value, LinearEquation):
+        if form == Form.EQUATION_STATE:
+            return Check.VALID, value
         if (form in (Form.EQUATION, Form.EQUATION_OR_SOLUTION)
                 or (form == Form.SOLUTION and _solution_equation(value))):
             return Check.VALID, (value.solution_kind, value.unique_solution)
@@ -77,6 +80,11 @@ def compare(actual: ParseResult, expected: ParseResult, form: Form) -> Check:
     actual_status, actual_value = comparison_value(actual, form)
     if actual_status != Check.VALID:
         return actual_status
+    if isinstance(actual_value, LinearEquation) and isinstance(expected_value, LinearEquation):
+        # Side order is a spelling choice. Moving or scaling terms changes
+        # the state even when it preserves the solution set.
+        reversed_equation = LinearEquation(expected_value.right, expected_value.left)
+        return Check.VALID if actual_value in (expected_value, reversed_equation) else Check.WRONG
     return Check.VALID if actual_value == expected_value else Check.WRONG
 
 
@@ -202,12 +210,28 @@ def expanded_equation(parsed: ParseResult) -> bool:
     return expanded(ast.left) and expanded(ast.right)
 
 
-def isolated_equation(parsed: ParseResult) -> bool:
-    value = parsed.value
-    if not isinstance(value, LinearEquation):
-        return False
-    left, right = value.left, value.right
-    if not left.coefficient and not right.coefficient:
+def _operation_counts(node: Ast) -> tuple[int, int]:
+    if isinstance(node, Equation | Binary):
+        left, left_sums = _operation_counts(node.left)
+        right, right_sums = _operation_counts(node.right)
+        if isinstance(node, Equation):
+            return left + right, left_sums + right_sums
+        return left + right + 1, left_sums + right_sums + (node.operator in (Kind.PLUS, Kind.MINUS))
+    if isinstance(node, Unary):
+        count, sums = _operation_counts(node.operand)
+        return count + (node.operator == Kind.MINUS), sums
+    if isinstance(node, Power):
+        count, sums = _operation_counts(node.base)
+        return count + 1, sums
+    return 0, 0
+
+
+def equation_transformed(before: ParseResult, after: ParseResult) -> bool:
+    """Called for verified equivalent equations. Recognize more than restatement."""
+    if compare(after, before, Form.EQUATION_STATE) == Check.WRONG:
         return True
-    return ((not left.constant and not right.coefficient)
-            or (not right.constant and not left.coefficient))
+    if not expanded_equation(before) and expanded_equation(after):
+        return True
+    # Equivalent sides can simplify without changing their affine state,
+    # for example x+x -> 2x. Reordering terms leaves these counts unchanged.
+    return _operation_counts(_ast(after)) < _operation_counts(_ast(before))

@@ -8,7 +8,7 @@ from backend.math_validation.model import LinearEquation, ParseInput, ParseResul
 from backend.math_validation.parser import parse_batch
 from backend.math_validation.profiles import MAX_REQUEST_BYTES, MAX_STEPS
 from backend.math_validation.validators import (
-    Check, Form, compare, comparison_value, expanded_equation, isolated_equation, observed_rule,
+    Check, Form, compare, comparison_value, equation_transformed, expanded_equation, observed_rule,
 )
 from .model import (
     RULE_TAXONOMY, AnalysisResult, Answer, Classification, EvidenceKind, EvidenceRef,
@@ -146,6 +146,7 @@ def _trace(
         return _gap(plan, final, Check.UNKNOWN)
     previous_id = None
     previous = start
+    transformed = False
     for step in steps:
         text = _step_field(step, plan)
         if text is None:
@@ -162,12 +163,20 @@ def _trace(
             if check != Check.WRONG:
                 return _gap(plan, final, check, step)
             rule = observed_rule(previous, current, plan.transition_form)
+            # N009 has no marker for arithmetic work on a subexpression.
+            # An exact scalar mismatch alone cannot establish its operand scope.
+            if plan.transition_form == Form.SCALAR and rule is None:
+                return _gap(plan, final, Check.UNKNOWN, step)
             if rule is not None and RULE_TAXONOMY[rule][1] not in plan.allowed_skills:
                 rule = None
             ref = EvidenceRef(EvidenceKind.TRANSITION, submission.attempt_id, plan.version_id,
                               step.step_id, previous_id, rule=rule)
             return _defect(plan, submission, final, ref)
+        if plan.transition_form == Form.EQUATION and not transformed:
+            transformed = equation_transformed(previous, current)
         previous, previous_id = current, step.step_id
+    if plan.transition_form == Form.EQUATION and not transformed:
+        return _gap(plan, final, Check.UNKNOWN)
     return _final(plan, submission, final, prefix=Check.VALID, statement=statement)
 
 
@@ -177,14 +186,12 @@ def _phase(parsed: ParseResult, field: str, form: Form) -> Check:
         return status
     if field == "expanded_equation" and not expanded_equation(parsed):
         return Check.UNSUPPORTED
-    if field == "isolated_term_equation" and not isolated_equation(parsed):
-        return Check.UNSUPPORTED
     return Check.VALID
 
 
 def _structured(
     plan: CheckPlan, submission: SubmittedSolution, steps: tuple[SubmittedStep, ...],
-    actual: dict[str, ParseResult], keys: list[dict[str, ParseResult]],
+    actual: dict[str, ParseResult], keys: list[dict[str, ParseResult]], start: ParseResult | None,
 ) -> AnalysisResult:
     (final_field, final_form) = plan.fields[-1]
     final_value = actual[submission.payload[final_field]]
@@ -195,11 +202,20 @@ def _structured(
         status = _phase(current, field, form)
         if status != Check.VALID:
             return _gap(plan, final, status, steps[0])
-        remaining = [key for key in remaining if compare(current, key[field], form) == Check.VALID]
-        if not remaining:
+        if (form == Form.EQUATION_STATE and start is not None
+                and compare(current, start, Form.EQUATION) == Check.VALID
+                and not equation_transformed(start, current)):
+            return _gap(plan, final, Check.UNKNOWN, steps[0])
+        matching = [key for key in remaining if compare(current, key[field], form) == Check.VALID]
+        if not matching:
+            if form == Form.EQUATION_STATE and any(
+                compare(current, key[field], Form.EQUATION) == Check.VALID for key in remaining
+            ):
+                return _gap(plan, final, Check.UNKNOWN, steps[0])
             ref = EvidenceRef(EvidenceKind.STRUCTURED_FIELD, submission.attempt_id, plan.version_id,
                               steps[0].step_id, field_name=field)
             return _defect(plan, submission, final, ref)
+        remaining = matching
     final_with_prefix = _check_against(final_value, [key[final_field] for key in remaining], final_form)
     if final_with_prefix == Check.WRONG and final == Check.VALID:
         # Valid fields from distinct accepted variants cannot form a new key.
@@ -209,7 +225,7 @@ def _structured(
     return _final(plan, submission, final_with_prefix, prefix=Check.VALID, statement=steps[-1])
 
 
-def _coherent_key(plan: CheckPlan, key: dict[str, ParseResult]) -> bool:
+def _coherent_key(plan: CheckPlan, key: dict[str, ParseResult], start: ParseResult | None) -> bool:
     if any(_phase(key[name], name, form) != Check.VALID for name, form in plan.fields):
         return False
     if plan.fields[0][1] == Form.SCALAR:
@@ -218,7 +234,10 @@ def _coherent_key(plan: CheckPlan, key: dict[str, ParseResult]) -> bool:
     expanded, isolated, solution = (key[name] for name, _ in plan.fields)
     _, intermediate = comparison_value(isolated, Form.EQUATION)
     _, final = comparison_value(solution, Form.SOLUTION)
-    return compare(expanded, isolated, Form.EQUATION) == Check.VALID and intermediate == final
+    return (compare(expanded, isolated, Form.EQUATION) == Check.VALID
+            and compare(expanded, isolated, Form.EQUATION_STATE) == Check.WRONG
+            and intermediate == final
+            and (start is None or compare(expanded, start, Form.EQUATION) == Check.VALID))
 
 
 def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
@@ -273,14 +292,15 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
     parsed_keys = _parse(expected, plan.profile)
     if parsed_keys is None:
         return unverified
+    start = parsed_keys.get(plan.initial_state)
     if plan.fields:
         structured_keys = [{name: parsed_keys[key[name]] for name in names} for key in plan.keys]
-        if not all(_coherent_key(plan, key) for key in structured_keys):
+        if not all(_coherent_key(plan, key, start) for key in structured_keys):
             return unverified
         parsed_student = _parse(student, plan.profile)
         if parsed_student is None:
             return unsupported
-        return _structured(plan, submission, steps, parsed_student, structured_keys)
+        return _structured(plan, submission, steps, parsed_student, structured_keys, start)
 
     final_keys = [parsed_keys[key] for key in plan.keys]
     form = _selected_form(plan, final_keys)
@@ -288,7 +308,6 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
         check, value = comparison_value(key, form)
         if check != Check.VALID or (plan.integer_key and value.denominator != 1):
             return unverified
-    start = parsed_keys.get(plan.initial_state)
     if start is not None and plan.transition_form is not None:
         anchor_form = plan.transition_form
         anchor_status, anchor_value = comparison_value(start, anchor_form)

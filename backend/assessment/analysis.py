@@ -46,8 +46,8 @@ _STRUCTURED_FORMS = {
         ("start", Form.SCALAR), ("displacement", Form.SCALAR), ("end", Form.SCALAR),
     ),
     "linear_parentheses_fields": (
-        ("expanded_equation", Form.EQUATION),
-        ("isolated_term_equation", Form.EQUATION),
+        ("expanded_equation", Form.EQUATION_STATE),
+        ("isolated_term_equation", Form.EQUATION_STATE),
         ("solution", Form.SOLUTION),
     ),
 }

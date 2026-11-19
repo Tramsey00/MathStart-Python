@@ -257,7 +257,7 @@ class DeterministicAnalysisTests(unittest.TestCase):
         safe(exercise(EXPR, "5x", initial="2x+3x", skills={"combine_like_terms"}),
              attempt(EXPR, "6x", ["6x"]), Verdict.WRONG)
         safe(exercise(ARITH, "5", initial="2+3", skills={"sign_rules_add_sub"}),
-             attempt(ARITH, "6", ["6"]), Verdict.WRONG)
+             attempt(ARITH, "6", ["6"]), Verdict.INDETERMINATE)
         safe(exercise(EQ, "4", initial="x+3=7", skills={"equation_balance"}),
              attempt(EQ, "7", ["x=7"]), Verdict.WRONG)
         self.assertEqual(len(collected), 25)
@@ -330,12 +330,15 @@ class DeterministicAnalysisTests(unittest.TestCase):
         schema = "equation-parentheses-v1"
         key = {"expanded_equation": "2x+6=10", "isolated_term_equation": "2x=4", "solution": "2"}
         config = exercise(schema, key)
-        best = {"expanded_equation": "x/2+1=2", "isolated_term_equation": "4=2x", "solution": "x=4/2"}
+        best = {"expanded_equation": "10=3+3+x+x", "isolated_term_equation": "4=2x", "solution": "x=4/2"}
         self.assertEqual(analyze_submission(config, attempt(schema, best)).verdict, Verdict.CORRECT)
-        for field, text in (("expanded_equation", "2(x+3)=10"), ("isolated_term_equation", "2x+6=10")):
+        for field, text, verdict in (
+            ("expanded_equation", "2(x+3)=10", Verdict.UNSUPPORTED),
+            ("isolated_term_equation", "2x+6=10", Verdict.INDETERMINATE),
+        ):
             with self.subTest(field=field):
                 result = analyze_submission(config, attempt(schema, {**key, field: text}))
-                self.assert_neutral(result, Verdict.UNSUPPORTED)
+                self.assert_neutral(result, verdict)
                 self.assertEqual(result.blocking_step_id, UUID(int=1))
         bad = analyze_submission(config, attempt(schema, {**key, "isolated_term_equation": "2x=5"}))
         self.assertEqual(bad.evidence_refs[0].field_name, "isolated_term_equation")
@@ -344,6 +347,86 @@ class DeterministicAnalysisTests(unittest.TestCase):
         conflict = replace(snapshot.steps[0], payload={**snapshot.steps[0].payload, "expanded_equation": "x=2"})
         self.assert_neutral(analyze_submission(config, replace(snapshot, steps=(conflict, snapshot.steps[1]))),
                             Verdict.INDETERMINATE)
+
+    def test_structured_balance_accepts_reviewed_intermediate_before_x_is_isolated(self):
+        schema = "equation-parentheses-v1"
+        # Synthetic analogues. Both approved intermediate states are equivalent
+        # to the original but still have a constant beside the variable term.
+        for initial, key, answer in (
+            (
+                "3(x-1)=x+5",
+                {"expanded_equation": "3x-3=x+5", "isolated_term_equation": "2x-3=5", "solution": "4"},
+                {"expanded_equation": "x+5=3x-3", "isolated_term_equation": "5=3x-3-x", "solution": "8/2"},
+            ),
+            (
+                "2(x+3)=4x-2",
+                {"expanded_equation": "2x+6=4x-2", "isolated_term_equation": "6=2x-2", "solution": "4"},
+                {"expanded_equation": "x+x+6=4x-2", "isolated_term_equation": "4x-2-2x=12/2", "solution": "x=4"},
+            ),
+        ):
+            with self.subTest(initial=initial):
+                result = analyze_submission(exercise(schema, key, initial=initial), attempt(schema, answer))
+                self.assertEqual((result.verdict, result.final_verdict, result.prefix_status),
+                                 (Verdict.CORRECT, Verdict.CORRECT, Check.VALID))
+
+    def test_structured_balance_requires_each_stage_and_keeps_approved_variants_together(self):
+        schema = "equation-parentheses-v1"
+        initial = "3x-3=x+5"
+        key = {"expanded_equation": "3x=x+8", "isolated_term_equation": "2x=8", "solution": "4"}
+        variant = {"expanded_equation": "3x-8=x", "isolated_term_equation": "2x-8=0", "solution": "x=4"}
+        config = exercise(schema, key, initial=initial, variants=(variant,))
+        self.assertEqual(analyze_submission(config, attempt(schema, variant)).verdict, Verdict.CORRECT)
+        unsafe = (
+            {**key, "expanded_equation": initial},
+            {**key, "isolated_term_equation": initial},
+            {**key, "isolated_term_equation": key["expanded_equation"]},
+            {**key, "isolated_term_equation": variant["isolated_term_equation"]},
+            {**key, "expanded_equation": "x=4", "isolated_term_equation": "x=4"},
+            {**key, "isolated_term_equation": "4x=16"},
+        )
+        for answer in unsafe:
+            with self.subTest(answer=answer):
+                result = analyze_submission(config, attempt(schema, answer))
+                self.assert_neutral(result, Verdict.INDETERMINATE)
+                self.assertEqual(result.final_verdict, Verdict.CORRECT)
+        # Even a degenerate trusted key cannot turn copying the same state
+        # into completion of two distinct required stages.
+        copy = unsafe[4]
+        self.assert_neutral(analyze_submission(exercise(schema, copy), attempt(schema, copy)),
+                            Verdict.INDETERMINATE)
+        repeated_key = {"expanded_equation": initial, "isolated_term_equation": "2x=8", "solution": "4"}
+        self.assert_neutral(analyze_submission(exercise(schema, repeated_key, initial=initial),
+                                              attempt(schema, repeated_key)), Verdict.INDETERMINATE)
+
+    def test_equation_trace_restatement_alone_is_not_a_transformation(self):
+        config = exercise(EQ, "4", initial="3x-3=x+5")
+        restated = ["3x-3=x+5", "5+x=3x-3"]
+        result = analyze_submission(config, attempt(EQ, "4", restated))
+        self.assert_neutral(result, Verdict.INDETERMINATE)
+        self.assertEqual(result.final_verdict, Verdict.CORRECT)
+        solved = analyze_submission(config, attempt(EQ, "4", [*restated, "2x-3=5", "2x=8"]))
+        self.assertEqual(solved.verdict, Verdict.CORRECT)
+        like_terms = exercise(EQ, "4", initial="2x+x=12")
+        self.assertEqual(analyze_submission(like_terms, attempt(EQ, "4", ["3x=12"])).verdict,
+                         Verdict.CORRECT)
+
+    def test_unscoped_arithmetic_fragment_stops_localization(self):
+        for initial, part, next_state, key in (
+            ("(-3)*4*5", "(-3)*4", "(-12)*5", "-60"),
+            ("24/(-2)/3", "-12", "(-12)/3", "-4"),
+        ):
+            with self.subTest(initial=initial):
+                config = exercise(ARITH, key, initial=initial, skills={"sign_rules_mul_div"})
+                result = analyze_submission(config, attempt(ARITH, key, [part, "12*5", next_state]), graph=GRAPH)
+                self.assert_neutral(result, Verdict.INDETERMINATE)
+                self.assertEqual(result.blocking_step_id, UUID(int=1))
+                self.assertEqual(result.final_verdict, Verdict.CORRECT)
+                full = analyze_submission(config, attempt(ARITH, key, [next_state, key]), graph=GRAPH)
+                self.assertEqual(full.verdict, Verdict.CORRECT)
+        config = exercise(ARITH, "-60", initial="(-3)*4*5", skills={"sign_rules_mul_div"})
+        typed_as_equation = analyze_submission(config, attempt(ARITH, "60", ["(-3)*4=-12"]), graph=GRAPH)
+        self.assert_neutral(typed_as_equation, Verdict.UNSUPPORTED)
+        self.assertEqual(typed_as_equation.final_verdict, Verdict.WRONG)
 
     def test_parser_statuses_have_no_deterministic_wrong(self):
         expected = ParseResult("2", "arithmetic_v1", ParseStatus.OK)
