@@ -2,6 +2,7 @@
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from enum import StrEnum
 from uuid import UUID
 
 from backend.knowledge.graph import PILOT_VERSION, PilotGraphRead
@@ -31,10 +32,10 @@ class ExerciseValidation:
 _FINAL_FORMS = {
     "integer_exact": Form.SCALAR,
     "linear_expression": Form.EXPRESSION,
-    "equation_state": Form.SOLUTION,
+    "equation_state": None,
     "integer_transitions": Form.SCALAR,
     "expression_transitions": Form.EXPRESSION,
-    "equation_transitions": Form.SOLUTION,
+    "equation_transitions": None,
 }
 _TRANSITION_FORMS = {
     "integer_transitions": Form.SCALAR,
@@ -53,6 +54,14 @@ _STRUCTURED_FORMS = {
 }
 
 
+class EquationAnswerMode(StrEnum):
+    """Server-owned answer semantics for equation checker version 2."""
+
+    SOLUTION = "SOLUTION"
+    EQUATION_STATE = "EQUATION_STATE"
+    TRANSFORMED_EQUATION = "TRANSFORMED_EQUATION"
+
+
 def analyze_submission(
     exercise: ExerciseValidation, submission: SubmittedSolution, *, graph: PilotGraphRead | None = None,
 ) -> AnalysisResult:
@@ -63,12 +72,27 @@ def analyze_submission(
     """
     template = TEMPLATES.get(exercise.schema_code) if isinstance(exercise.schema_code, str) else None
     if (template is None or template.parser is None or type(exercise.checker_version) is not int
-            or exercise.checker_version != 1 or exercise.checker_type != template.checker
+            or exercise.checker_type != template.checker
             or (template.checker not in _FINAL_FORMS and template.checker not in _STRUCTURED_FORMS)):
+        return AnalysisResult(Verdict.UNSUPPORTED)
+    equation_checker = template.checker in ("equation_state", "equation_transitions")
+    if exercise.checker_version != 1 and not (equation_checker and exercise.checker_version == 2):
         return AnalysisResult(Verdict.UNSUPPORTED)
     expected_spec = {
         "required_fields": [name for name, _ in template.fields], "step_type": template.step_type,
     }
+    mode = None
+    final_form = _FINAL_FORMS.get(template.checker, Form.SCALAR)
+    if exercise.checker_version == 2:
+        raw_mode = exercise.validation_spec.get("equation_answer_mode") if isinstance(
+            exercise.validation_spec, Mapping
+        ) else None
+        try:
+            mode = EquationAnswerMode(raw_mode)
+        except ValueError:
+            return AnalysisResult(Verdict.INDETERMINATE, parser_version=template.parser)
+        expected_spec["equation_answer_mode"] = mode.value
+        final_form = Form.SOLUTION if mode == EquationAnswerMode.SOLUTION else Form.EQUATION_STATE
     if (exercise.validation_spec != expected_spec
             or not isinstance(exercise.accepted_variants, (tuple, list))
             or len(exercise.accepted_variants) >= MAX_STEPS):
@@ -83,7 +107,7 @@ def analyze_submission(
     return analyze(CheckPlan(
         version_id=exercise.version_id,
         profile=template.parser,
-        final_form=_FINAL_FORMS.get(template.checker, Form.SCALAR),
+        final_form=final_form,
         fields=_STRUCTURED_FORMS.get(template.checker, ()),
         keys=(exercise.answer_key, *exercise.accepted_variants),
         transition_form=_TRANSITION_FORMS.get(template.checker),
@@ -91,5 +115,5 @@ def analyze_submission(
         initial_state=exercise.initial_state,
         allowed_skills=known,
         integer_key=template.checker == "integer_exact",
-        equation_state_key=template.checker == "equation_state",
+        requires_transformation=mode == EquationAnswerMode.TRANSFORMED_EQUATION,
     ), submission)

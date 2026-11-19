@@ -4,7 +4,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from uuid import UUID
 
-from backend.math_validation.model import LinearEquation, ParseInput, ParseResult
+from backend.math_validation.model import ParseInput, ParseResult
 from backend.math_validation.parser import parse_batch
 from backend.math_validation.profiles import MAX_REQUEST_BYTES, MAX_STEPS
 from backend.math_validation.validators import (
@@ -20,7 +20,7 @@ from .model import (
 class CheckPlan:
     version_id: UUID
     profile: str
-    final_form: Form
+    final_form: Form | None
     fields: tuple[tuple[str, Form], ...]
     keys: tuple[Answer, ...]
     transition_form: Form | None = None
@@ -28,7 +28,7 @@ class CheckPlan:
     initial_state: str | None = None
     allowed_skills: frozenset[str] = frozenset()
     integer_key: bool = False
-    equation_state_key: bool = False
+    requires_transformation: bool = False
 
 
 _VERDICTS = {
@@ -71,17 +71,6 @@ def _parse(texts: list[str], profile: str) -> dict[str, ParseResult] | None:
     return dict(zip(distinct, batch.results, strict=True))
 
 
-def _selected_form(plan: CheckPlan, keys: list[ParseResult]) -> Form:
-    if plan.equation_state_key and any(
-        isinstance(key.value, LinearEquation) and comparison_value(key, Form.SOLUTION)[0] != Check.VALID
-        for key in keys
-    ):
-        if any(not isinstance(key.value, LinearEquation) for key in keys):
-            return Form.EQUATION_OR_SOLUTION
-        return Form.EQUATION
-    return plan.final_form
-
-
 def _check_against(actual: ParseResult, expected: list[ParseResult], form: Form) -> Check:
     checks = [compare(actual, key, form) for key in expected]
     if Check.UNKNOWN in checks:
@@ -91,6 +80,21 @@ def _check_against(actual: ParseResult, expected: list[ParseResult], form: Form)
     if Check.UNSUPPORTED in checks:
         return Check.UNSUPPORTED
     return Check.WRONG
+
+
+def _check_final(
+    plan: CheckPlan, actual: ParseResult, keys: list[ParseResult], start: ParseResult | None,
+) -> Check:
+    if plan.final_form is None:
+        return Check.UNKNOWN
+    result = _check_against(actual, keys, plan.final_form)
+    if (plan.requires_transformation and start is not None
+            and compare(actual, start, Form.EQUATION) == Check.VALID
+            and not equation_transformed(start, actual)):
+        # Restating the original does not demonstrate the requested change,
+        # even when normalization yields identical sides to the approved key.
+        return Check.UNKNOWN
+    return result
 
 
 def _final(
@@ -271,7 +275,7 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
         statements = [step for step in steps if step.step_type == "FINAL_STATEMENT"]
         if len(statements) == 1 and statements[0] is steps[-1]:
             statement = statements[0]
-    elif steps:
+    elif steps or plan.final_form is None:
         return unverified
 
     if not plan.keys or len(plan.keys) > MAX_STEPS:
@@ -303,18 +307,24 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
         return _structured(plan, submission, steps, parsed_student, structured_keys, start)
 
     final_keys = [parsed_keys[key] for key in plan.keys]
-    form = _selected_form(plan, final_keys)
+    # Legacy equation checkers can still verify mathematical consistency for
+    # transitions. This comparison never selects a final answer mode.
+    key_form = plan.final_form or Form.EQUATION_OR_SOLUTION
     for key in final_keys:
-        check, value = comparison_value(key, form)
+        check, value = comparison_value(key, key_form)
         if check != Check.VALID or (plan.integer_key and value.denominator != 1):
             return unverified
+    if plan.requires_transformation and (
+        start is None or any(compare(key, start, Form.EQUATION) != Check.VALID
+                             or not equation_transformed(start, key) for key in final_keys)
+    ):
+        return unverified
     if start is not None and plan.transition_form is not None:
-        anchor_form = plan.transition_form
-        anchor_status, anchor_value = comparison_value(start, anchor_form)
-        # The original state and the key must be mathematically consistent.
-        # Solutions and equations share the same solution-set representation.
+        anchor_form = (Form.EQUATION_OR_SOLUTION if plan.transition_form == Form.EQUATION
+                       else plan.transition_form)
+        anchor_status, _ = comparison_value(start, plan.transition_form)
         if anchor_status == Check.VALID and any(
-            anchor_value != comparison_value(key, form)[1] for key in final_keys
+            compare(key, start, anchor_form) != Check.VALID for key in final_keys
         ):
             return unverified
     parsed_student = _parse(student, plan.profile)
@@ -322,7 +332,7 @@ def analyze(plan: CheckPlan, submission: SubmittedSolution) -> AnalysisResult:
         return unsupported
     if plan.transition_form is not None:
         answer = _step_field(statement, plan) if statement is not None else None
-        final = Check.UNKNOWN if answer is None else _check_against(parsed_student[answer], final_keys, form)
+        final = Check.UNKNOWN if answer is None else _check_final(plan, parsed_student[answer], final_keys, start)
         return _trace(plan, submission, steps, parsed_student, start, final, statement)
-    final = _check_against(parsed_student[submission.payload["answer"]], final_keys, form)
+    final = _check_final(plan, parsed_student[submission.payload["answer"]], final_keys, start)
     return _final(plan, submission, final)

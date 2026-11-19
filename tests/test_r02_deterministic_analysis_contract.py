@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 from uuid import UUID
 
-from backend.assessment.analysis import ExerciseValidation, analyze_submission
+from backend.assessment.analysis import EquationAnswerMode, ExerciseValidation, analyze_submission
 from backend.assessment.templates import TEMPLATES
 from backend.knowledge.graph import graph_from_package
 from backend.math_validation.model import ParseInput, ParseReason, ParseResult, ParseStatus
@@ -39,11 +39,15 @@ GRAPH = graph_from_package(read_fixture("knowledge/fixtures/pilot-skills-v1.json
                            read_fixture("knowledge/fixtures/pilot-dependencies-v1.json"))
 
 
-def exercise(schema, key, *, initial=None, skills=(), variants=()):
+def exercise(schema, key, *, initial=None, skills=(), variants=(), equation_mode=EquationAnswerMode.SOLUTION):
     template = TEMPLATES[schema]
+    spec = {"required_fields": [name for name, _ in template.fields], "step_type": template.step_type}
+    checker_version = 1
+    if schema in (EQ, "equation-final-v1") and equation_mode is not None:
+        spec["equation_answer_mode"] = equation_mode
+        checker_version = 2
     return ExerciseValidation(
-        VERSION, schema, template.checker, 1,
-        {"required_fields": [name for name, _ in template.fields], "step_type": template.step_type},
+        VERSION, schema, template.checker, checker_version, spec,
         key, tuple(variants), frozenset(skills), initial,
     )
 
@@ -80,7 +84,8 @@ class DeterministicAnalysisTests(unittest.TestCase):
             with self.subTest(case=case["id"]):
                 schema = case["schema"]
                 result = analyze_submission(
-                    exercise(schema, case["key"], initial=case.get("initial"), skills=case.get("skills", ())),
+                    exercise(schema, case["key"], initial=case.get("initial"), skills=case.get("skills", ()),
+                             equation_mode=case.get("equation_answer_mode")),
                     attempt(schema, case["answer"], case.get("steps", ())), graph=GRAPH,
                 )
                 self.assertEqual(result.schema_version, fixture["schema_version"])
@@ -111,17 +116,100 @@ class DeterministicAnalysisTests(unittest.TestCase):
 
     def test_final_equation_form_and_accepted_variants(self):
         schema = "equation-final-v1"
-        solved = exercise(schema, "x=2")
+        solved = exercise(schema, "x=2", variants=("2", "2=x"))
         self.assertEqual(analyze_submission(solved, attempt(schema, "4/2")).verdict, Verdict.CORRECT)
+        self.assertEqual(analyze_submission(solved, attempt(schema, "2/1=x")).verdict, Verdict.CORRECT)
         self.assert_neutral(analyze_submission(solved, attempt(schema, "2x=4")), Verdict.UNSUPPORTED)
-        equation_only = exercise(schema, "2x=4")
-        self.assertEqual(analyze_submission(equation_only, attempt(schema, "x+5=7")).verdict, Verdict.CORRECT)
-        self.assert_neutral(analyze_submission(equation_only, attempt(schema, "2")), Verdict.UNSUPPORTED)
-        state = exercise(schema, "2x=4", variants=("2",))
-        self.assertEqual(analyze_submission(state, attempt(schema, "x+5=7")).verdict, Verdict.CORRECT)
-        self.assertEqual(analyze_submission(state, attempt(schema, "2")).verdict, Verdict.CORRECT)
+        self.assertEqual(analyze_submission(solved, attempt(schema, "3")).verdict, Verdict.WRONG)
+        state = exercise(schema, "2x=4", variants=("3x=6",), equation_mode=EquationAnswerMode.EQUATION_STATE)
+        self.assertEqual(analyze_submission(state, attempt(schema, "4=x+x")).verdict, Verdict.CORRECT)
+        self.assertEqual(analyze_submission(state, attempt(schema, "3x=6")).verdict, Verdict.CORRECT)
+        self.assertEqual(analyze_submission(state, attempt(schema, "x+5=7")).verdict, Verdict.WRONG)
+        self.assert_neutral(analyze_submission(state, attempt(schema, "2")), Verdict.UNSUPPORTED)
+        self.assert_neutral(analyze_submission(replace(state, accepted_variants=("2",)), attempt(schema, "4=x+x")),
+                            Verdict.INDETERMINATE)
         integer = exercise("integer-final-v1", "15", variants=("20",))
         self.assertEqual(analyze_submission(integer, attempt("integer-final-v1", "40/2")).verdict, Verdict.CORRECT)
+
+    def test_equation_steps_accepts_explicit_intermediate_final_statement(self):
+        # Public synthetic analogues of the review. The final statements
+        # require intermediate equations, not a solved value for x.
+        for start, key, answer, steps, mode in (
+            ("3(x-1)=x+5", "2x-3=5", "5=3x-3-x", ["3x-3=x+5", "2x-3=5"],
+             EquationAnswerMode.TRANSFORMED_EQUATION),
+            ("2(x+3)=4x-2", "6=2x-2", "4x-2-2x=12/2", ["2x+6=4x-2", "6=2x-2"],
+             EquationAnswerMode.EQUATION_STATE),
+        ):
+            with self.subTest(mode=mode):
+                config = exercise(EQ, key, initial=start, equation_mode=mode)
+                result = analyze_submission(config, attempt(EQ, answer, steps))
+                self.assertEqual((result.verdict, result.final_verdict, result.prefix_status),
+                                 (Verdict.CORRECT, Verdict.CORRECT, Check.VALID))
+                solved = analyze_submission(config, attempt(EQ, "x=4", steps))
+                self.assertEqual((solved.verdict, solved.final_verdict, solved.prefix_status),
+                                 (Verdict.WRONG, Verdict.WRONG, Check.VALID))
+                self.assertEqual(solved.evidence_refs[0].kind, EvidenceKind.FINAL_ANSWER)
+                self.assertIsNone(solved.first_error_step_id)
+                self.assertIsNone(solved.misconception_code)
+
+    def test_intermediate_final_does_not_override_transition_error_or_gap(self):
+        config = exercise(EQ, "2x-3=5", initial="3(x-1)=x+5", skills={"equation_balance"},
+                          equation_mode=EquationAnswerMode.TRANSFORMED_EQUATION)
+        wrong = analyze_submission(config, attempt(EQ, "2x-3=5", ["3x-3=x+5", "(3x-3)+3=x+5"]), graph=GRAPH)
+        self.assertEqual((wrong.verdict, wrong.final_verdict), (Verdict.WRONG, Verdict.CORRECT))
+        self.assertEqual(wrong.first_error_step_id, UUID(int=2))
+        self.assertEqual(wrong.misconception_code, Classification.EQUATION_BALANCE)
+        gap = analyze_submission(config, attempt(EQ, "2x-3=5", ["3x-3=x+5", "1/x=4", "3x=x+5"]),
+                                 graph=GRAPH)
+        self.assert_neutral(gap, Verdict.UNSUPPORTED)
+        self.assertEqual(gap.final_verdict, Verdict.CORRECT)
+        self.assertEqual(gap.blocking_step_id, UUID(int=2))
+
+    def test_equation_final_requires_reviewed_transformation_even_for_identical_affine_sides(self):
+        schema = "equation-final-v1"
+        config = exercise(schema, "2x+6=10", initial="2(x+3)=10",
+                          equation_mode=EquationAnswerMode.TRANSFORMED_EQUATION)
+        self.assertEqual(analyze_submission(config, attempt(schema, "10=6+x+x")).verdict, Verdict.CORRECT)
+        for restated in ("2(x+3)=10", "10=(3+x)*2"):
+            with self.subTest(restated=restated):
+                self.assert_neutral(analyze_submission(config, attempt(schema, restated)), Verdict.INDETERMINATE)
+        self.assert_neutral(analyze_submission(replace(config, initial_state=None), attempt(schema, "2x+6=10")),
+                            Verdict.INDETERMINATE)
+        self.assert_neutral(analyze_submission(replace(config, answer_key="2x+7=10"),
+                                              attempt(schema, "2x+7=10")), Verdict.INDETERMINATE)
+        self.assert_neutral(analyze_submission(replace(config, answer_key="2(x+3)=10"),
+                                              attempt(schema, "2(x+3)=10")), Verdict.INDETERMINATE)
+        wrong = analyze_submission(config, attempt(schema, "x=2"))
+        self.assertEqual(wrong.verdict, Verdict.WRONG)
+        self.assertEqual(wrong.evidence_refs[0].kind, EvidenceKind.FINAL_ANSWER)
+        self.assertIsNone(wrong.first_error_step_id)
+        self.assertIsNone(wrong.misconception_code)
+
+    def test_equation_mode_comes_only_from_supported_private_checker_version(self):
+        schema = "equation-final-v1"
+        for key in ("2", "x=2", "2x=4"):
+            legacy = exercise(schema, key, equation_mode=None)
+            self.assert_neutral(analyze_submission(legacy, attempt(schema, key)), Verdict.INDETERMINATE)
+        typed = exercise(schema, "2")
+        for checker in (
+            replace(typed, checker_version=1),
+            replace(typed, validation_spec={"required_fields": ["answer"], "step_type": None}),
+            replace(typed, validation_spec={**typed.validation_spec, "equation_answer_mode": "unknown"}),
+        ):
+            self.assert_neutral(analyze_submission(checker, attempt(schema, "2")), Verdict.INDETERMINATE)
+        self.assert_neutral(analyze_submission(replace(typed, checker_version=3), attempt(schema, "2")),
+                            Verdict.UNSUPPORTED)
+        student_mode = replace(attempt(schema, "2"), payload={"answer": "2", "equation_answer_mode": "SOLUTION"})
+        self.assert_neutral(analyze_submission(typed, student_mode), Verdict.INDETERMINATE)
+
+        legacy_steps = exercise(EQ, "2x=4", initial="2(x+3)=10", equation_mode=None, skills=DIST)
+        safe = analyze_submission(legacy_steps, attempt(EQ, "2x=4", ["2x+6=10", "2x=4"]))
+        self.assert_neutral(safe, Verdict.INDETERMINATE)
+        self.assertEqual(safe.final_verdict, Verdict.INDETERMINATE)
+        known = analyze_submission(legacy_steps, attempt(EQ, "2x=4", ["2x+3=10"]), graph=GRAPH)
+        self.assertEqual(known.final_verdict, Verdict.INDETERMINATE)
+        self.assertEqual(known.first_error_step_id, UUID(int=1))
+        self.assertEqual(known.misconception_code, Classification.DISTRIBUTIVE_PROPERTY)
 
     def test_first_error_with_verified_predecessor_and_correct_final(self):
         config = exercise(EQ, "2", initial="2(x+3)=10", skills={"equation_balance"})
@@ -172,10 +260,7 @@ class DeterministicAnalysisTests(unittest.TestCase):
     def test_frozen_r02_step_and_n009_empty_top_level_payload(self):
         exchange = read_fixture("exercises/fixtures/step-submission.exchange-v1.json")
         frozen_step = exchange["request"]["submitted_step"]
-        config = ExerciseValidation(
-            VERSION, EQ, "equation_transitions", 1, {"required_fields": [], "step_type": "EQUATION_STATE"},
-            "x=2", initial_state="2(x+3)=10",
-        )
+        config = exercise(EQ, "x=2", initial="2(x+3)=10")
         step = SubmittedStep(UUID(int=1), frozen_step["step_no"], frozen_step["step_type"],
                              frozen_step["payload"], frozen_step["raw_text"])
         submitted = SubmittedSolution(ATTEMPT, VERSION, {}, (step,))
