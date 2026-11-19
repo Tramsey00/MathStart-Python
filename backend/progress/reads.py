@@ -2,7 +2,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 import sqlalchemy as sa
 from backend.knowledge.models import skill
-from backend.content.topic_skill_model import content_page, topic_skill
+from backend.content.topic_skill_model import topic_skill
 from backend.infrastructure.http import transport as wire
 from .models import event, state, completion
 from ._r03_v1 import ASSESSED_KINDS
@@ -22,7 +22,7 @@ def skill_projection(session, owner, sid, code):
         reducer_version='progress-v1.1', self_reported=bool(reported))
 
 
-def list_progress(session, owner, kind, params, signer):
+def list_progress(session, owner, kind, params, signer, *, topic_catalogue=None):
     query = wire.singleton_query(params, {'page_size', 'cursor'})
     size = wire.page_size(query.get('page_size', '20'))
     scope = {'owner': owner, 'kind': kind, 'page_size': size}
@@ -70,16 +70,17 @@ def list_progress(session, owner, kind, params, signer):
             occurred_at=row.payload['occurred_at'], attempt_id=row.attempt_id,
             evidence_ref=row.evidence_ref or 'self-report', policy_version=row.policy_version) for row in rows[:size]]
     elif kind == 'topics':
-        statement = sa.select(content_page.c.id, content_page.c.slug).where(content_page.c.page_type == 'topic',
-            content_page.c.is_published.is_(True), sa.exists(sa.select(topic_skill.c.id).where(
-                topic_skill.c.content_page_id == content_page.c.id))).order_by(content_page.c.slug)
-        if after: statement = statement.where(content_page.c.slug > after)
-        rows = session.execute(statement.limit(size + 1)).all()
-        keys = [row.slug for row in rows]
+        if topic_catalogue is None: raise wire.unavailable()
+        # The pinned Content edition owns public topic identity, not mutable source rows.
+        linked = set(session.scalars(sa.select(topic_skill.c.content_page_id).join(skill,
+            skill.c.id == topic_skill.c.skill_id).where(skill.c.active.is_(True))))
+        rows = sorted((row for row in topic_catalogue if row['id'] in linked
+                       and (not after or row['slug'] > after)), key=lambda row: row['slug'])[:size + 1]
+        keys = [row['slug'] for row in rows]
         data = []
         for row in rows[:size]:
             mappings = session.execute(sa.select(topic_skill, skill.c.code).join(skill, skill.c.id == topic_skill.c.skill_id)
-                .where(topic_skill.c.content_page_id == row.id)).all()
+                .where(topic_skill.c.content_page_id == row['id'], skill.c.active.is_(True))).all()
             weighted = [(m, skill_projection(session, owner, m.skill_id, m.code)) for m in mappings]
             total = sum((m.importance for m, _ in weighted), Decimal(0))
             def average(field):
@@ -88,7 +89,7 @@ def list_progress(session, owner, kind, params, signer):
             primary = [m for m in mappings if m.role == 'PRIMARY']
             assessed = sum(bool(session.scalar(sa.select(sa.exists(sa.select(event.c.event_id).where(
                 event.c.user_id == owner, event.c.skill_id == m.skill_id, event.c.event_kind.in_(ASSESSED_KINDS)))))) for m in primary)
-            data.append(dict(topic={'id': row.id, 'slug': row.slug}, mastery=average('mastery'), confidence=average('confidence'),
+            data.append(dict(topic={'id': row['id'], 'slug': row['slug']}, mastery=average('mastery'), confidence=average('confidence'),
                 assessed_skill_count=assessed, total_skill_count=len(primary)))
     else: raise wire.invalid()
     more = len(rows) > size

@@ -117,7 +117,8 @@ class ProgressService:
             source = sources[value['attempt_id']]
             if value['user_id'] != str(source.user_id):
                 raise r03.ContractError('Assessment completion owner mismatch')
-            if value.get('completed_at') != r03.utc_instant(source.completed_at, 'completed_at'):
+            if (value.get('completed_at') is not None
+                    and value['completed_at'] != r03.utc_instant(source.completed_at, 'completed_at')):
                 raise r03.ContractError('Assessment terminal instant mismatch')
             expected = source.evidence.events if 'event_kind' in value else source.evidence.facts
             expected = [canonical_event(e) if 'event_kind' in e else r03a.validate_completion_fact(e) for e in expected]
@@ -128,17 +129,19 @@ class ProgressService:
             outcome, independent = next((o, i) for code, o, i in source.skills if code == f['skill_id'])
             if (f['outcome'], f['independent_correct']) != (outcome, independent):
                 raise r03.ContractError('Completion eligibility mismatch')
-        authorities = {a: {'version_id': s.version_id, 'mapped': [c for c, _, _ in s.skills]} for a, s in sources.items()}
+        authorities = {a: {'version_id': s.version_id, 'mapped': [c for c, _, _ in s.skills],
+                          'completed_at': r03.utc_instant(s.completed_at, 'completed_at')} for a, s in sources.items()}
         return self._write(session, events, facts, authorities)
 
     def _write(self, session, events, facts, authorities, *, legacy=False):
         mapping = self.skills(session, {v['skill_id'] for v in events + facts})
         affected, numeric_changed, duplicates = set(), set(), 0
         for value in events + facts:
-            if value.get('attempt_id') and value.get('completed_at'):
-                a = authorities[value['attempt_id']]
+            a = authorities.get(value.get('attempt_id'), {})
+            completed_at = value.get('completed_at') or a.get('completed_at')
+            if value.get('attempt_id') and completed_at:
                 binding = dict(attempt_id=value['attempt_id'], user_id=int(value['user_id']),
-                    completed_at=instant(value['completed_at']), version_id=a['version_id'])
+                    completed_at=instant(completed_at), version_id=a['version_id'])
                 old = session.execute(sa.select(attempt_binding).where(attempt_binding.c.attempt_id == value['attempt_id'])).first()
                 if old and any(getattr(old, k) != v for k, v in binding.items()):
                     raise r03.IdentityConflict('Attempt owner/time/version conflict')
@@ -216,15 +219,17 @@ class ProgressService:
               + ['1:event:' + e['event_id'] for e in events]
               + ['2:completion:' + f['completion_id'] for f in facts]
               + [f'3:scope:{u}:{s}' for u, s in scopes])
+        imported = []
         for user, code in scopes:
-            r03a.import_progress_v1_completions(events, str(user), code, authority=authority)
+            confirmed, _ = r03a.import_progress_v1_completions(events, str(user), code, authority=authority)
+            imported.extend(confirmed)
         authorities = {}
         for record in authority['records']:
             f = r03a.validate_completion_fact(record['fact'])
             a = authorities.setdefault(f['attempt_id'], {'version_id': 'legacy-progress-v1', 'mapped': [], 'contexts': {}})
             a['mapped'] = sorted(set(a['mapped']) | set(record['mapped_skill_ids']))
             a['contexts'][f['completion_id']] = {'context_version': 'legacy-completion-v1', 'records': [record]}
-        return self._write(session, events, facts, authorities, legacy=True)
+        return self._write(session, events, imported, authorities, legacy=True)
 
     def self_report(self, session, user_id, codes):
         with session.begin_nested():

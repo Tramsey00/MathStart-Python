@@ -76,7 +76,7 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         from backend.assessment.http import install as install_attempts
         install_attempts(app, identity_service, signer, lambda uow: active_release(uow, release_store, namespace))
         from backend.progress.http import install as install_progress
-        install_progress(app, identity_service, signer)
+        install_progress(app, identity_service, signer, lambda uow: active_release(uow, release_store, namespace))
 
     @contextmanager
     def operation():

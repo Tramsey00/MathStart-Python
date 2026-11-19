@@ -307,7 +307,8 @@ class PostgreSQLProgressTests(unittest.TestCase):
 
     def test_self_report_http_privacy_pagination_no_get_writes_and_replay(self):
         app=create_app(self.engine,Signer(KEY),identity_service=self.identity,public_origin=ORIGIN)
-        with TestClient(app,base_url=ORIGIN) as client:
+        release = type('Release', (), {'index': {'catalogue': {'topics': list(self.topics.values())}}})()
+        with patch('backend.infrastructure.http.app.active_release', return_value=release), TestClient(app,base_url=ORIGIN) as client:
             self.assertEqual(client.get('/api/v1/progress/skills/').status_code,401)
             client.cookies.set('sessionid',self.token)
             with self.engine.connect() as c:self.assertEqual(c.scalar(sa.select(sa.func.count()).select_from(state)),0)
@@ -360,6 +361,103 @@ class PostgreSQLProgressTests(unittest.TestCase):
         source=self.sources[d.facts[0]['attempt_id']]
         with Session(self.engine) as s:
             with self.assertRaises(r03.ContractError):verify_version_skills(s,source)
+
+    def test_negative_reveal_optional_completion_time_and_delivery_orders(self):
+        for kind in ('WRONG_ATTEMPT', 'MISCONCEPTION_DETECTED', 'ANSWER_REVEALED'):
+            for inline in (False, True):
+                for event_first in (False, True):
+                    with self.subTest(kind=kind, inline=inline, event_first=event_first):
+                        self.owner, self.token = self.user()
+                        original = self.delivery(kind=kind)
+                        e, f = original.events[0], original.facts[0]
+                        f.update(outcome='WRONG', independent_correct=False)
+                        if not inline: e.pop('completed_at')
+                        if kind == 'MISCONCEPTION_DETECTED':
+                            e.update(misconception_code='sign_error', confirmed=True, source_kind='STEP')
+                        if kind == 'ANSWER_REVEALED':
+                            e.pop('difficulty'); e['reveal_used'] = True
+                        full = Delivery(events=[e], facts=[f])
+                        source = self.sources[f['attempt_id']]
+                        self.sources[f['attempt_id']] = replace(source, evidence=full, skills=((CODE,'WRONG',False),))
+                        parts = [Delivery(events=[e]), Delivery(facts=[f])]
+                        if not event_first: parts.reverse()
+                        for part in parts: self.ingest(part)
+                        before = self.projection().result
+                        with Session(self.engine) as session, session.begin():
+                            self.assertEqual(self.service.replay(session,self.owner.user_id,CODE),before)
+                        self.assertEqual(before, completion_oracle.replay_v1_1([e],[f],str(self.owner.user_id),CODE,
+                            authority={'context_version':'assessment-completion-v1','records':[
+                                {'fact':f,'attempt_state':'COMPLETED','mapped_skill_ids':[CODE]}]}))
+
+    def test_completion_time_mismatch_refuses_atomic_batch_in_both_orders(self):
+        for event_first in (False, True):
+            for bad_kind in ('event', 'fact'):
+                with self.subTest(event_first=event_first, bad_kind=bad_kind):
+                    self.owner, self.token = self.user()
+                    d = self.delivery(kind='WRONG_ATTEMPT')
+                    e, f = d.events[0], d.facts[0]
+                    f.update(outcome='WRONG',independent_correct=False)
+                    full = Delivery(events=[e],facts=[f])
+                    source = replace(self.sources[f['attempt_id']],evidence=full,skills=((CODE,'WRONG',False),))
+                    self.sources[source.attempt_id] = source
+                    self.ingest(Delivery(events=[e]) if event_first else Delivery(facts=[f]))
+                    before = self.projection().result
+                    bad_e,bad_f = deepcopy(e),deepcopy(f)
+                    target = bad_e if bad_kind == 'event' else bad_f
+                    target['completed_at'] = '2026-01-02T00:00:00Z'
+                    # Even if included in the source payload, inline time must match source terminal time.
+                    bad = Delivery(events=[bad_e],facts=[bad_f])
+                    self.sources[source.attempt_id] = replace(source,evidence=bad)
+                    valid = self.delivery(5)
+                    with self.engine.connect() as c:
+                        counts = [c.scalar(sa.select(sa.func.count()).select_from(t)) for t in (event,completion,attempt_binding)]
+                    with Session(self.engine) as session, session.begin():
+                        with self.assertRaises(r03.ContractError):
+                            self.service.ingest(session,Delivery(events=valid.events+bad.events,facts=valid.facts+bad.facts))
+                    with self.engine.connect() as c:
+                        self.assertEqual(counts,[c.scalar(sa.select(sa.func.count()).select_from(t)) for t in (event,completion,attempt_binding)])
+                    self.assertEqual(before,self.projection().result)
+
+    def test_legacy_extra_fact_is_not_imported_or_projected(self):
+        original = self.delivery()
+        extra = self.delivery(2,neutral=True).facts[0]
+        facts = original.facts + [extra]
+        authority = {'context_version':'legacy-completion-v1','records':[
+            {'fact':f,'attempt_state':'LEGACY_COMPLETION','mapped_skill_ids':[CODE]} for f in facts]}
+        confirmed, expected = completion_oracle.import_progress_v1_completions(original.events,
+            str(self.owner.user_id),CODE,authority=authority)
+        self.assertEqual(confirmed,original.facts)
+        with Session(self.engine) as session, session.begin():
+            self.service.import_legacy(session,Delivery(events=original.events,facts=facts),authority)
+        with self.engine.connect() as c:
+            self.assertEqual(list(c.scalars(sa.select(completion.c.payload))),confirmed)
+            self.assertIsNone(c.scalar(sa.select(attempt_binding.c.attempt_id).where(attempt_binding.c.attempt_id==extra['attempt_id'])))
+        self.assertEqual(self.projection().result,expected)
+
+    def test_topic_progress_uses_active_skills_and_pinned_content_catalogue(self):
+        from backend.content.topic_skill_model import topic_skill, content_page
+        self.ingest(self.delivery())
+        with self.engine.begin() as c:
+            topic_id = c.scalar(sa.select(topic_skill.c.content_page_id).order_by(topic_skill.c.content_page_id))
+            inactive = c.scalar(sa.select(topic_skill.c.skill_id).where(topic_skill.c.content_page_id==topic_id))
+            c.execute(skill.update().where(skill.c.id==inactive).values(active=False))
+            c.execute(topic_skill.insert().values(id=uuid4(),content_page_id=topic_id,skill_id=self.sid,
+                role='PRIMARY',importance=1,position=1,mapping_version='n012-test'))
+            # A mutable, published source page absent from the pinned edition must not appear.
+            c.execute(content_page.insert().values(id=9999,slug='source-only',title='Source only',page_type='topic',is_published=True))
+            c.execute(topic_skill.insert().values(id=uuid4(),content_page_id=9999,skill_id=self.sid,
+                role='PRIMARY',importance=1,position=0,mapping_version='n012-test'))
+        release = type('Release',(),{'index':{'catalogue':{'topics':[{'id':topic_id,'slug':'pinned-topic'}]}}})()
+        app=create_app(self.engine,Signer(KEY),identity_service=self.identity,public_origin=ORIGIN)
+        with patch('backend.infrastructure.http.app.active_release',return_value=release), TestClient(app,base_url=ORIGIN) as client:
+            client.cookies.set('sessionid',self.token)
+            result=client.get('/api/v1/progress/topics/')
+            self.assertEqual(result.status_code,200)
+            self.assertEqual(result.json()['data'],[{'topic':{'id':topic_id,'slug':'pinned-topic'},
+                'mastery':float(self.projection().mastery),'confidence':float(self.projection().confidence),
+                'assessed_skill_count':1,'total_skill_count':1}])
+            with self.engine.begin() as c:c.execute(skill.update().where(skill.c.id==self.sid).values(active=False))
+            self.assertEqual(client.get('/api/v1/progress/topics/').json()['data'],[])
 
     def test_fresh_upgrade_acl_and_immutable_history(self):
         with self.engine.connect() as c:assert_baseline(c,'FRESH',allow_protocol=True,require_history=False)

@@ -98,3 +98,26 @@ PG тестов использован явный trusted server DTO fixture с 
 Docker builds и живые providers не запускались. Исходные frozen R03/R03A fixtures
 сохранены. Результирующий SHA/tree и PR фиксируются в PR; самопроверка не заменяет
 независимое ревью и человеческую приёмку. Merge не выполнялся.
+
+## Повторное ревью PR #99 — исправления b11ce66
+
+Четыре замечания Руслана обработаны одним пакетом: optional inline completion time
+для negative/reveal и atomic refusal, только reference-confirmed legacy completions,
+активные skill links + pinned Content topics, AJV namespace import как в PR #97.
+Добавлены четыре профильных PG regression tests (включая матрицу трёх event kinds,
+двух inline вариантов и двух очередностей). Frozen reducer/fixtures не менялись.
+
+- `python -m unittest backend.tests.test_progress -v`: 17 PASS, 43.801s, собственный
+  disposable PostgreSQL 16.15 / 55493; повторены только Progress checks.
+- `node scripts/generate-progress.mjs --check`: PASS после regeneration.
+- `node node_modules/vitest/vitest.mjs run tests/progress-client.test.ts`: 3 PASS.
+- Targeted Vite 7.3.7 ES browser build entry `src/shared/api/progress-client.ts`
+  (`configFile:false`, library format es; output в ignored var/tmp/ms-n012/browser-bundle):
+  PASS, 27 modules, 578ms. Это проверка bundling, не browser-runtime PASS.
+- Full host-dev/browser: BLOCKED; конкретные причины и выполненная диагностика
+  записаны в closeout. Новая собственная host-dev DB/volume создана штатным init
+  на 55494, FRESH schema+ACL применены; Content preparation не завершилась.
+  Ни publication, ни изменение чужих установок не выполнялись. Own DB/Vite остановлены.
+
+Новый SHA/tree/results фиксируются в существующем PR #99. Самопроверка завершена,
+повторное независимое ревью и человеческая приёмка pending; merge не выполнен.

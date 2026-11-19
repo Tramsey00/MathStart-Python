@@ -118,3 +118,33 @@ N013: authoritative Assessment finalization, AnalysisRecord/CompletionFact/sourc
 reader, Exposure credit reservation и persisted end-to-end loop. N015: интерфейс.
 Ни эти части, ни изменения учебного банка/материалов, LLM/provider, production
 deploy или merge в N012 не входят.
+
+## Исправления ревью b11ce66 — 19.11.2026
+
+Negative/reveal events допускают отсутствие inline completed_at согласно R03.
+Если время указано, оно обязано совпасть с проверенным Assessment DTO. Owner,
+version и terminal time source всё равно сохраняются в attempt binding; это не
+создаёт CompletionFact и не добавляет завершение в recent-ten. Обе очередности
+(event→fact, fact→event) должны давать тот же replay. Несовпадение времени
+отклоняет весь batch без частичной истории.
+
+Legacy import записывает только список completions, возвращённый эталонным
+import_progress_v1_completions по старому журналу. Лишняя запись в authority/input
+не является доказательством завершения и не попадает в mirror/binding/projection.
+
+Topic read получает pinned catalogue активной редакции через Content read boundary,
+а не выводит публичность по mutable ContentPage.is_published. Веса, denominator и
+assessed coverage учитывают только привязки к active Knowledge skills. Topic без
+активных привязок не входит в этот read model, как и topic вне активной редакции.
+
+AJV generator использует namespace import ajv-formats/dist/formats.js по исправлению
+PR #97; generated validator перегенерирован. Targeted Vite browser bundle собирается.
+Полная проверка Windows host-dev/browser остаётся BLOCKED, не PASS: fresh Content
+preparation базового SHA останавливается на отсутствующем os в publish.py, затем
+на Bootstrap media page is absent (осмотрено с временной in-process подстановкой os,
+не включённой в PR). Отдельный штатный Windows Vite/HMR graph был запущен на own
+зависимостях; встроенный браузер получил untransformed module, а управление Edge
+запрещено инструментом из-за невозможности надёжно определить URL. Это не доказательство
+успешной загрузки исправленного validator в браузере. Content/runtime guards не
+ослаблялись, Content и UI N013/N015 не менялись. Собственные серверы/БД остановлены,
+временные страницы и drive alias удалены. Результаты/новый SHA — в PR #99.

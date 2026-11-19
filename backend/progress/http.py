@@ -36,7 +36,7 @@ def response(value, schema):
     return Response(decimal_json(value), headers={'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'private, no-store'})
 
 
-def install(app, identity, signer):
+def install(app, identity, signer, public_release):
     service = ProgressService()
 
     def operate(auth, action, params, body=None, key=None, request_id=None):
@@ -47,7 +47,8 @@ def install(app, identity, signer):
             if user is None or not user.is_active: raise wire.authentication_required()
             validate_current(session, auth, user, identity.security.keys)
             if action != 'self-reports':
-                data, pagination = list_progress(session, user.id, action, params, signer)
+                catalogue = public_release(uow).index['catalogue']['topics'] if action == 'topics' else None
+                data, pagination = list_progress(session, user.id, action, params, signer, topic_catalogue=catalogue)
                 result = {'data': data, 'meta': {'request_id': request_id, 'version': 'http-v1', 'pagination': pagination}}
                 return result
             if not isinstance(key, str) or not 1 <= len(key) <= 256 or any(c in key for c in '\r\n\0'):
