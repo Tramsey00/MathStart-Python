@@ -2,7 +2,6 @@
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from enum import StrEnum
 from uuid import UUID
 
 from backend.knowledge.graph import PILOT_VERSION, PilotGraphRead
@@ -11,6 +10,9 @@ from backend.math_validation.validators import Form
 from backend.solution_analyzer.deterministic import CheckPlan, analyze
 from backend.solution_analyzer.model import AnalysisResult, Answer, SubmittedSolution, Verdict
 
+from .checker_spec import (
+    EQUATION_CHECKERS, CheckerSpecError, EquationAnswerMode, split_equation_spec, template_validation_spec,
+)
 from .templates import TEMPLATES
 
 
@@ -27,6 +29,25 @@ class ExerciseValidation:
     # The caller may provide the original reviewed math state independently of
     # the canonical solution. That solution may start at a transformed state.
     initial_state: str | None = None
+
+    @classmethod
+    def from_storage(
+        cls, *, version_id: UUID, schema_code: str, checker_type: str, checker_version: int,
+        validation_spec: Mapping[str, object], answer_key: Answer,
+        accepted_variants: Sequence[Answer] = (), skill_codes: frozenset[str] = frozenset(),
+    ) -> "ExerciseValidation":
+        """Project a private check row already joined to its bound exercise version."""
+        template = TEMPLATES.get(schema_code)
+        if (template is None or template.checker != checker_type
+                or type(checker_version) is not int or checker_version not in (1, 2)):
+            raise CheckerSpecError("Unsupported stored exercise checker")
+        initial = None
+        if checker_version == 2:
+            validation_spec, initial = split_equation_spec(template, validation_spec)
+        elif validation_spec != template_validation_spec(template):
+            raise CheckerSpecError("Invalid stored checker v1 shape")
+        return cls(version_id, schema_code, checker_type, checker_version, validation_spec,
+                   answer_key, accepted_variants, skill_codes, initial)
 
 
 _FINAL_FORMS = {
@@ -54,14 +75,6 @@ _STRUCTURED_FORMS = {
 }
 
 
-class EquationAnswerMode(StrEnum):
-    """Server-owned answer semantics for equation checker version 2."""
-
-    SOLUTION = "SOLUTION"
-    EQUATION_STATE = "EQUATION_STATE"
-    TRANSFORMED_EQUATION = "TRANSFORMED_EQUATION"
-
-
 def analyze_submission(
     exercise: ExerciseValidation, submission: SubmittedSolution, *, graph: PilotGraphRead | None = None,
 ) -> AnalysisResult:
@@ -75,12 +88,10 @@ def analyze_submission(
             or exercise.checker_type != template.checker
             or (template.checker not in _FINAL_FORMS and template.checker not in _STRUCTURED_FORMS)):
         return AnalysisResult(Verdict.UNSUPPORTED)
-    equation_checker = template.checker in ("equation_state", "equation_transitions")
+    equation_checker = template.checker in EQUATION_CHECKERS
     if exercise.checker_version != 1 and not (equation_checker and exercise.checker_version == 2):
         return AnalysisResult(Verdict.UNSUPPORTED)
-    expected_spec = {
-        "required_fields": [name for name, _ in template.fields], "step_type": template.step_type,
-    }
+    expected_spec = template_validation_spec(template)
     mode = None
     final_form = _FINAL_FORMS.get(template.checker, Form.SCALAR)
     if exercise.checker_version == 2:

@@ -31,7 +31,7 @@ class TargetRegistryTests(unittest.TestCase):
             self.assertIn(marker, text)
         patterns = [c.command[-1] for c in checks if "--pattern" in c.command]
         for module in ("test_r02a_contract.py", "test_r02_math_parser_contract.py",
-                       "test_r02_deterministic_analysis_contract.py"):
+                       "test_r02_deterministic_analysis_contract.py", "test_r02_equation_checker_bank_contract.py"):
             self.assertEqual(sum(fnmatchcase(module, pattern) for pattern in patterns), 1)
 
     def test_group_semantics_and_empty_is_failure(self):

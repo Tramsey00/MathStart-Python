@@ -7,6 +7,9 @@ import re
 from backend.infrastructure.json_input import decode_json
 from backend.knowledge.graph import PILOT_CODES_DIGEST
 
+from .checker_spec import (
+    CheckerSpecError, split_equation_spec, template_validation_spec, validate_equation_references,
+)
 from .templates import DIFFICULTY_BANDS, TEMPLATES
 
 NUMBER_LINE = 'polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj'
@@ -49,15 +52,28 @@ def code_value(value):
 
 def validation_data(row):
     template = TEMPLATES[row['schema']]
+    spec = template_validation_spec(template)
+    checker_version = 1
+    if "checker" in row:
+        checker = row["checker"]
+        fields = {"version", "equation_answer_mode"}
+        if (not isinstance(checker, dict) or checker.keys() - {"initial_state"} != fields
+                or type(checker["version"]) is not int or checker["version"] != 2):
+            raise BankError("Invalid private checker declaration")
+        checker_version = 2
+        spec["equation_answer_mode"] = checker["equation_answer_mode"]
+        if "initial_state" in checker:
+            spec["initial_state"] = checker["initial_state"]
+        try:
+            split_equation_spec(template, spec)
+        except CheckerSpecError as error:
+            raise BankError(str(error)) from None
     return {
         'checker_type': template.checker,
-        'checker_version': 1,
+        'checker_version': checker_version,
         'answer_key': row['answer'],
         'accepted_variants': row['variants'],
-        'validation_spec': {
-            'required_fields': [name for name, _ in template.fields],
-            'step_type': template.step_type,
-        },
+        'validation_spec': spec,
         'canonical_solution': row['solution'],
     }
 
@@ -65,7 +81,7 @@ def validation_data(row):
 def validate_row(row):
     required = {'code', 'version', 'topic', 'schema', 'difficulty', 'statement', 'primary',
                 'secondary', 'provenance', 'answer', 'variants', 'solution'}
-    if (not isinstance(row, dict) or row.keys() != required or not code_value(row['code'])
+    if (not isinstance(row, dict) or row.keys() - {"checker"} != required or not code_value(row['code'])
             or type(row['version']) is not int or not 1 <= row['version'] < 2**31
             or not isinstance(row['topic'], str) or row['topic'] not in TOPICS
             or not isinstance(row['schema'], str) or row['schema'] not in TEMPLATES
@@ -88,6 +104,12 @@ def validate_row(row):
                 raise BankError('Structured answer does not match its fields')
         elif not text_value(answer, 512):
             raise BankError('Invalid answer format')
+    if "checker" in row:
+        spec = validation_data(row)["validation_spec"]
+        try:
+            validate_equation_references(template, spec, row["answer"], row["variants"])
+        except CheckerSpecError as error:
+            raise BankError(str(error)) from None
 
 
 def summarize(rows):
