@@ -161,24 +161,25 @@ Init/schema/content — первая установка: существующи�
 
 ## 4. Ежедневный старт и остановка
 
-Для установленной схемы `v01_0005` используйте план `TARGET_0005`.
-Для схем `v01_0004` и `v01_0003` используйте соответственно `TARGET_0004`
-и `TARGET_0003` во всех командах ниже и откройте соответствующий файл плана. Остановите host-dev и выполните команды.
+Для установленной N008 (`v01_0006`) используйте план `TARGET_0006`.
+Для схем `v01_0005`, `v01_0004` и `v01_0003` используйте соответственно
+`TARGET_0005`, `TARGET_0004` и `TARGET_0003` во всех командах ниже и откройте
+соответствующий файл плана. Остановите host-dev и выполните команды.
 
 ```powershell
 npm.cmd --prefix frontend run dev:host:stop
 & .\.venv\Scripts\python.exe scripts/team_local.py db-start
-& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview --profile TARGET_0005
-# Просмотрите var/local/team/schema-target-0005.json и подтвердите точный SHA256.
-& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --profile TARGET_0005 --reviewed-plan-sha256 <SCHEMA_SHA256>
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview --profile TARGET_0006
+# Просмотрите var/local/team/schema-target-0006.json и подтвердите точный SHA256.
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --profile TARGET_0006 --reviewed-plan-sha256 <SCHEMA_SHA256>
 ```
 
-Команда проверяет итоговую схему `v01_0006` и выдаёт `local_runtime` права
-на чтение публичных данных Assessment. Если сохранены маркер и квитанция `APPLIED` в
-`logs/schema-target-0005-apply.log`, завершите выдачу прав той же квитанцией:
+Команда проверяет итоговую схему `v01_0007` и выдаёт `local_runtime` минимальные
+права для lifecycle Assessment. Если сохранены маркер и квитанция `APPLIED` в
+`logs/schema-target-0006-apply.log`, завершите выдачу прав той же квитанцией:
 
 ```powershell
-& .\.venv\Scripts\python.exe scripts/team_local.py finish-acl --profile TARGET_0005 --reviewed-plan-sha256 <SCHEMA_SHA256>
+& .\.venv\Scripts\python.exe scripts/team_local.py finish-acl --profile TARGET_0006 --reviewed-plan-sha256 <SCHEMA_SHA256>
 ```
 
 После успеха продолжайте обычным `dev:host`. Существующая публикация Content

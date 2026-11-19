@@ -57,7 +57,13 @@ class LocalSchemaUpgradeTests(unittest.TestCase):
                     installed_tables = set(sa.inspect(connection).get_table_names())
                     previous = {name: grants for name, grants in runtime_privileges.TABLE_PRIVILEGES.items()
                                 if name in installed_tables}
-                    with patch.dict(runtime_privileges.TABLE_PRIVILEGES, previous, clear=True):
+                    # Rehearse the privileges of the installed pre-N009 schema,
+                    # before new row-lock/reveal column grants are introduced.
+                    old_locks = {name: column for name, column in runtime_privileges.LOCK_COLUMNS.items()
+                                 if name in installed_tables and name != 'assessment_exercise_version'}
+                    with (patch.dict(runtime_privileges.TABLE_PRIVILEGES, previous, clear=True),
+                          patch.dict(runtime_privileges.LOCK_COLUMNS, old_locks, clear=True),
+                          patch.dict(runtime_privileges.READ_COLUMNS, {}, clear=True)):
                         runtime_privileges.grant_runtime_privileges(connection.connection.driver_connection)
                     connection.exec_driver_sql("INSERT INTO auth_user (username, password, is_superuser, first_name, "
                                                "last_name, email, is_staff, is_active, date_joined) "

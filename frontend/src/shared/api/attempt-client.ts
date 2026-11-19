@@ -12,7 +12,7 @@ type Options<K extends AttemptOperation>={signal?:AbortSignal}
   & (typeof attemptOperations[K]['receipt'] extends true?{idempotencyKey:string}:{idempotencyKey?:never})
   & (K extends 'list_attempts'?{query?:{cursor?:string;page_size?:number}}:{query?:never});
 export type AttemptResult<T>={ok:true;value:T;pending:boolean}|{ok:false;status:number|null;
-  outcome:'not-sent'|'rejected'|'unknown';code:string;currentRevision?:number;reloadUrl?:string};
+  outcome:'not-sent'|'rejected'|'unknown';code:string;currentRevision?:number;reloadUrl?:string;retryAfterSeconds?:number};
 type Fetcher=(input:RequestInfo|URL,init?:RequestInit)=>Promise<Response>;
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -80,6 +80,12 @@ export function createAttemptClient(fetcher:Fetcher=globalThis.fetch.bind(global
       if(!errorSchema||validate[errorSchema]?.(value)!==true)return fail('INVALID_RESPONSE',response.status,outcome);
       const error=(value as {error:{code:string;current_revision?:number;reload_url?:string}}).error;
       const result=fail(error.code,response.status,response.status===503&&mutation?'unknown':'rejected');
+      if(response.status===429){
+        const retry=response.headers.get('Retry-After');
+        if(!retry||!/^\d+$/.test(retry)||!Number.isSafeInteger(Number(retry))||Number(retry)<1)
+          return fail('INVALID_RESPONSE',response.status,outcome);
+        return {...result,retryAfterSeconds:Number(retry)};
+      }
       return error.code==='REVISION_CONFLICT'&&error.current_revision!==undefined&&error.reload_url!==undefined
         ?{...result,currentRevision:error.current_revision,reloadUrl:error.reload_url}:result;
     }catch{return fail(options.signal?.aborted?'CANCELLED':'NETWORK_ERROR',null,sent?'unknown':'not-sent');}

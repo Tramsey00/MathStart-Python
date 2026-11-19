@@ -16,6 +16,7 @@ from backend.infrastructure.http.contracts import validate, validator
 from backend.infrastructure.uow import UnitOfWork
 from backend.models.baseline import User, utc_now
 from backend.users.service import receipt_digest, receipt_key, validate_current
+from backend.users.rate_limits import admit_assessment_action
 from .attempt_models import action, attempt, event, exposure, hint, step
 from .models import exercise, validation, version
 from .package import digest
@@ -93,6 +94,16 @@ def validate_draft(draft, v, *, complete=False):
             # Frozen R02 uses payload.expression for both expressions and equations.
             names = ['expression'] if item['step_type'] in ('MATH_EXPRESSION', 'EQUATION_STATE') else ['answer']
         shape_payload(item['payload'], names, complete=complete)
+    if complete and template.mode == 'STRUCTURED_SOLUTION':
+        # Serialization consistency only: exact raw values, no mathematical truth
+        # or normalization. Each published part occurs once in published order.
+        parts = v.public_schema['step_schema']['serialization']
+        if len(steps) != len(parts):
+            raise wire.invalid()
+        for item, part in zip(steps, parts):
+            if item['step_type'] != part['step_type'] or item['payload'] != {
+                    name: draft['payload'][name] for name in part['payload_fields']}:
+                raise wire.invalid()
 
 
 class AttemptService:
@@ -258,6 +269,7 @@ class AttemptService:
                         if v.mode == 'SELF_CHECK':
                             raise conflict()
                         validate_draft(row.draft, v, complete=True)
+                        admit_assessment_action(session, owner, operation, self.identity.security.key)
                         snapshot = {'attempt_id': str(row.id), 'version_id': str(v.id), 'contract_version': v.version,
                                     'revision': row.revision + 1, 'draft': row.draft,
                                     'steps': self.dto(session, row, v)['steps']}
@@ -274,6 +286,7 @@ class AttemptService:
                         data = self.record_hint(session, row, v, body['level'], action_id)
                         schema = 'HintResultResponse'
                     else:
+                        admit_assessment_action(session, owner, operation, self.identity.security.key)
                         data = self.record_reveal(session, row, v, now, action_id)
                         schema = 'RevealResultResponse'
                     status = 200

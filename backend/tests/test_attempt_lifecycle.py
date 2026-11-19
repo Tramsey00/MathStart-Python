@@ -39,6 +39,8 @@ from backend.models.protocol import TargetSession
 from backend.tests.test_assessment_bank import seed
 from backend.users.security import Security, SessionIdentity
 from backend.users.service import IdentityService
+from backend.users.rate_limits import ASSESSMENT_LIMITS, assessment_budget_key
+from backend.models.identity import window
 
 KEY = 'synthetic-n009-signing-material-no-provider'
 ORIGIN = 'https://mathstart.example'
@@ -47,7 +49,47 @@ MARKER = 'MS-N009 disposable PostgreSQL server'
 SECRET = 'synthetic-private-reveal-n009'
 
 
+def structured_fixture(schema):
+    template = TEMPLATES[schema]
+    values = ({'start': '−2', 'displacement': '+5', 'end': '3'} if schema == 'coordinate-move-v1' else
+              {'expanded_equation': '2x + 6 = 10', 'isolated_term_equation': '2x = 4', 'solution': '2'})
+    v = SimpleNamespace(schema_code=schema, mode=template.mode, public_schema=template.public_contract())
+    draft = {'payload': values, 'steps': [{'step_no': number, 'step_type': part['step_type'],
+        'payload': {field: values[field] for field in part['payload_fields']}, 'raw_text': None}
+        for number, part in enumerate(v.public_schema['step_schema']['serialization'], 1)]}
+    bad = {}
+    bad['no-parts'] = dict(deepcopy(draft), steps=[])
+    bad['only-final'] = dict(deepcopy(draft), steps=[deepcopy(draft['steps'][1])])
+    bad['no-final'] = dict(deepcopy(draft), steps=[deepcopy(draft['steps'][0])])
+    bad['reversed'] = dict(deepcopy(draft), steps=list(reversed(deepcopy(draft['steps']))))
+    bad['duplicate-part'] = dict(deepcopy(draft), steps=[deepcopy(draft['steps'][0]), deepcopy(draft['steps'][0])])
+    bad['extra-part'] = dict(deepcopy(draft), steps=deepcopy(draft['steps']) + [deepcopy(draft['steps'][1])])
+    bad['missing-global-field'] = deepcopy(draft)
+    del bad['missing-global-field']['payload'][template.fields[0][0]]
+    bad['missing-step-field'] = deepcopy(draft)
+    del bad['missing-step-field']['steps'][0]['payload'][template.fields[0][0]]
+    for position in (0, 1):
+        mismatch = deepcopy(draft)
+        field = next(iter(mismatch['steps'][position]['payload']))
+        mismatch['steps'][position]['payload'][field] += ' different raw value'
+        bad['mismatch-' + str(position)] = mismatch
+    for incomplete in bad.values():
+        for number, item in enumerate(incomplete['steps'], 1):
+            item['step_no'] = number
+    return v, draft, bad
+
+
 class DraftShapeTests(unittest.TestCase):
+    def test_both_n008_structured_forms_require_exact_ordered_consistent_parts_only_at_submit(self):
+        for schema in ('coordinate-move-v1', 'equation-parentheses-v1'):
+            v, draft, invalid = structured_fixture(schema)
+            validate_draft(draft, v, complete=True)
+            for name, incomplete in invalid.items():
+                with self.subTest(schema=schema, invalid=name):
+                    validate_draft(incomplete, v)  # all remain valid editable drafts
+                    with self.assertRaises(APIError) as refused:
+                        validate_draft(incomplete, v, complete=True)
+                    self.assertEqual(refused.exception.status, 400)
     def test_frozen_r02_equation_serialization(self):
         exchange = json.loads(Path('specs/exercises/fixtures/step-submission.exchange-v1.json').read_text(encoding='utf-8'))
         v = SimpleNamespace(schema_code='equation-steps-v1', mode='STEP_BY_STEP',
@@ -164,6 +206,104 @@ class PostgreSQLAttemptTests(unittest.TestCase):
     def save(self, pk, revision=1, draft=None):
         return self.call('update_draft', {'expected_revision': revision, 'contract_version': 1,
                          'draft': draft or {'payload': {'answer': ' −2,5 '}, 'steps': []}}, pk)[0]['data']
+
+    def test_structured_submit_accepts_both_forms_and_keeps_incomplete_drafts_editable(self):
+        for schema in ('coordinate-move-v1', 'equation-parentheses-v1'):
+            eid, _ = self.new_exercise(schema)
+            _, draft, invalid = structured_fixture(schema)
+            pk = self.create(eid)['id']
+            self.save(pk, draft=draft)
+            submitted, status = self.call('submit_attempt', {'expected_revision': 2, 'contract_version': 1}, pk)
+            self.assertEqual(status, 202)
+            self.assertEqual(submitted['data']['draft'], draft)
+            for name, incomplete in invalid.items():
+                with self.subTest(schema=schema, invalid=name):
+                    pk = self.create(eid)['id']
+                    self.save(pk, draft=incomplete)
+                    with self.assertRaises(APIError) as refused:
+                        self.call('submit_attempt', {'expected_revision': 2, 'contract_version': 1}, pk)
+                    self.assertEqual(refused.exception.status, 400)
+                    retained = self.service.get(self.owner, pk)
+                    self.assertEqual((retained['state'], retained['revision'], retained['snapshot_digest']), ('STARTED', 2, None))
+                    self.assertEqual(retained['draft'], incomplete)
+                    self.save(pk, revision=2, draft=draft)  # fixing is still possible
+
+    def budget(self, operation, count=None, age=0, owner=None):
+        key = assessment_budget_key((owner or self.owner).user_id, operation, KEY)
+        with self.engine.begin() as c:
+            if count is not None:
+                from sqlalchemy.dialects.postgresql import insert
+                c.execute(insert(window).values(key=key, count=count,
+                    started_at=sa.func.clock_timestamp() - timedelta(seconds=age)).on_conflict_do_update(
+                        index_elements=[window.c.key], set_={'count': count,
+                            'started_at': sa.func.clock_timestamp() - timedelta(seconds=age)}))
+            return c.execute(sa.select(window).where(window.c.key == key)).mappings().first()
+
+    def test_submit_and_reveal_user_limits_http_retry_after_and_exact_replay(self):
+        app = create_app(self.engine, Signer(KEY), identity_service=self.identity_service, public_origin=ORIGIN)
+        for operation, suffix in (('submit_attempt', 'submit/'), ('reveal_attempt', 'reveal/')):
+            maximum, seconds = ASSESSMENT_LIMITS[operation]
+            self.assertEqual((maximum, seconds), (30 if suffix == 'submit/' else 10, 60))
+            pk, next_pk = self.create()['id'], self.create()['id']
+            if operation == 'submit_attempt':
+                self.save(pk)
+                self.save(next_pk)
+            body = {'contract_version': 1, 'expected_revision': 2} if operation == 'submit_attempt' else {'contract_version': 1, 'confirm': True}
+            self.budget(operation, maximum - 1)
+            key = str(uuid4())
+            accepted = self.call(operation, body, pk, key)
+            full = self.budget(operation)
+            self.assertEqual(full['count'], maximum)
+            self.assertEqual(self.call(operation, body, pk, key), accepted)
+            self.assertEqual(self.budget(operation), full)
+            with self.assertRaises(APIError) as conflict:
+                self.call(operation, dict(body, contract_version=2), pk, key)
+            self.assertEqual(conflict.exception.code, 'IDEMPOTENCY_CONFLICT')
+            with TestClient(app, base_url=ORIGIN) as client:
+                client.cookies.set('sessionid', self.token)
+                csrf = client.get('/api/v1/auth/csrf/').json()['data']['csrf_token']
+                headers = {'Origin': ORIGIN, 'X-CSRFToken': csrf, 'Idempotency-Key': str(uuid4())}
+                refused = client.post(f'/api/v1/attempts/{next_pk}/{suffix}', json=body, headers=headers)
+                self.assertEqual(refused.status_code, 429)
+                self.assertEqual(refused.json()['error']['code'], 'RATE_LIMITED')
+                self.assertTrue(validator('RateLimitError').is_valid(refused.json()))
+                self.assertTrue(1 <= int(refused.headers['Retry-After']) <= seconds)
+            with self.engine.connect() as c:
+                self.assertEqual(c.scalar(sa.select(sa.func.count()).select_from(action).where(
+                    action.c.attempt_id == UUID(next_pk), action.c.operation == operation)), 0)
+            self.assertEqual(self.budget(operation), full)
+            self.assertEqual(self.service.get(self.owner, next_pk)['state'], 'STARTED')
+            self.budget(operation, maximum, age=59)
+            with self.assertRaises(APIError) as near_boundary:
+                self.call(operation, body, next_pk)
+            self.assertEqual(near_boundary.exception.retry_after, 1)
+            expired = self.budget(operation, maximum, age=61)
+            self.assertEqual(self.call(operation, body, pk, key), accepted)
+            self.assertEqual(self.budget(operation), expired)  # replay does not reset an expired window
+            self.call(operation, body, next_pk)
+            self.assertEqual(self.budget(operation)['count'], 1)
+
+    def test_parallel_workers_share_submit_and_reveal_limits_across_versions(self):
+        # Separate service/engine instances and sessions model independent workers.
+        worker_engine = sa.create_engine(self.url, hide_parameters=True)
+        self.addCleanup(worker_engine.dispose)
+        worker = AttemptService(IdentityService(Security(worker_engine, KEY, ORIGIN)), Signer(KEY), public_release=self.service.public_release)
+        second, _ = self.new_identity(self.owner.user_id)
+        for operation in ('submit_attempt', 'reveal_attempt'):
+            eid, _ = self.new_exercise()
+            left, right = self.create()['id'], self.create(eid)['id']
+            if operation == 'submit_attempt':
+                self.save(left)
+                self.save(right)
+            body = {'contract_version': 1, 'expected_revision': 2} if operation == 'submit_attempt' else {'contract_version': 1, 'confirm': True}
+            maximum, _ = ASSESSMENT_LIMITS[operation]
+            self.budget(operation, maximum - 1)
+            suffix = 'submit/' if operation == 'submit_attempt' else 'reveal/'
+            results = self.race(lambda: self.call(operation, body, left), lambda: worker.mutate(
+                second, operation, f'/api/v1/attempts/{right}/{suffix}', body, str(uuid4()), str(uuid4()), right))
+            self.assertEqual(sum(isinstance(r, tuple) for r in results), 1, results)
+            self.assertIn('RATE_LIMITED', results)
+            self.assertEqual(self.budget(operation)['count'], maximum)
 
     def test_lifecycle_snapshot_replay_conflict_correction_and_archive(self):
         first = self.create(key='create')
@@ -319,7 +459,7 @@ from backend.infrastructure.uow import UnitOfWork
 from backend.users.security import SessionIdentity
 engine=sa.create_engine(sys.argv[1],connect_args={'connect_timeout':5})
 identity=SessionIdentity(int(sys.argv[2]),UUID(sys.argv[3]),UUID(sys.argv[4]),int(sys.argv[5]))
-service=AttemptService(SimpleNamespace(engine=engine,security=SimpleNamespace(keys=(sys.argv[6],))),Signer(sys.argv[6]))
+service=AttemptService(SimpleNamespace(engine=engine,security=SimpleNamespace(key=sys.argv[6],keys=(sys.argv[6],))),Signer(sys.argv[6]))
 original=UnitOfWork.commit
 def crash(self):
  if sys.argv[8]=='after':original(self)

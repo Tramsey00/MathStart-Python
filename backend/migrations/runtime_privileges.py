@@ -52,8 +52,9 @@ def grant_runtime_privileges(connection):
     for table, column in LOCK_COLUMNS.items():
         connection.execute(sql.SQL('GRANT UPDATE ({}) ON TABLE public.{} TO {}').format(
             sql.Identifier(column), sql.Identifier(table), sql.Identifier(ROLE)))
-    connection.execute(sql.SQL('GRANT SELECT (version_id, answer_key, canonical_solution) '
-                               'ON TABLE public.assessment_exercise_validation TO {}').format(sql.Identifier(ROLE)))
+    for table, columns in READ_COLUMNS.items():
+        connection.execute(sql.SQL('GRANT SELECT ({}) ON TABLE public.{} TO {}').format(
+            sql.SQL(', ').join(map(sql.Identifier, columns)), sql.Identifier(table), sql.Identifier(ROLE)))
     check_runtime_privileges(connection)
 
 

@@ -5,6 +5,62 @@ description: Выполнить MS-N009 — Attempts, immutable revisions и rec
 
 # MS-N009 — Attempts, immutable revisions и recorded help/reveal
 
+## Review fixes — 19.11.2026
+
+Текущее поручение: четыре замечания Руслана по PR #91. Исходный reviewed candidate
+`67d42280af5841ecd4fbb2286e5631f605f57a20`; SHA/tree исправленного candidate — в том же PR.
+Самопроверка исправлений **COMPLETE**, повторное независимое ревью **PENDING**,
+человеческая приёмка **PENDING**, merge/deploy **NOT_DONE**. Предыдущая запись ниже
+описывает прежний SHA, а не доказательства этого пакета.
+
+1. `dev.cmd schema-update` / container_dev выбирает `TARGET_0006` для установленной N008.
+   Проверены настоящий Python operator path Compose, reviewed preview/apply/check,
+   runtime ACL и прерывание после APPLIED перед ACL с восстановлением finish-acl.
+   Использованы отдельные non-superuser local_schema/local_runtime в новой marked
+   disposable PostgreSQL 16.15; Docker/чужие installations не запускались и не менялись.
+   Проверка выполнялась нативно, не внутри Docker image. Старые migration-файлы сохранены.
+2. Node-only генератор `frontend/scripts/generate-attempts.cjs` перенесён в
+   `frontend/scripts/generate-attempts.mjs` (та же роль и public schema inputs).
+   AJV helpers преобразуются в статические ESM imports; оставшийся или неизвестный
+   CommonJS helper останавливает генерацию. Regenerated validator проверен в
+   production browser build реального N009 client, а не только Node import.
+3. Для обеих N008 structured forms submit требует все serialization parts по одному
+   разу, в установленном порядке и с точным совпадением raw field values с общим
+   payload. Неполные, переставленные или пока несогласованные данные сохраняются
+   как draft. На невалидный submit — 400, revision/state/draft не замораживаются;
+   исправление черновика возможно. Математический разбор/нормализация не добавлены.
+4. По [learning requirements §16](../../../specs/product/learning-requirements.md):
+   submit 30/min/user, reveal 10/min/user. Общие Users-owned PG counters/row locks
+   для всех workers и exercise versions; admission атомарен с новым action.
+   Permanent replay проверяется раньше квоты: тот же key/digest возвращает исходный
+   status/body и не меняет счётчик даже в полном/истёкшем окне. Иной digest — 409.
+   Новый action сверх квоты — 429 с Retry-After; клиент валидирует/возвращает секунды.
+
+Проверки этого пакета (явно разрешены текущим поручением):
+
+- `python var/tmp/ms-n009-review-fixes/run-targeted.py` — **10/10 PASS, exit 0**.
+  Точный набор: `backend.tests.test_n009_compose_upgrade.N009ComposeUpgradeTests` (2),
+  `backend.tests.test_attempt_lifecycle.DraftShapeTests` (3), и следующие пять
+  `PostgreSQLAttemptTests`: `test_structured_submit_accepts_both_forms_and_keeps_incomplete_drafts_editable`,
+  `test_submit_and_reveal_user_limits_http_retry_after_and_exact_replay`,
+  `test_parallel_workers_share_submit_and_reveal_limits_across_versions`,
+  `test_runtime_privileges_do_not_grant_checker_or_ddl`,
+  `test_process_crash_before_commit_and_lost_ack_after_commit`.
+  Включены позитивные submit обеих форм и по 10 негативных вариантов каждой,
+  границы/истечение окна, 429/Retry-After, отдельные sessions/engines и точный replay.
+- `node scripts/generate-attempts.mjs --check` — **PASS, exit 0**.
+- Scoped `tsc --noEmit --strict --noUncheckedIndexedAccess --exactOptionalPropertyTypes --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable src/shared/api/attempt-client.ts`
+  — **PASS, exit 0**.
+- `node scripts/check-attempt-browser.mjs` — **11/11 PASS, exit 0**, production
+  library build + clean headless browser 157.0.4341.60. Реальный импорт клиента,
+  UUID/date-time validators, invalid formats, submit 202, hint/reveal DTO,
+  lost ACK/explicit retry и 429/Retry-After. Синтетические HTTP responses;
+  это browser/client verification, не полный site/backend end-to-end.
+
+Собственный PG остановлен после проверки. Полный сайт, full suites, R02A historical
+pin-check, legacy oracle и live LLM не запускались повторно. R02A/ADR-0004 остаются
+PENDING/Proposed. Scope N010/N013/N014 и учебный банк/материалы не изменены.
+
 ## Implementation handoff — 19.11.2026
 
 Статус реализации: **READY_FOR_REVIEW**. Issue [#90](https://github.com/Tramsey00/MathStart-Python/issues/90),

@@ -36,7 +36,12 @@ Frozen документы, schemas, fixtures и их статусы не изм�
   обозначает позицию нового draft. Raw strings не нормализуются, длина поля до 512.
 - Поля payload берутся из N008 templates и frozen R02: `expression` для
   MATH_EXPRESSION/EQUATION_STATE, `answer` для FINAL_STATEMENT; structured fields —
-  по serialization привязанной формы. На submit обязательны требуемые поля.
+  по serialization привязанной формы. На submit обязательны все части serialization
+  ровно по одному разу и в опубликованном порядке; их payload должен побайтно по
+  значениям строк совпадать с соответствующими общими полями. Нет частей, есть
+  дубликат/перестановка/расхождение — 400 без заморозки. Неполный или пока
+  несогласованный ввод допустим как draft. Пробелы/математическая эквивалентность
+  не нормализуются: это согласованность сериализации, не parser N010.
   `normalized_repr=null`, `parse_status=NOT_REQUIRED`: parsing не выполнялся,
   математическая корректность или UNSUPPORTED не утверждаются.
 - Submit принимает только revision/version, замораживает сохранённый draft,
@@ -52,6 +57,13 @@ Frozen документы, schemas, fixtures и их статусы не изм�
   Ровно тот же сохранённый HTTP status/body возвращается после lost ACK; иной
   digest конфликтует. У action нет expiry. Очистка краткосрочных IdentityReceipt
   не снимает uniqueness. PUT draft согласуется через GET, без action receipt.
+- §16: submit 30/min/user, reveal 10/min/user. PostgreSQL row counters в общем
+  Users-owned identity_request_window, отдельное окно на owner/operation для всех
+  попыток и версий. Окно 60 секунд начинается с первой принятой операции;
+  DB clock читается после блокировки счётчика. Admission и доменное действие
+  коммитятся вместе; rollback не расходует квоту. Точный permanent replay проходит
+  до admission и не расходует/не сбрасывает окно. Новый action сверх квоты получает
+  429 с целым положительным Retry-After; клиент проверяет и возвращает это число.
 - Порядок locks: session validation → advisory action identity → Exposure → Attempt.
   Сортировка нескольких Exposure не нужна: mutation затрагивает ровно одну версию.
   GET/list используют REPEATABLE READ для согласованной проекции draft/steps/exposure.
@@ -72,6 +84,10 @@ Frozen документы, schemas, fixtures и их статусы не изм�
   не повторяет mutation автоматически. Unknown outcome сохраняет canonical key/raw
   draft. Poll delays 1/2/4 s передаются N014, затем ручной retry с исходным ключом.
   State fixtures синтетические, находятся только в tests и не импортируются runtime.
+  Генератор generate-attempts.mjs и standalone validators — ESM; helpers AJV
+  импортируются статически, неизвестный CommonJS helper останавливает генерацию.
+  Явная check-attempt-browser.mjs собирает именно импортируемый N009 client и
+  исполняет его в чистом headless browser, без полного сайта/формы N014.
 
 ## Persistence и применение
 
