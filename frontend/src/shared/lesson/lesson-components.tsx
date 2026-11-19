@@ -19,7 +19,7 @@ export function LessonHeading({ breadcrumbs, title, subtitle }: {
   </header>;
 }
 
-export function LessonContents({ sections, title, catalogueHref }: { sections: readonly LessonSectionData[]; title: string; catalogueHref: string }) {
+export function LessonContents({ sections, title, catalogueHref }: { sections: readonly Pick<LessonSectionData, 'id' | 'title'>[]; title: string; catalogueHref: string }) {
   const [enhanced, setEnhanced] = useState(false);
   useEffect(() => setEnhanced(true), []);
   const [open, setOpen] = useState(false);

@@ -25,7 +25,7 @@ const imports=new Map();
 let code=standalone(ajv,exportsMap).replace(/require\("([^"]+)"\)/g,(_,path)=>{
   const helpers={
     'ajv/dist/runtime/ucs2length':['unicodeLength','import * as unicodeLength from "./schema-helpers.mjs";'],
-    'ajv-formats/dist/formats':['formatHelpers','import formatHelpers from "ajv-formats/dist/formats.js";'],
+    'ajv-formats/dist/formats':['formatHelpers','import * as formatHelpers from "ajv-formats/dist/formats.js";'],
   };
   const helper=helpers[path];
   if(!helper)throw Error('Unexpected standalone helper: '+path);
