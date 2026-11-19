@@ -72,10 +72,11 @@ def _parse(texts: list[str], profile: str, *, retry_worker_failure: bool) -> dic
     batch = parse_batch(tuple(ParseInput(text, profile) for text in distinct))
     if batch.rejection is not None:
         return None
-    if retry_worker_failure and any(
-        result.reason in (ParseReason.WORKER_FAILURE, ParseReason.TIMEOUT) for result in batch.results
-    ):
-        raise AnalysisUnavailable('Deterministic math worker unavailable')
+    if retry_worker_failure:
+        if any(result.reason == ParseReason.WORKER_FAILURE for result in batch.results):
+            raise AnalysisUnavailable('Deterministic math worker unavailable')
+        if any(result.reason == ParseReason.TIMEOUT for result in batch.results):
+            return None
     return dict(zip(distinct, batch.results, strict=True))
 
 

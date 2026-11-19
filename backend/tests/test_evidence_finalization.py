@@ -2,6 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from datetime import datetime
+import multiprocessing
 import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -53,6 +54,20 @@ ORIGIN = 'https://mathstart.example'
 PRIMARY = 'equation_balance'
 SECONDARY = 'linear_one_step'
 PRIVATE = 'synthetic-private-reveal-probe'
+
+
+def run_interrupted_analysis(url, identity, accepted, entered, release):
+    engine = sa.create_engine(url, hide_parameters=True)
+    service = FinalizationService(AttemptService(IdentityService(Security(engine, KEY, ORIGIN)), Signer(KEY)))
+
+    def wait_inside_analyzer(*args, **kwargs):
+        entered.set()
+        if not release.wait(30):
+            raise RuntimeError('Expected test process termination')
+        return analyze_submission(*args, **kwargs)
+
+    with patch('backend.assessment.finalization.analyze_submission', side_effect=wait_inside_analyzer):
+        service.resume(identity, accepted)
 
 
 @unittest.skipUnless(ADMIN, 'Requires an explicitly marked disposable N013 PostgreSQL server')
@@ -252,7 +267,7 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
                 self.assertEqual(projection, ProgressService().replay(session, self.owner.user_id, code))
                 self.assertEqual(projection['state']['reducer_version'], 'progress-v1.1')
 
-    def test_timeout_rollback_and_lost_commit_ack_recover_exact_operation(self):
+    def test_worker_failure_rollback_and_lost_commit_ack_recover_exact_operation(self):
         with self.client() as (client, headers):
             path = self.draft(client, headers)
 
@@ -291,6 +306,50 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             self.assertEqual(self.submit(client, headers, path, 'recovery').json(), accepted)
             self.assertEqual(len(self.events()), 1)
 
+    def test_student_parse_deadline_is_terminal_without_evidence(self):
+        from backend.math_validation.parser import parse_batch
+
+        def timeout_student(items):
+            if items[0].text == '  −2  ':
+                return BatchResult(tuple(failed(item, ParseReason.TIMEOUT) for item in items))
+            return parse_batch(items)
+
+        with self.client() as (client, headers):
+            path = self.draft(client, headers)
+            with patch('backend.solution_analyzer.deterministic.parse_batch', side_effect=timeout_student):
+                receipt = self.submit(client, headers, path, 'budget').json()
+            terminal = self.safe_read(client, path)
+            self.assertEqual(terminal['state'], 'COMPLETED')
+            self.assertEqual(terminal['result']['outcome'], 'UNSUPPORTED')
+            self.assertFalse(terminal['result']['positive_credit_awarded'])
+            self.assertEqual(self.submit(client, headers, path, 'budget').json(), receipt)
+            self.assertEqual(self.safe_read(client, path), terminal)
+            self.assertEqual(self.events(), [])
+
+    def test_resume_after_process_dies_inside_analyzer(self):
+        with self.client() as (client, headers):
+            path = self.draft(client, headers)
+            with patch.object(FinalizationService, 'resume'):
+                receipt = self.submit(client, headers, path, 'interrupted').json()
+            ctx = multiprocessing.get_context('spawn')
+            entered, release = ctx.Event(), ctx.Event()
+            process = ctx.Process(target=run_interrupted_analysis, args=(
+                self.runtime.url.set(username='local_runtime'), self.owner, receipt['data'], entered, release))
+            process.start()
+            try:
+                self.assertTrue(entered.wait(20))
+                with patch('backend.assessment.finalization.analyze_submission') as analyzer:
+                    self.assertEqual(self.submit(client, headers, path, 'interrupted').json(), receipt)
+                    analyzer.assert_not_called()
+                self.assertEqual(self.safe_read(client, path)['state'], 'SUBMITTED')
+            finally:
+                process.terminate()
+                process.join(10)
+            self.assertFalse(process.is_alive())
+            self.assertEqual(self.submit(client, headers, path, 'interrupted').json(), receipt)
+            self.assertEqual(self.safe_read(client, path)['state'], 'COMPLETED')
+            self.assertEqual(len(self.events()), 1)
+
     def test_lost_submit_ack_before_analysis_can_resume(self):
         from backend.infrastructure.http import transport
 
@@ -324,22 +383,32 @@ class PostgreSQLFinalizationTests(unittest.TestCase):
             ids = UUID(accepted['id']), UUID(accepted['operation_id'])
             with self.assertRaises(APIError):
                 service.finalize(self.owner, *ids, '0' * 64)
-            barrier = Barrier(2, timeout=10)
+            entered, release = Event(), Event()
 
             def analyze_together(*args, **kwargs):
-                result = analyze_submission(*args, **kwargs)
-                barrier.wait()
-                return result
+                entered.set()
+                if not release.wait(10):
+                    raise RuntimeError('Expected concurrent submit retry')
+                return analyze_submission(*args, **kwargs)
 
             def retry():
                 with self.client() as (retry_client, retry_headers):
                     return self.submit(retry_client, retry_headers, path, 'race').json()['data']
 
-            with patch('backend.assessment.finalization.analyze_submission', side_effect=analyze_together), \
+            with patch('backend.assessment.finalization.analyze_submission', side_effect=analyze_together) as analyzer, \
                     ThreadPoolExecutor(max_workers=2) as workers:
-                a, b = workers.submit(retry), workers.submit(retry)
-                self.assertEqual(a.result(15), b.result(15))
+                first = workers.submit(retry)
+                try:
+                    self.assertTrue(entered.wait(10))
+                    self.assertEqual(retry(), accepted)
+                finally:
+                    release.set()
+                self.assertEqual(first.result(15), accepted)
+                analyzer.assert_called_once()
             self.assertEqual(self.safe_read(client, path)['state'], 'COMPLETED')
+            with self.engine.connect() as conn:
+                self.assertEqual(conn.scalar(sa.select(sa.func.count()).select_from(analysis_record)
+                    .where(analysis_record.c.attempt_id == ids[0])), 1)
             self.assertEqual(len(self.events()), 1)
 
     def test_two_attempts_share_one_hinted_positive_credit(self):

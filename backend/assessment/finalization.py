@@ -135,13 +135,30 @@ class FinalizationService:
         operation_id = identifier(accepted['operation_id'])
         try:
             self.finalize(identity, attempt_id, operation_id, accepted['snapshot_digest'])
-        except (wire.APIError, DatabaseUnavailable, AnalysisUnavailable, CheckerSpecError) as error:
+        except (wire.APIError, DatabaseUnavailable, AnalysisUnavailable, CheckerSpecError,
+                sa.exc.OperationalError, sa.exc.InterfaceError) as error:
             # A log entry carries no session, student work or private configuration.
             logger.info('Submitted analysis remains recoverable (%s)', type(error).__name__)
 
     def finalize(self, identity, attempt_id, operation_id, frozen_digest):
+        # One database session owns the operation across the two short transactions.
+        # Closing the physical session releases its advisory lock even after a crash.
+        with self.attempts.engine.connect() as connection:
+            try:
+                claimed = connection.scalar(sa.text(
+                    "SELECT pg_try_advisory_lock(hashtextextended(:operation, 0))"
+                ), {'operation': f'assessment:analyze:{operation_id}'})
+                connection.commit()
+                if claimed:
+                    self._finalize_claimed(connection, identity, attempt_id, operation_id, frozen_digest)
+            finally:
+                # Never return a session with a session-level lock to the pool.
+                if not connection.invalidated:
+                    connection.detach()
+
+    def _finalize_claimed(self, connection, identity, attempt_id, operation_id, frozen_digest):
         attempts = self.attempts
-        with UnitOfWork(attempts.engine) as uow:
+        with UnitOfWork(connection) as uow:
             session = uow.session
             owner = attempts.current(session, identity)
             row = attempts.owned(session, owner, attempt_id)
@@ -157,7 +174,7 @@ class FinalizationService:
         if any(not ref.belongs_to(work.submission) for ref in analysis.evidence_refs):
             raise wire.unavailable()
 
-        with UnitOfWork(attempts.engine) as uow:
+        with UnitOfWork(connection) as uow:
             session = uow.session
             owner = attempts.current(session, identity)
             v = session.execute(sa.select(version).where(
