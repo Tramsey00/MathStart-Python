@@ -1,5 +1,6 @@
 """R03 failure routing and historical preservation; no runtime success simulation."""
 from contextlib import redirect_stdout, redirect_stderr
+from fnmatch import fnmatchcase
 import io
 import json
 import os
@@ -26,8 +27,11 @@ class TargetRegistryTests(unittest.TestCase):
         self.assertEqual({c.group for c in checks}, set(verify_repo.GROUPS))
         text = repr([c.command for c in checks])
         self.assertNotIn("manage.py", text)
-        for marker in ("test_r03_contract.py", "test_r02a_contract.py", "test_r03a_contract.py", "frontend-e2e"):
+        for marker in ("test_r03_contract.py", "test_r03a_contract.py", "frontend-e2e"):
             self.assertIn(marker, text)
+        patterns = [c.command[-1] for c in checks if "--pattern" in c.command]
+        for module in ("test_r02a_contract.py", "test_r02_math_parser_contract.py"):
+            self.assertEqual(sum(fnmatchcase(module, pattern) for pattern in patterns), 1)
 
     def test_group_semantics_and_empty_is_failure(self):
         args = verify_repo.parse_args(["--profile", "target", "--group", "content"])
